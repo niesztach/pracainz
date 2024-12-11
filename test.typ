@@ -52,7 +52,7 @@ $ bf(T)(theta) = mat(cos theta, -sin theta; sin theta, cos theta) $
 #heading(level: 3)[2.1 Example Subsection]
 
 This is a sample subsection under 2.1.
-= Kod
+= Code
 #heading(level: 2)[Detailed Example]
 
 This is a detailed example under subsection 2.1.1.
