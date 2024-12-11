@@ -1,6 +1,6 @@
 #set page(width: 20cm, height:auto)
 #set heading(numbering: "1.")
-
+=Siema pisze na tablecie 
 = Fun with typst
 
 The typst program is pretty neat! 
