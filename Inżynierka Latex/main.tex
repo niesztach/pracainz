@@ -27,31 +27,37 @@
 % insert a separator between them \and
 
 \author{%
-   Imię Nazwisko \album{12345} \and 
-   Imię Nazwisko \album{54321} \and 
-   Imię Nazwisko \album{13579} }
+   Remigiusz Wolniak \album{151192} \and 
+   Michał Gajdzis \album{151066} }
 \authortitle{}                                % Do not change.
 
-\title{Temat pracy dyplomowej}
+\title{Automatyzacja procesu planowania wydatków na~usługi IT w VW Poznań z wykorzystaniem Microsoft~Power~Platform}
 
 % Promotor pracy
 % Your supervisor comes here.
 
-\ppsupervisor{prof.~dr hab.~inż.~Imię Nazwisko} 
-\ppinstitute{Instytut Robotyki i Inteligencji Maszynowej \\ 
-             Zakład Sterowania i Elektroniki Przemysłowej}
+\ppsupervisor{dr hab.~inż.~Piotr~Kaczmarek} 
+\ppinstitute{Instytut Robotyki i Inteligencji Maszynowej \\ }
+ %            Zakład Sterowania i Elektroniki Przemysłowej
 
 % Rok złożenia pracy
 % Year of final submission (not graduation!)
-\ppyear{2023}                                 
+\ppyear{2025}                                 
 
 
 \begin{document}
 
 % Pierwsza strona zaczyna się tutaj
+
+
+
 % Front matter starts here
 \frontmatter\pagestyle{empty}%
 \maketitle\cleardoublepage%
+
+% Ponizej tresc na pierwsza strone pracy dyplomowej z VW (od Kroteckiego)
+
+\input{chapters/tresc_na_pierwsza_strone_pracy_dyplomowej.tex}
 
 %--------------------------------------
 % Miejsce na kartę pracy dyplomowej - opcjonalnie, nie jest wymagane
@@ -77,8 +83,8 @@
 
 %Najwygodniej jeśli każdy rozdział znajduje się w oddzielnym pliku
 \mainmatter%
-\input{chapters/01-wstep.tex}
-\input{chapters/02-teoria.tex}
+\input{chapters/01-wstep/01-wstep.tex}
+\input{chapters/02-stan_wiedzy/02-teoria.tex}
 \input{chapters/03-praca-wlasna.tex}
 \input{chapters/04-zakonczenie.tex}
 
