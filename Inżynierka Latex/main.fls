@@ -148,6 +148,11 @@ INPUT C:\Users\Remik\AppData\Local\Programs\MiKTeX\tex\latex\graphics-cfg\color.
 INPUT C:\Users\Remik\AppData\Local\Programs\MiKTeX\tex\latex\graphics\mathcolor.ltx
 INPUT C:\Users\Remik\AppData\Local\Programs\MiKTeX\tex\latex\graphics\mathcolor.ltx
 INPUT C:\Users\Remik\AppData\Local\Programs\MiKTeX\tex\latex\graphics\mathcolor.ltx
+INPUT C:\Users\Remik\AppData\Local\Programs\MiKTeX\tex\latex\multirow\multirow.sty
+INPUT C:\Users\Remik\AppData\Local\Programs\MiKTeX\tex\latex\multirow\multirow.sty
+INPUT C:\Users\Remik\AppData\Local\Programs\MiKTeX\tex\latex\float\float.sty
+INPUT C:\Users\Remik\AppData\Local\Programs\MiKTeX\tex\latex\float\float.sty
+INPUT C:\Users\Remik\AppData\Local\Programs\MiKTeX\tex\latex\changepage\changepage.sty
 INPUT .\main.aux
 INPUT .\main.aux
 INPUT main.aux
@@ -157,8 +162,6 @@ INPUT C:\Users\Remik\AppData\Local\Programs\MiKTeX\tex\context\base\mkii\supp-pd
 INPUT C:\Users\Remik\AppData\Local\Programs\MiKTeX\tex\context\base\mkii\supp-pdf.mkii
 INPUT C:\Users\Remik\AppData\Local\Programs\MiKTeX\tex\latex\epstopdf-pkg\epstopdf-base.sty
 INPUT C:\Users\Remik\AppData\Local\Programs\MiKTeX\tex\latex\epstopdf-pkg\epstopdf-base.sty
-INPUT C:\Users\Remik\AppData\Local\Programs\MiKTeX\tex\latex\grfext\grfext.sty
-INPUT C:\Users\Remik\AppData\Local\Programs\MiKTeX\tex\latex\grfext\grfext.sty
 INPUT C:\Users\Remik\AppData\Local\Programs\MiKTeX\tex\latex\00miktex\epstopdf-sys.cfg
 INPUT C:\Users\Remik\AppData\Local\Programs\MiKTeX\tex\latex\00miktex\epstopdf-sys.cfg
 INPUT C:\Users\Remik\AppData\Local\Programs\MiKTeX\tex\latex\00miktex\epstopdf-sys.cfg
@@ -231,9 +234,12 @@ INPUT chapters\02-Chapter_Folder\02-teoria.tex
 INPUT C:\Users\Remik\AppData\Local\Programs\MiKTeX\fonts\tfm\public\pl\plr9.tfm
 INPUT C:\Users\Remik\AppData\Local\Programs\MiKTeX\fonts\tfm\public\pl\plti9.tfm
 INPUT C:\Users\Remik\AppData\Local\Programs\MiKTeX\fonts\tfm\jknappen\ec\tcrm1000.tfm
+INPUT C:\Users\Remik\AppData\Local\Programs\MiKTeX\fonts\tfm\public\pl\plbx10.tfm
+INPUT C:\Users\Remik\AppData\Local\Programs\MiKTeX\fonts\tfm\public\pl\plcsc10.tfm
 INPUT .\chapters\03-praca-wlasna.tex
 INPUT .\chapters\03-praca-wlasna.tex
 INPUT chapters\03-praca-wlasna.tex
+INPUT C:\Users\Remik\AppData\Local\Programs\MiKTeX\fonts\enc\dvips\pl\plsc.enc
 INPUT .\chapters\04-zakonczenie.tex
 INPUT .\chapters\04-zakonczenie.tex
 INPUT chapters\04-zakonczenie.tex
@@ -270,7 +276,6 @@ INPUT .\figures\mathematica-eps-converted-to.pdf
 INPUT .\figures\mathematica-eps-converted-to.pdf
 INPUT .\figures\mathematica-eps-converted-to.pdf
 INPUT .\figures\mathematica-eps-converted-to.pdf
-INPUT C:\Users\Remik\AppData\Local\Programs\MiKTeX\fonts\tfm\public\pl\plcsc10.tfm
 INPUT .\figures\mathematica.eps
 INPUT .\figures\mathematica.eps
 INPUT .\figures\mathematica.eps
@@ -280,10 +285,8 @@ INPUT .\figures\mathematica-eps-converted-to.pdf
 INPUT .\figures\mathematica.eps
 INPUT .\figures\mathematica-eps-converted-to.pdf
 INPUT .\figures\mathematica-eps-converted-to.pdf
-INPUT C:\Users\Remik\AppData\Local\Programs\MiKTeX\fonts\tfm\public\pl\plbx10.tfm
 INPUT C:\Users\Remik\AppData\Local\Programs\MiKTeX\fonts\tfm\public\pl\plitt10.tfm
 INPUT C:\Users\Remik\AppData\Local\Programs\MiKTeX\fonts\enc\dvips\pl\plitt.enc
-INPUT C:\Users\Remik\AppData\Local\Programs\MiKTeX\fonts\enc\dvips\pl\plsc.enc
 INPUT .\PUT\logo-pp.pdf
 INPUT .\PUT\logo-pp.pdf
 INPUT .\PUT\logo-pp.pdf
