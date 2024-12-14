@@ -1,22 +1,6 @@
 
-\chapter{Podstawy teoretyczne -- Stan wiedzy}
+\chapter{Podstawy teoretyczne}
 
-Przedmiotem omawianego procesu jest podjęcie decyzji na tematu zakupu usług IT w zakładzie
-Volkswagen Poznań. Polega on na wymianie uwag, dotyczących wcześniej używanego bądź nowego
-oprogramowania, między oddziałem Volkswagen w Poznaniu a zakładem z siedzibą w Wolfsburgu.
-W wyniku wymiany zdań zapada decyzja o zakupie lub rezygnacji z wybranego produktu. Pro-
-cedura rozpoczyna się wraz z początkiemn czerwca i trwa do przełomu grudnia i stycznia. Podzielona zazwyczaj na cztery iteracje. Efektem
-przedstawianych działań jest nabycie odpowiedniej ilości potrzebnych uprawnień licencyjnych. Przy
-podejmowaniu decyzji kluczowymi aspektami są:
-\begin{itemize}
-    \item liczba użytkowników danego oprogramowania,
-    \item cena zakupu w porównaniu z rokiem poprzednim,
-    \item określenie czy dana usługa zostanie w pełni wykorzystana biorąc pod uwagę poprzednie
-kryteria.
-\end{itemize}
-Dotychczas analiza i przetwarzanie danych odbywało się przy użyciu arkuszy kalkulacyjnych pro-
-gramu Excel. Natomiast wymiana informacji pomiędzy jednostkami dokonywana była poprzez
-wysyłanie wiadomości e-mail.
 %\newline\textcolor{orange}{
 %Można coś dopisać/ poprawić to powyżej. Chciałem tutaj przedstawić zarys jak wygląda proces.
 %myśle żeby poniżej w każdym akapicie opisać krok po kroku jak to wyglądało z użyciem exceli.
@@ -26,35 +10,18 @@ wysyłanie wiadomości e-mail.
 %tomate i power apps. imo taka kolejność żeby odzwierciedlała trochę jaki jest proces w apce bo
 %bedziesz mógł się odwołąć do poprzednich. np że automate zaciaga dane z SP i każdy wie czym
 %jest już sharepoint i essa.}
-\section{Przebieg procesu}
-Informacje na temat serwisów są zbierane na początku roku, przed rozpoczęciem cyklu procesu. W tym czasie, prowadzone są rozmowy między menadżerami odpowiedzialnymi za dane rozwiązanie (\akronim{BSM}, \english{Business Service Manager}) a firmami świadczącymi usługi, w celu otrzymania zaaktualizowanych wiadomości związanych z ich produktami. Na podstawie danych od usługodawców oraz menadżerów, powstaje arkusz, który jest przekazywany do zakładu w Poznaniu.
-\subsection{Iteracja I}
-Otrzymany arkusz kalkulacyjny, zawiera tabelę o strzukturze kolumn podobnej Tabeli \ref{HeaderComparison}. Pierwszym krokiem jest przygotowanie danych przez osobę nadzorującą proces ze strony odziały w Poznaniu. Jej zadaniem jest manualne przypisanie 
+\input{chapters/02-Chapter_Folder/02.1-Przebieg_Procesu.tex}
+\input{chapters/02-Chapter_Folder/02.1.1-gromadzenie_danych_w_WOB.tex}
+\input{chapters/02-Chapter_Folder/02.1.2-Przygotowanie_danych-dopisanieMPK.tex}
+\input{chapters/02-Chapter_Folder/02.1.3-Przebieg_Iteracji.tex}
 
-\renewcommand{\arraystretch}{1.1} % Zwiększenie wysokości komórek
-\begin{table}[t] % [H] - tabela dokładnie w tym miejscu
-    \begin{adjustwidth}{-50pt}{-20pt}
-    \centering
-    \caption{Nagłówki kolumn z arkusza kalkulacyjnego z roku}
-    \label{HeaderComparison}
-    \makebox[\textwidth][c]{%
-        \begin{tabular}{*{3}{|m{1.1cm}}|w|m{0.4cm}|m{1.5cm}|m{1.75cm}|w|m{0.7cm}|w|m{0.7cm}|}
-        \hline
-        Service group & Service main group & Service sub group & Business Service & ID & Business Service Manager & Unit of Measurement & PL70 2022 PLAN EUR w KVA & QTY & PL71 2023 PLAN EUR w KVA & QTY \\ \hline
-        \end{tabular}
-    }
-    \end{adjustwidth}
-\end{table}
+% Podsumowanie przebiegu proceso - nie tworzyłem nowego pliku na dwa zdania.
+\vspace{1cm}
+Jak wcześniej wspomniano, proces składa się zazwyczaj z czterech iteracji. Etapem zamykający proces jest sporządzenie wymaganych dokumentów oraz faktur.
 
-Najważniejsze informacje to:
-\begin{itemize}
-\item Nazwa usługi,
-\item ID,
-\item osoba zajmująca się saną usługą -- \emph{BSM},
-\item \textcolor{red}{jakoś wyjaśnić Unit of Measurement xD},
-\item cena oraz ilość użytkowników w roku obecnym,
-\item cena oraz ilość użytkowników w roku przyszłym.
-\end{itemize}
+\input{chapters/02-Chapter_Folder/02.2-Opis_Użytej_Technologii.tex}
+
+
 
 
 
