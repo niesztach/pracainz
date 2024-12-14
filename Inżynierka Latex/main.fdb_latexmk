@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex main"] 1734133964.19238 "main.aux" "main.bbl" "main" 1734135267.96017 0
+["bibtex main"] 1734194550.46841 "main.aux" "main.bbl" "main" 1734207137.54964 0
   "./bibliografia.bib" 1733940476 1131 ca3b27d3a02104079844072d52e8c2f1 ""
   "C:/Users/Remik/AppData/Local/Programs/MiKTeX/bibtex/bst/bibtex/plain.bst" 1291864736 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
-  "main.aux" 1734135266 4716 6cfe783115610e9f82a5067c6a6a59f9 "pdflatex"
+  "main.aux" 1734207136 4849 352f8c4b62b8465d58ad03ea8417466c "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1734135265.44587 "c:/Users/Remik/Desktop/Praca Inżynierska Repo/pracainz/Inżynierka Latex/main.tex" "main.pdf" "main" 1734135267.96109 0
+["pdflatex"] 1734207135.31322 "c:/Users/Remik/Desktop/Praca Inżynierska Repo/pracainz/Inżynierka Latex/main.tex" "main.pdf" "main" 1734207137.55045 0
   "C:/Users/Remik/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1734103388 86553 91af261fa287312f2fb1f66a097366be ""
   "C:/Users/Remik/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/tcrm0800.pk" 1733933491 9292 38f7ffc80b4006f36e2b18dacf019b12 ""
   "C:/Users/Remik/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/tcrm1000.pk" 1687265608 11548 ef768e98924c10e4f9c25ec767c56f0d ""
@@ -153,22 +153,23 @@
   "PUT/sygnet-pp.eps" 1733940476 1264718 090d5e7560e34d785e9233449ff683eb ""
   "c:/Users/Remik/Desktop/Praca Inżynierska Repo/pracainz/Inżynierka Latex/main.tex" 1734127036 3724 ab32e73653936e512b39b9e71a6ed629 ""
   "chapters/01-Chapter_Folder/01-wstep.tex" 1733999999 3624 38a4367bbc2459859647d79d4a4bd56e ""
-  "chapters/02-Chapter_Folder/02-teoria.tex" 1734134124 2862 130cff418e3829626922a69db78baf2d ""
+  "chapters/02-Chapter_Folder/02-teoria.tex" 1734194547 2917 7d740bcc5cb69d1548106b22f3e7d077 ""
   "chapters/02-Chapter_Folder/02.1-Przebieg_Procesu.tex" 1734131030 1178 2b25be4653db7b9b5d1dee625d69a341 ""
   "chapters/02-Chapter_Folder/02.1.1-gromadzenie_danych_w_WOB.tex" 1734126592 546 1f6682d1ad18acdc55d28913c15ee267 ""
   "chapters/02-Chapter_Folder/02.1.2-Przygotowanie_danych-dopisanieMPK.tex" 1734133736 1646 e42d67599b872f2ce2feb5d6f92fe33d ""
   "chapters/02-Chapter_Folder/02.1.3-Przebieg_Iteracji.tex" 1734133281 1944 30e67f8d52d757d75b7fbf8410cda660 ""
-  "chapters/02-Chapter_Folder/02.2-Opis_Użytej_Technologii.tex" 1734135264 585 ae7a1fde25301e8dcb7453de6e66127d ""
+  "chapters/02-Chapter_Folder/02.2-Opis_Użytej_Technologii.tex" 1734194516 599 a5b69e368c5f487285728ff6c91599a7 ""
+  "chapters/02-Chapter_Folder/02.2.1-Office_Script.tex" 1734207134 924 7830cfd5cbfe48587a73e51988f7f7eb ""
   "chapters/03-praca-wlasna.tex" 1733940476 2374 84f762c182aaed35236d46db9df26486 ""
   "chapters/04-zakonczenie.tex" 1733940476 612 334fe174bf6618112c2103344e9ca24d ""
   "chapters/tresc_na_pierwsza_strone_pracy_dyplomowej.tex" 1733949849 1055 ff8abdfce85c31413d2be066855a08cc ""
   "chapters/zalacznik.tex" 1733940476 8853 0cd6a08031ce76c72a10c8205a6e2263 ""
   "figures/mathematica.eps" 1733940476 17347 f93177b3670f32393a0223aa19584981 ""
-  "main.aux" 1734135266 4716 6cfe783115610e9f82a5067c6a6a59f9 "pdflatex"
-  "main.bbl" 1734133964 630 d0a0a247d3894e49280acfec2e0bd199 "bibtex main"
-  "main.out" 1734135266 3346 fcd394214c0c3d8cd468952d1e9ce291 "pdflatex"
+  "main.aux" 1734207136 4849 352f8c4b62b8465d58ad03ea8417466c "pdflatex"
+  "main.bbl" 1734194550 630 d0a0a247d3894e49280acfec2e0bd199 "bibtex main"
+  "main.out" 1734207136 3556 8ac3bfaa1c8e95c36a12ccf42355ed0d "pdflatex"
   "main.tex" 1734127036 3724 ab32e73653936e512b39b9e71a6ed629 ""
-  "main.toc" 1734135266 1816 1e4b239d79b39ded1d57617151daed41 "pdflatex"
+  "main.toc" 1734207136 1908 63206b79481b9f50227cf57fd85b500c "pdflatex"
   "ppcreefthesis.cls" 1733940476 7707 334938ade5b974b31141c51cee4581c5 ""
   (generated)
   "main.aux"

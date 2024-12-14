@@ -252,6 +252,9 @@ INPUT C:\Users\Remik\AppData\Local\Programs\MiKTeX\fonts\enc\dvips\pl\plsc.enc
 INPUT .\chapters\02-Chapter_Folder\02.2-Opis_Użytej_Technologii.tex
 INPUT .\chapters\02-Chapter_Folder\02.2-Opis_Użytej_Technologii.tex
 INPUT chapters\02-Chapter_Folder\02.2-Opis_Użytej_Technologii.tex
+INPUT .\chapters\02-Chapter_Folder\02.2.1-Office_Script.tex
+INPUT .\chapters\02-Chapter_Folder\02.2.1-Office_Script.tex
+INPUT chapters\02-Chapter_Folder\02.2.1-Office_Script.tex
 INPUT .\chapters\03-praca-wlasna.tex
 INPUT .\chapters\03-praca-wlasna.tex
 INPUT chapters\03-praca-wlasna.tex
