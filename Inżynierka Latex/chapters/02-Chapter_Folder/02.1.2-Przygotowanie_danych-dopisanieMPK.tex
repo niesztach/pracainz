@@ -1,0 +1,19 @@
+\subsection{Przygotowanie danych}
+Otrzymany arkusz kalkulacyjny, zawiera tabelę o strzukturze kolumn podobnej do tabeli \ref{Headers2022}. Brakuje w nim jednak informacji kluczowych do rozpoczęcia cyklu.
+Dlatego pierwszym krokiem jest przygotowanie danych przez osobę nadzorującą proces ze strony odziału w Poznaniu. 
+Jej zadaniem jest manualne przypisanie numeru określającego miejsce powstawania kosztów, wewnętrznie nazywanego \definicja{MPK}. Numer ten definiuje konkretną jednostkę należącą do obszaru IT, która decyduje o zakupie danego produktu. Ponadto dodawana jest kolumna, w której znajduje się wyliczona różnica cen między rokiem obecnym a poprzednim, w celu określenia czy koszt wzrósł lub zmalał. Tak przetworzony plik zostaje umieszczony we wspólnej przestrzeni dyskowej, co umożliwia pozostałym uczestnikom procesu przystąpienie do analizy oraz dalszego przetwarzania zawartych w nim informacji.
+
+\renewcommand{\arraystretch}{1.1} % Zwiększenie wysokości komórek
+\begin{table}[t] % [H] - tabela dokładnie w tym miejscu
+    \begin{adjustwidth}{-50pt}{-20pt}
+    \centering
+    \caption{Nagłówki kolumn z arkusza kalkulacyjnego z roku 2022}
+    \label{Headers2022}
+    \makebox[\textwidth][c]{%
+        \begin{tabular}{*{3}{|m{1.1cm}}|w|m{0.4cm}|m{1.5cm}|m{1.75cm}|w|m{0.7cm}|w|m{0.7cm}|}
+        \hline
+        Service group & Service main group & Service sub group & Business Service & ID & Business Service Manager & Unit of Measurement & PL70 2022 PLAN EUR w KVA & QTY & PL71 2023 PLAN EUR w KVA & QTY \\ \hline
+        \end{tabular}
+    }
+    \end{adjustwidth}
+\end{table}

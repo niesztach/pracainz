@@ -1,0 +1,124 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Bachelor's & Master's Thesis Template                                 %%
+%% Copyleft by Dawid Weiss & Marta Szachniuk                             %%
+%% Faculty of Automatic Control, Robotics, and Electrical Engineering    %%
+%% Poznan University of Technology, 2023                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% Szkielet dla pracy inżynierskiej/magisterskiej pisanej w języku polskim.
+\documentclass[polish,bachelor,a4paper,oneside]{ppcreefthesis}
+
+% Template for an engineering/master's thesis written in English.
+% \documentclass[english,bachelor,a4paper,oneside]{ppcreefthesis}
+
+
+\usepackage[utf8]{inputenc}
+\usepackage[OT4]{fontenc}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{float}
+\usepackage{changepage}
+
+
+
+\newcolumntype{W}{>{\centering\arraybackslash}p{4cm}}
+\newcolumntype{w}{>{\centering\arraybackslash}m{1.2cm}}
+
+
+%--------------------------------------
+% Strona tytułowa \ Front page
+%--------------------------------------
+
+% Autorzy pracy, jeśli jest ich więcej niż jeden
+% wstaw między nimi separator \and
+
+% Authors of the thesis, if there is more than one
+% insert a separator between them \and
+
+\author{%
+   Remigiusz Wolniak \album{151192} \and 
+   Michał Gajdzis \album{151066} }
+\authortitle{}                                % Do not change.
+
+\title{Automatyzacja procesu planowania wydatków na~usługi IT w VW Poznań z wykorzystaniem Microsoft~Power~Platform}
+
+% Promotor pracy
+% Your supervisor comes here.
+
+\ppsupervisor{dr hab.~inż.~Piotr~Kaczmarek} 
+\ppinstitute{Instytut Robotyki i Inteligencji Maszynowej \\ }
+ %            Zakład Sterowania i Elektroniki Przemysłowej
+
+% Rok złożenia pracy
+% Year of final submission (not graduation!)
+\ppyear{2025}                                 
+
+
+\begin{document}
+
+% Pierwsza strona zaczyna się tutaj
+
+
+
+% Front matter starts here
+\frontmatter\pagestyle{empty}%
+\maketitle\cleardoublepage%
+
+% Ponizej tresc na pierwsza strone pracy dyplomowej z VW (od Kroteckiego)
+
+\input{chapters/tresc_na_pierwsza_strone_pracy_dyplomowej.tex}
+
+%--------------------------------------
+% Miejsce na kartę pracy dyplomowej - opcjonalnie, nie jest wymagane
+%--------------------------------------
+\thispagestyle{empty}\vspace*{\fill}%
+\begin{center}Tutaj będzie skan karty pracy dyplomowej. \end{center}%
+\vfill\cleardoublepage%
+%--------------------------------------
+
+
+%--------------------------------------
+% Spis treści
+%--------------------------------------
+
+\pagenumbering{Roman}
+\pagestyle{ppfcmthesis}
+\tableofcontents* 
+\cleardoublepage % Zaczynamy od nieparzystej strony
+
+%--------------------------------------
+% Rozdziały
+%--------------------------------------
+
+%Najwygodniej jeśli każdy rozdział znajduje się w oddzielnym pliku
+\mainmatter%
+\input{chapters/01-Chapter_Folder/01-wstep.tex}
+\input{chapters/02-Chapter_Folder/02-teoria.tex}
+\input{chapters/03-praca-wlasna.tex}
+\input{chapters/04-zakonczenie.tex}
+
+%--------------------------------------
+% Literatura
+%--------------------------------------
+
+\bibliographystyle{plain}{\raggedright\sloppy\small\bibliography{bibliografia}}
+
+%--------------------------------------
+% Dodatki
+%--------------------------------------
+
+\cleardoublepage\appendix%
+\newpage
+\input{chapters/zalacznik.tex}
+
+%--------------------------------------
+% Informacja o prawach autorskich
+%--------------------------------------
+
+\ppcolophon
+
+\end{document}
