@@ -1,0 +1,51 @@
+\subsection{Baza danych}
+
+Baza danych oparta jest o listy programu Sharepoint. \textcolor{pink}{Jak wcześniej wspomniano, nie jest to dedykowane rozwiązanie do budowy takich struktur. }
+
+Na początku należało określić jakie kolumny będą zawierały omawiane listy. W tym celu przeanalizowano pliki z lat poprzednich i wybrano powtarzające się elementy. Pozwoliło to na uzyskanie jednolitego schematu danych:
+\begin{itemize}
+    \item Service group,
+    \item Service main group,
+    \item Service sub group,
+    \item Business Service (Service Name),
+    \item Instruction link,
+    \item ID,
+    \item Business Service Manager,
+    \item Unit Of Measurement,
+    \item Settlement Type,
+    \item Current Year Plan EUR,
+    \item Quantity Current Year,
+    \item Next Year Plan EUR,
+    \item Quantity Next Year,
+    \item Year,
+    \item MPK,
+    \item Difference,
+    \item Indication Number,
+    \item Comment Intern,
+    \item Comment Date,
+    \item Comment Author,
+    \item Comment PZ to WOB,
+    \item Comment BSM,
+    \item Comment K-DES,
+    \item Decision,
+    \item Final comment.
+\end{itemize} 
+Na podstawie wstępnych ustaleń postanowiono pogrupować dane w trzy listy, z których każda charakteryzuje się odmienną strukturą oraz częstotliwością aktualizacji elementów.
+
+Pierwsza, określana jako \emph{Lista usług}, zawiera dane dotyczące usług pozostających niezmiennymi przez wiele lat, takich jak \emph{Business Service} czy \emph{Instruction link}.
+
+Druga, nazwana \emph{Listą kwot}, gromadzi informacje aktualizowane raz do roku, na przykład ceny serwisów (\emph{Current Year Plan EUR, Next Year Plan EUR}) czy liczby licencji (\emph{Quantity Current Year, Quantity Next Year}).
+
+Trzecia, opisana jako \emph{Lista indykacji}, obejmuje rekordy przypisane do poszczególnych indykacji, zawierając zarówno komentarze, jak i decyzje podjęte w trakcie całego procesu.
+\vspace{2cm}\par
+\textcolor{red}{opisać na jakiej zasadzie listy są między sobą powiązane i dorzucić elegancki schemacik}
+\vspace{2cm}\par
+Koncepcja zakładała wykorzystanie relacji pomiędzy listami już na poziomie SharePointa, który umożliwia definiowanie kolumn typu \emph{lookup} do powiązywania dwóch list na podstawie wspólnych elementów w określonych kolumnach. Rozwiązanie to ogranicza się jednak do relacji wyłącznie pomiędzy dwiema listami, co w przypadku konieczności integracji trzech list sprawia, że kolumny typu \emph{lookup} nie mają zastosowania.
+\newline
+\textcolor{Salmon}{Do implementacji dopisać jak finalnie zrobione są relacje między listami(że na poziomie power apps)}
+
+
+
+
+
+
