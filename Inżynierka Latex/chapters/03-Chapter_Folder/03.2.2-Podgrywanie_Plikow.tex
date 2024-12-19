@@ -1,0 +1,15 @@
+\subsection{Dodawanie informacji do bazy danych}
+Po ustaleniu struktury danych wykorzystywanych przez system, należało określić w jaki sposób informacje z arkuszy kalkulacyjnych będą umieszczane w bazie danych.
+
+Głównym problemem na tym etapie jest brak systematycznej organizacji danych zawartych w arkuszach programu Excel co prowadzi do braku kompatybilności z zaprojektowaną bazą danych. 
+Zdecydowano się na utworzenie dedykowanego ekranu w aplikacji, który odpowiada za poprawne przetworzenie danych przy asyście użytkownika w celu uniknięcia błędów.
+
+Pierwszym krokiem jest tymczasowe umieszczenie pliku Excel w folderze znajdujacym się we wspólnej przestrzeni roboczej programu Sharepoint. Dzięki temu, dokument jest dostępny dla innych systemów wykorzystanych do jego przetwarzania. Niestety pomimo możliwości otwarcia pliku przez inne systemy, dane w nim zawarte nie były widoczne. Jak się okazało, większość systemów jest w stanie odczytać informacje pogrupowane w \emph{tabele programu Excel}\footnote{W programie Excel tabelę trzeba osobno zadeklarować np. ręcznie zaznaczając zakres komórek a następnie wybierając opcję \emph{Narzędzia główne}$\to$\emph{Fromatuj jako tabelę}}.
+
+Do rozwiązania tego problemu użyto skryptu pakietu Office, który działa wewnątrz arkusza a co za tym idzie ma bezpośredni dostęp do wszystkich informacji w nim zawartych. Skrypt ten oprócz tworzenia tabeli o dynamicznym rozmiarze, usuwa puste kolumny, które czasem były obecne wśród danych. Utworzony algorytm jest w stanie określić początek tabeli oraz jej wielkość zależną od liczby wierszy oraz kolumn, bez uwzględniania zbędnych informacji.
+
+W celu przystosowania informacji z pliku do bazy danych, zdecydowano się na zastosowanie formularza do walidacji nazw kolumn. Formularz ten pobiera nazwy istniejących kolumn w zapisanym arkuszu i pozwala przypisać do nich nazwy z predefiniowanej listy zawierającej nagłówki znajdujące się w listach Sharepoint. Aktualne nazwy również pobierane są przy pomocy wcześniej opisanego skryptu.
+
+Po usystematyzowaniu struktury użytkownik wybiera rok oraz numer indykacji, której dotyczy wgrywany arkusz. Następnie wszystkie informacje są przekazywane do \emph{flow} programu \emph{Power Automate}, które przypisuje je do odpowiednich listach bazy danych upewniając się, że nie powstają duplikaty.
+
+Zdecydowano, że opisywany ekran będzie posiadał dodatkowy formularz odpowiedzialny za przypisywanie numerów \emph{MPK} dla nowych serwisów. Jest to bardzo ważne ponieważ numer ten okeśla, który obszar zajmuje się rozpatrzeniem usługi. W przypadku usług rozpatrywanych w latach poprzednich numer ten jest przepisywany aby ograniczyć liczbę wypełnianych danych. Oczywiście jest możliwość edycji istniejącego wcześniej numery w razie potrzeby. 
