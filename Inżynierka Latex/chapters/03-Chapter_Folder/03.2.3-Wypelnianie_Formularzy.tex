@@ -1,0 +1,44 @@
+\subsection{Interfejs procesu decyzyjnego}
+
+Interfejs obsługi procesu decyzyjnego został podzielony na dwa współpracujące ze sobą ekrany. Takie rozwiązanie pozwala na zachowanie przejrzystości prezentowanych informacji przy jednoczesnym zapewnieniu dostępu do wszystkich niezbędnych funkcjonalności.
+
+\subsubsection{Ekran listy serwisów}
+Pierwszy ekran pełni funkcję panelu nawigacyjnego, prezentując podstawowe informacje o serwisach:
+\begin{itemize}
+    \item Service Name -- nazwa serwisu,
+    \item Service ID -- unikalny identyfikator,
+    \item MPK -- numer księgowy obszaru odpowiedzialnego,
+    \item Decision -- aktualny status decyzji.
+\end{itemize}
+
+Zaimplementowany system filtrowania umożliwia:
+\begin{itemize}
+    \item wyszukiwanie serwisów po ID lub nazwie,
+    \item filtrowanie według przypisanych numerów MPK,
+    \item segregację według statusu decyzji (\emph{Accepted}, \emph{Not Accepted}, \emph{No Status}).
+\end{itemize}
+
+\subsubsection{Ekran szczegółowy serwisu}
+Po wybraniu serwisu z listy, użytkownik zostaje przekierowany do ekranu szczegółowego, który składa się z trzech głównych sekcji:
+
+\paragraph{Sekcja historyczna}
+Zawiera dwie uzupełniające się tabele:
+\begin{itemize}
+    \item tabela przeglądowa -- prezentująca historię decyzji z poprzednich lat,
+    \item tabela szczegółowa -- wyświetlająca pełne informacje dla wybranego roku (domyślnie rok poprzedni).
+\end{itemize}
+
+\paragraph{Formularz decyzyjny}
+Zestaw pól do wprowadzenia informacji o bieżącej indykacji:
+\begin{itemize}
+    \item rok (wartość domyślna: bieżący),
+    \item numer indykacji (wartość domyślna: kolejny wolny numer),
+    \item autor (wartość domyślna: zalogowany użytkownik),
+    \item komentarze (wewnętrzny, BSM, K-DES),
+    \item decyzja (wartość domyślna: poprzednia decyzja).
+\end{itemize}
+
+\paragraph{Panel podglądu}
+W celu zwiększenia czytelności, długie komentarze (powyżej 30 znaków) są początkowo prezentowane w formie skróconej. Pełna treść komentarza jest dostępna po jego wybraniu i wyświetlana w dedykowanym panelu podglądu.
+
+System automatycznego uzupełniania wartości domyślnych przyspiesza proces decyzyjny, jednocześnie zachowując możliwość modyfikacji każdego z parametrów w razie potrzeby.
