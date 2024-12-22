@@ -1,0 +1,11 @@
+\section{Ekran zapisu danych}
+
+Zdecydowano, że pierwszym ekranem aplikacji będzie ekran zapisu danych. Decyzja ta wynika z faktu, że bez prztworzonych danych, utworzenie innych ekranów byłoby zdecydowanie trudniejsze. Ekran ten składa się z elementów, które zostaną omówione poniżej.
+
+\subsection{Zapis pliku w chmurze}
+Pierwszym krokiem jest zapis pliku w chmurze w celu udostepnienia go innym systemom. W tym celu wykorzystano kontrolkę\footnote{Kontrolka -- element służący do nawigacji, wyświetlania danych i obsługi aplikacji.} \emph{Attachment Control}. Pozwala ona na zapisanie pliku w pamięci aplikacji. Odbywa się to przez naciśnięcie przycisku \emph{"Dołącz plik"} lub przy użyciu mechaniki \emph{przeciągnij i upuść} (\english{Drag And Drop}). 
+
+Aby przekazać plik oraz jego zawartość należy nacisnąć przycisk opisany jako \emph{Save attachments} znajdujący się pod wcześniej omawianym elementem. Naciścięcie go skutkuje wywołaniem szeregu funkcji opisanych we właściwości \emph{OnSelect}. W pierwszej kolejności sprawdzane jest, czy plik został załadowany. Jeśli tak, to wywoływany jest przepływ \emph{SaveFileAndRunScript}. Wynik przepływu jest zapisywany w zmiennej tablicowej, która w Power Apps określana jest jako \definicja{kolekcja}, o nazwie \emph{FlowOutput}. Po wykonaniu się przepływu, zapisane w kontrolce pliki są usuwane.
+
+\subsubsection{Przepływ SaveFileAndRunScript}
+Przepływ \emph{SaveFileAndRunScript} jest odpowiedzialny za zapisanie pliku w chmurze. W momencie wywołania przepływu plik jest przekazany jako parametr wejściowy. Przepływ ten składa się z kilku kroków, które zostaną omówione w kolejności ich wykonywania. Najpierw sprawdzane jest, czy plik o podanej nazwie istnieje w chmurze. Jeśli nie, to zostaje on zapisany w odpowiednim folderze. Jeśli plik o takiej nazwie już istnieje, użytkownik otrzymuje stosowne powiadomienie o obecności pliku w folderze tymczasowym. Po zakończeniu operacji, plik jest przenoszony do folderu archiwum.
