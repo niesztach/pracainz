@@ -15,7 +15,8 @@
 
 \usepackage[utf8]{inputenc}
 \usepackage[OT4]{fontenc}
-\usepackage{xcolor}
+\usepackage{xcolor}   % Do kolorowania tekstu
+\usepackage{soul}      % Do podkreślania i podświetlania tekstu
 \usepackage[usenames,dvipsnames]{xcolor}
 \usepackage{graphicx}
 \usepackage{tabularx}
@@ -28,6 +29,8 @@
 \usetikzlibrary{shapes, arrows, positioning}
 \usepackage{adjustbox}
 \usepackage{hyperref}
+
+\newcommand{\customnote}[1]{\sethlcolor{yellow}\hl{#1}}
 
 
 
