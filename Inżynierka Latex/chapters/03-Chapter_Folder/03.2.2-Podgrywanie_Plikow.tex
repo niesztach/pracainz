@@ -20,19 +20,17 @@ Interfejs został dodatkowo wyposażony w formularz służący do przypisywania 
 
 \end{comment}
 
-\subsection{Dodawanie informacji do bazy danych}
+
 Po ustaleniu struktury danych wykorzystywanych przez system, kolejnym etapem jest określenie sposobu importu informacji z arkuszy kalkulacyjnych do bazy danych.
 
-Głównym wyzwaniem jest brak systematycznej organizacji danych w arkuszach programu Excel, co skutkuje niekompatybilnością z zaprojektowaną bazą danych. W celu rozwiązania tego problemu, planowane jest opracowanie dedykowanego interfejsu w aplikacji, który wspomoże użytkownika w procesie przetwarzania danych, minimalizując ryzyko wystąpienia błędów.
-
 \customnote{
-   TO POLECI DO IMPLEMENTACJI
+    TO POLECI DO IMPLEMENTACJI
 
-   Głównym wyzwaniem okazał się brak systematycznej organizacji danych w arkuszach programu Excel, co skutkowało niekompatybilnością z zaprojektowaną bazą danych.
-   W celu rozwiązania tego problemu, opracowano dedykowany interfejs w aplikacji, który wspomaga użytkownika w procesie przetwarzania danych, minimalizując ryzyko wystąpienia błędów.
-   Proces rozpoczyna się od tymczasowego umieszczenia pliku Excel w folderze współdzielonym na platformie SharePoint. Podczas implementacji napotkano problem z widocznością danych -- większość systemów może odczytać jedynie informacje zorganizowane w \emph{tabele programu Excel}\footnote{Tabela w programie Excel wymaga osobnej deklaracji poprzez zaznaczenie zakresu komórek i wybór opcji \emph{Narzędzia główne}$\to$\emph{Formatuj jako tabelę}}.
+    Głównym wyzwaniem okazał się brak systematycznej organizacji danych w arkuszach programu Excel, co skutkowało niekompatybilnością z zaprojektowaną bazą danych.
+    W celu rozwiązania tego problemu, opracowano dedykowany interfejs w aplikacji, który wspomaga użytkownika w procesie przetwarzania danych, minimalizując ryzyko wystąpienia błędów.
+    Proces rozpoczyna się od tymczasowego umieszczenia pliku Excel w folderze współdzielonym na platformie SharePoint. Podczas implementacji napotkano problem z widocznością danych -- większość systemów może odczytać jedynie informacje zorganizowane w \emph{tabele programu Excel}\footnote{Tabela w programie Excel wymaga osobnej deklaracji poprzez zaznaczenie zakresu komórek i wybór opcji \emph{Narzędzia główne}$\to$\emph{Formatuj jako tabelę}}.
 
-   Rozwiązaniem okazało się zastosowanie skryptu pakietu Office, działającego bezpośrednio w arkuszu. Skrypt ten automatycznie tworzy tabelę o dynamicznym rozmiarze oraz usuwa puste kolumny. Zaimplementowany algorytm skutecznie identyfikuje początek tabeli oraz określa jej wymiary na podstawie liczby wierszy i kolumn, pomijając nieistotne dane.}
+    Rozwiązaniem okazało się zastosowanie skryptu pakietu Office, działającego bezpośrednio w arkuszu. Skrypt ten automatycznie tworzy tabelę o dynamicznym rozmiarze oraz usuwa puste kolumny. Zaimplementowany algorytm skutecznie identyfikuje początek tabeli oraz określa jej wymiary na podstawie liczby wierszy i kolumn, pomijając nieistotne dane.}
 
 
 W celu dostosowania danych do struktury bazy, planowane jest zaimplementowanie formularza walidacyjnego dla nazw kolumn. System będzie pobierał nazwy istniejących kolumn z arkusza i umożliwiał ich mapowanie na predefiniowaną listę nagłówków z list SharePoint. Proces ten wykorzysta wspomniany wcześniej skrypt do pobrania aktualnych nazw.
