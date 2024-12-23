@@ -1,39 +1,43 @@
-\section{Ekran zapisu danych}
+\section{Ekran dodawania danych}
 
-Zdecydowano, że pierwszym ekranem aplikacji będzie ekran zapisu danych. Decyzja ta wynika z faktu, że bez prztworzonych danych, utworzenie innych ekranów byłoby zdecydowanie trudniejsze. Ekran ten składa się z elementów, które zostaną omówione poniżej.
+Zdecydowano, że pierwszym ekranem aplikacji będzie ekran zapisu danych. Decyzja ta wynika z faktu, że bez przetworzonych danych, utworzenie innych ekranów byłoby zdecydowanie trudniejsze. Ekran ten składa się z elementów, które zostaną omówione poniżej.
 
 \subsection{Zapis pliku w chmurze}
-Pierwszym krokiem jest zapis pliku w chmurze w celu udostepnienia go innym systemom. W tym celu wykorzystano kontrolkę\footnote{Kontrolka -- element służący do nawigacji, wyświetlania danych i obsługi aplikacji.} \emph{Attachment Control}. Pozwala ona na zapisanie pliku w pamięci aplikacji. Odbywa się to przez naciśnięcie przycisku \emph{"Dołącz plik"} lub przy użyciu mechaniki \emph{przeciągnij i upuść} (\english{Drag And Drop}). 
+Pierwszym etapem procesu jest zapis pliku w chmurze, co umożliwia jego udostępnienie innym systemom. Do realizacji tego zadania wykorzystano kontrolkę\footnote{Kontrolka -- element służący do nawigacji, wyświetlania danych i obsługi aplikacji.} \emph{Attachment Control}. Pozwala ona na zapisanie pliku w pamięci aplikacji. Odbywa się to przez naciśnięcie przycisku \emph{"Dołącz plik"} lub przy użyciu mechaniki \emph{przeciągnij i upuść} (\english{Drag And Drop}). 
 
-Aby przekazać plik oraz jego zawartość należy nacisnąć przycisk opisany jako \emph{Save attachments} znajdujący się pod wcześniej omawianym elementem. Naciścięcie go skutkuje wywołaniem szeregu funkcji opisanych we właściwości \emph{OnSelect}. W pierwszej kolejności sprawdzane jest, czy plik został załadowany. Jeśli tak, to wywoływany jest przepływ \emph{SaveFileAndRunScript}. Wynik przepływu jest zapisywany w zmiennej tablicowej, która w Power Apps określana jest jako \definicja{kolekcja}, o nazwie \emph{FlowOutput}. Po wykonaniu się przepływu, zapisane w kontrolce pliki są usuwane.
+Aby przekazać plik oraz jego zawartość należy nacisnąć przycisk opisany jako \emph{Save attachments} znajdujący się pod wcześniej omawianym elementem. Naciśnięcie go skutkuje wywołaniem szeregu funkcji opisanych we właściwości \emph{OnSelect}. W pierwszej kolejności sprawdzane jest, czy plik został załadowany. Jeśli tak, to wywoływany jest przepływ \emph{SaveFileAndRunScript}. Wynik przepływu jest zapisywany w zmiennej tablicowej, która w Power Apps określana jest jako \definicja{kolekcja}, o nazwie \emph{FlowOutput}. Po wykonaniu się przepływu, pliki zapisane w pamięci aplikacji zostają usunięte.
+
+
 
 \subsubsection{Przepływ SaveFileAndRunScript}
-Przepływ \emph{SaveFileAndRunScript} jest odpowiedzialny za zapisanie pliku w chmurze. W momencie wywołania przepływu plik jest przekazany jako parametr wejściowy. Przepływ ten składa się z kilku kroków, które zostaną omówione w kolejności ich wykonywania.
+Rysunek \ref{fig:savefileandrunscript}, przedstawia edytor programu Power Automate. Widoczny w nim przepływ nazwany \emph{SaveFileAndRunScript} jest odpowiedzialny za zapisanie pliku w chmurze oraz wstępne przetworzenie. W momencie wywołania przepływu, plik jest przekazany jako parametr wejściowy. Przepływ ten składa się z kilku kroków, które zostaną omówione w kolejności ich wykonywania.
 
-\begin{figure}[H]
+\begin{figure}[t]
     \centering
-    \includegraphics[width=0.85\textwidth]{figures/SaveFileAndRunScript.png}
+    \includegraphics[width=0.9\textwidth]{figures/SaveFileAndRunScript.png}
     \caption{Widok przepływu SaveFileAndRunScript}
     \label{fig:savefileandrunscript}
 \end{figure}
 
-Rysunek \ref{fig:savefileandrunscript}, przedstawia widok przepływu \emph{SaveFileAndRunScript}. Przepływ ten składa się z następujących kroków:
 \begin{enumerate}
     \item \textbf{Funkcja: Power Apps (V2)} \\
-    Jest to element rozpoczynający przepływ, wywoływany bezpośrednio z aplikacji Power Apps. Parametrami wejściowymi są:
+    Przepływ rozpoczyna się od funkcji wywoływanej bezpośrednio z aplikacji Power Apps. Jako parametry wejściowe przyjmuje:
     \begin{itemize}
-        \item nazwa pliku (\textit{File Name}),
+        \item nazwę pliku (\textit{File Name}),
         \item zawartość pliku (\textit{File Content}) w formacie binarnym.
     \end{itemize}
 
-    \item \textbf{Sprawdzenie istniejących plików} \\
-    Blok \textit{Get files (properties only)} pobiera listę wszystkich plików z wybranego folderu SharePoint wraz z ich metadanymi, takimi jak nazwa, ścieżka czy data modyfikacji. Pozwala to na sprawdzenie, czy plik o podanej nazwie już istnieje w bibliotece.
+    \item \textbf{Zainicjalizowanie zmiennej} \\
+    Element \textit{Initialize variable} tworzy zmienną o nazwie \textit{FileExists}, która przechowuje informację, czy plik o podanej nazwie znajduje się już na SharePoint.
 
-    \item \textbf{Warunek} \\
-    Element \textit{Condition} sprawdza, czy istnieje plik o nazwie przekazanej w danych wejściowych. W zależności od wyniku:
+    \item \textbf{Sprawdzenie istniejących plików} \\
+    Blok \textit{Get files} pobiera listę wszystkich plików z wybranego folderu SharePoint wraz z ich metadanymi, takimi jak nazwa, ścieżka czy data modyfikacji. Wynik zostaje zapisany w zmiennej \textit{FileExists}, która przyjmuje wartość \textit{true}, jeśli plik został znaleziony, lub \textit{false}, jeśli plik nie istnieje.
+
+    \item \textbf{Instrukcja warunkowa \emph{If}} \\
+    Element \textit{Condition} sprawdza wartość zmiennej \textit{FileExists}. W zależności od wyniku:
     \begin{itemize}
-        \item jeśli plik istnieje -- przepływ kończy działanie,
-        \item jeśli plik nie istnieje -- kontynuuje proces zapisu.
+        \item jeśli zmienna ma wartość \textit{true} -- przepływ kończy działanie,
+        \item jeśli zmienna ma wartość \textit{false} -- przepływ kontynuuje proces zapisu.
     \end{itemize}
 
     \item \textbf{Utworzenie pliku} \\
@@ -45,66 +49,78 @@ Rysunek \ref{fig:savefileandrunscript}, przedstawia widok przepływu \emph{SaveF
         \item zawartość pliku.
     \end{itemize}
 
-    \item \textbf{Uruchomienie podprzepływu} \\
-    Element \textit{Run a Child Flow} wywołuje skrypt Office Script, który:
-    \begin{itemize}
-        \item analizuje zapisany plik,
-        \item sprawdza jego zawartość,
-        \item formatuje dane według wymagań,
-        \item zwraca wynik w formacie JSON.
-    \end{itemize}
+    \item \textbf{Uruchomienie przepływu podrzędnego} \\
+    Po pomyślnym zapisaniu pliku przepływ wywołuje tzw. \textit{child flow}, który inicjuje działanie skryptu Office. Skrypt ten odpowiada za przetworzenie pliku w sposób zgodny z założeniami aplikacji. Jego wynik w formacie JSON jest zwracany do przepływu nadrzędnego. 
 
     \item \textbf{Odpowiedź do aplikacji} \\
-    Blok \textit{Respond to Power Apps} kończy przepływ, zwracając do aplikacji dane w formacie JSON przetworzone przez wcześniej wspomniany skrypt Office Script.
+    Blok \textit{Respond to Power Apps} kończy przepływ, zwracając do aplikacji dane w formacie JSON, przetworzone przez wspomniany skrypt.
 \end{enumerate}
 
-\subsection{Skrypt Office Script}
-Po utworzeniu pliku w SharePoint, w ramach przepływu następuje jego przetworzenie przez skrypt Office Script. W tym przypadku skrypt ma za zadanie przeanalizować plik i dostosować go do wymagań systemu. Poniżej przedstawiono kroki działania skryptu:
+\subsection{Skrypt pakietu Office}
+Po utworzeniu pliku w SharePoint, w ramach przepływu następuje jego przetworzenie przez skrypt. Jego zadaniem jest dostosowanie pliku do wymagań systemu. Poniżej przedstawiono kroki działania skryptu:
 
 \begin{enumerate}
-    \item \textbf{Inicjalizacja i wybór arkusza}
-    \begin{itemize}
-        \item sprawdzenie wszystkich arkuszy w pliku Excel,
-        \item wybór arkusza zawierającego dane,
-        \item sprawdzenie i ewentualne usunięcie ochrony hasłem.
-    \end{itemize}
+    \item \textbf{Wybór arkusza roboczego} \\
+    Skrypt identyfikuje arkusz zawierający dane, analizuje zakres używanych komórek i usuwa ochronę hasłem, jeśli jest aktywna -- krok ten jest wymagany, aby wprowadzanie zmian w arkuszu było możliwe.
 
-    \item \textbf{Analiza danych}
+    \item \textbf{Analiza danych} \\
+    Skrypt rozpoczyna analizę od wyszukiwania początku tabeli w arkuszu. Następnie:
     \begin{itemize}
-        \item sprawdzenie czy dane są zorganizowane w tabeli,
-        \item w przypadku braku tabeli -- utworzenie nowej,
-        \item automatyczne uzupełnienie pustych miejsc w ważnych kolumnach.
+        \item usuwa puste kolumny, które nie zawierają żadnych danych,
+        \item tworzy tabelę o dynamicznym rozmiarze, uwzględniając zakres danych znajdujących się w arkuszu,
+        \item uzupełnia brakujące komórki w kluczowych kolumnach, korzystając z danych w poprzednich wierszach.
     \end{itemize}
+    Takie podejście pozwala na uporządkowanie danych i przygotowanie ich do dalszego przetwarzania.
 
-    \item \textbf{Dopasowanie nazw kolumn}
+    \item \textbf{Dopasowanie nazw kolumn} \\
+    Skrypt porównuje istniejące nazwy kolumn z listą standardowych nagłówków, korzystając z algorytmu \textit{Jaro-Winkler}. Algorytm ten:
     \begin{itemize}
-        \item porównanie istniejących nazw kolumn ze standardową listą,
-        \item wykorzystanie algorytmu \emph{Jaro-Winkler} do oceny podobieństwa tekstu,
-        \item automatyczne rozpoznawanie podobnych nazw (np. "Srv ID" jako "Service ID"),
-        \item sugestia ręcznego wyboru przy zbyt małym podobieństwie (poniżej 90\%).
+        \item analizuje podobieństwo tekstów, porównując wspólne znaki oraz ich kolejność,
+        \item przyznaje dodatkowe punkty za zgodność początkowych znaków (prefiksu),
+        \item zwraca wynik jako wartość z przedziału od 0 do 1, gdzie wartości bliższe 1 oznaczają większe podobieństwo.
     \end{itemize}
+    Wynik tego procesu jest wykorzystywany w dalszych etapach aplikacji, m.in. do walidacji struktury danych. Jeśli podobieństwo jest mniejsze niż 90\%, skrypt sugeruje ręczne dopasowanie nazwy kolumny.
 
-    \item \textbf{Przekazanie wyników}
-    \begin{itemize}
-        \item zwrócenie oryginalnych nazw kolumn z pliku,
-        \item zwrócenie dopasowanych standardowych nazw kolumn,
-        \item w razie problemów - przekazanie odpowiednich komunikatów błędów.
-    \end{itemize}
+    \item \textbf{Zwrócenie wyników} \\
+    Skrypt generuje JSON zawierający mapowanie oryginalnych nazw kolumn z najlepszymi dopasowaniami z listy standardowych nagłówków.
 \end{enumerate}
 
+Wprowadzenie przepływu podrzędnego było konieczne z uwagi na sposób, w jaki Power Automate obsługuje operacje na plikach w SharePoint. Gdy plik zostaje zapisany w folderze SharePoint, system przypisuje mu status wskazujący, czy jest gotowy do przetworzenia. W przypadku realizacji obu operacji (zapisu i przetwarzania pliku) w ramach jednego przepływu pojawiał się problem. Wynikał on z faktu, że przepływ pobierał dane z SharePoint już na etapie wstępnego sprawdzenia, czy plik o określonej nazwie istnieje. Informacja ta była przechowywana w pamięci przepływu i nie była aktualizowana w trakcie jego dalszego wykonywania.
+
+W efekcie, po utworzeniu nowego pliku, przepływ nie miał możliwości odświeżenia informacji o jego istnieniu i statusie. To powodowało błąd uniemożliwiający uruchomienie skryptu, gdyż system informował, że plik, dla którego miał być wykonany, nie istnieje.
+
+Rozwiązaniem tego problemu było wyodrębnienie etapu przetwarzania pliku do osobnego przepływu podrzędnego. Przepływ podrzędny, uruchamiany po zakończeniu procesu zapisu pliku, działał niezależnie i pobierał aktualne dane z SharePoint w momencie swojego wywołania. Dzięki temu możliwe było wyeliminowanie problemu braku odświeżonych informacji o statusie pliku, co pozwoliło na poprawne uruchomienie skryptu Office Script.
+
+\textcolor{red}{LINK DO TEGO JARO\_WINKLERA: https://crucialbits.com/blog/a-comprehensive-list-of-similarity-search-algorithms/}
 
 \vspace{1cm}
-Po zakończeniu działania skryptu Office Script i całego przepływu, przetworzony plik zostaje w pełni zapisany w bibliotece SharePoint. 
-Rysunek \ref{fig:saveattachmentsform} przedstawia wspomnianą wcześniej kontrolkę \emph{Attachment Control}, przycisk \emph{Save attachments} oraz listę plików zapisanych w foldrze SharePoint.
 
-
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]
     {figures/SaveAttachmentsForm.png}
-    \caption{Formularz zapisu pliku}    
+    \caption{Formularz zapisu pliku w chmurze}      
     \label{fig:saveattachmentsform}
 \end{figure}
 
-Wybór elementu z listy \emph{Choose file to preview} umożliwia wskazanie pliku do dalszego przetwarzania. Selekcja pozycji z listy automatycznie inicjuje wykonanie opisanego wcześniej skryptu, którego celem jest pozyskanie aktualnego zestawu nagłówków. Należy podkreślić, że ten sam proces zachodzi również podczas inicjalizacji aplikacji. 
-Funkcjonalność podglądu, zaimplementowana w postaci przycisku umiejscowionego poniżej głównych elementów sterujących, umożliwia otwarcie wybranego pliku w nowej karcie przeglądarki. Jest to szczególnie istotne w kontekście weryfikacji poprawności danych oraz walidacji struktury kolumn.
+Rysunek \ref{fig:saveattachmentsform} ilustruje opisane wcześniej elementy ekranu, na którym użytkownik może dodawać załączniki do procesu, podpisane jako \emph{"Add attachments to process"}. Obok znajduje się lista zapisanych plików, umożliwiająca wybór pliku do dalszego przetwarzania. Poniżej umieszczono przycisk \emph{"Click to open:..."}, który pozwala na otwarcie wybranego pliku w nowym oknie przeglądarki, co ułatwia jego weryfikację i podgląd.
+
+\subsection{Walidacja nazw kolumn} Kolejnym etapem przed zapisaniem danych do bazy jest walidacja nazw kolumn. W tym celu zaimplementowano formularz, którego układ przedstawiono na rysunku \ref{fig:columnmappingform}. Formularz zawiera \emph{galerię} – element umożliwiający wyświetlanie wielu rekordów danych o różnych typach. Pola wyświetlające dane w galerii mogą być dostosowywane w dowolny sposób w zależności od potrzeb użytkownika.
+
+\noindent Galeria składa się z dwóch kolumn: \begin{itemize} \item Lewa kolumna prezentuje obecne nazwy kolumn, które są wyświetlane za pomocą kontrolki \emph{Label}\footnote{\emph{Label} -- kontrolka tekstowa umożliwiająca wyświetlanie statycznych wartości.}. \item Prawa kolumna zawiera kontrolkę \emph{ComboBox}\footnote{\emph{ComboBox} -- rozwijana lista z możliwością wprowadzania tekstu.}, umożliwiającą wybór nazwy z listy standardowych nagłówków. Lista wartości w kontrolce \emph{ComboBox} jest generowana przez skrypt opisany w poprzednich sekcjach. \end{itemize}
+
+Po prawej stronie formularza znajduje się instrukcja użytkownika, zawierająca wskazówki dotyczące prawidłowego uzupełniania nazw kolumn. Poniżej instrukcji umieszczono przycisk \emph{Update column names}, który umożliwia wprowadzenie zmian w strukturze danych.
+
+\noindent Działanie tego mechanizmu opiera się na zastosowaniu skryptu pakietu Office. Skrypt jako parametr wejściowy przyjmuje zmienną tablicową w formacie JSON, zawierającą mapowanie oryginalnych nazw kolumn z poprawionymi wartościami wybranymi przez użytkownika. Następnie skrypt iteruje po wierszu zawierającym nagłówki kolumn i dokonuje ich zamiany zgodnie z mapowaniem. Po zakończeniu działania skrypt zwraca nową strukturę nazw kolumn.
+
+Rysunek \ref{fig:columnmappingform} prezentuje wszystkie elementy formularza, w tym kontrolki umożliwiające wybór roku i numeru indykacji, które zostały umieszczone pod przyciskiem \emph{Update column names}. Kontrolki te, wraz z przyciskiem \emph{Upload data}, są kluczowe dla kolejnego etapu przetwarzania danych, obejmującego ich integrację z listami SharePoint. 
+
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\textwidth]{figures/ColumnMappingForm.png}
+    \caption{Formularz walidacji nazw kolumn}
+    \label{fig:columnmappingform}
+\end{figure}
+
+\subsection{Integracja z listami SharePoint} Po zakończeniu walidacji nazw kolumn, kolejnym etapem jest integracja przetworzonych danych z listami SharePoint. Proces ten rozpoczyna się od wyboru roku i numeru indykacji przy użyciu dedykowanych kontrolek \emph{Dropdown}\footnote{\emph{Dropdown} -- kontrolka umożliwiająca wybór jednej z dostępnych wartości z rozwijanej listy, bez możliwości edycji.}. Wybrane wartości są następnie wykorzystywane podczas importu danych do odpowiednich list, co odbywa się za pomocą przycisku \emph{Upload data}. 
