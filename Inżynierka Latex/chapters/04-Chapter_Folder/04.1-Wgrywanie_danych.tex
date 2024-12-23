@@ -124,3 +124,24 @@ Rysunek \ref{fig:columnmappingform} prezentuje wszystkie elementy formularza, w 
 \end{figure}
 
 \subsection{Integracja z listami SharePoint} Po zakończeniu walidacji nazw kolumn, kolejnym etapem jest integracja przetworzonych danych z listami SharePoint. Proces ten rozpoczyna się od wyboru roku i numeru indykacji przy użyciu dedykowanych kontrolek \emph{Dropdown}\footnote{\emph{Dropdown} -- kontrolka umożliwiająca wybór jednej z dostępnych wartości z rozwijanej listy, bez możliwości edycji.}. Wybrane wartości są następnie wykorzystywane podczas importu danych do odpowiednich list, co odbywa się za pomocą przycisku \emph{Upload data}. 
+
+Skutki kliknięcia przycisku mogą się różnić w zależności od wybranych wartości i tego czy nazwy kolumny zostały zmienione. 
+
+\begin{figure}[htbp]
+    \centering
+    % Pierwszy obrazek
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/CorrectHeadersPopup.png}
+        \caption{Podpis pod pierwszym obrazkiem}
+        \label{fig:CorrectHeadersPopup}
+    \end{minipage}\hfill
+    % Drugi obrazek
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/DoUWantToOverwrite.png}
+        \caption{Podpis pod drugim obrazkiem}
+        \label{fig:DoYouWantToOverwrite}
+    \end{minipage}
+    \label{fig:obrazki}
+\end{figure}
