@@ -14,8 +14,8 @@
 \tikzstyle{decision} = [diamond, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=green!30]
 \tikzstyle{arrow} = [thick,->,>=stealth]
 \tikzstyle{data} = [parallelogram, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=yellow!30]
-
-\resizebox{0.9\textwidth}{!}{%
+\begin{figure}
+\resizebox{0.95\textwidth}{!}{%
 \begin{tikzpicture}[node distance=3cm]
    
 % Start node
@@ -64,6 +64,9 @@
     \begin{tikzpicture}[baseline]
 \draw [ color={rgb,255:red,251; green,137; blue,129} , fill={rgb,255:red,254; green,237; blue,236}, line width=1pt , dashed] (2,23.75) rectangle  node {}  (14,-3); %false
 \draw [ color={rgb,255:red,136; green,218; blue,141} , fill={rgb,255:red,237; green,249; blue,238}, line width=1pt , dashed] (-10.25,23.75) rectangle  node {}  (2,5.5); %true
+\draw [ color=SkyBlue, line width=3pt] (2.25,21.25) rectangle  node {}  (13.75,1.675); %false
+\draw [ color=SkyBlue, line width=3pt] (-10,22.75) rectangle  node {}  (1.75,5.75); %true
+
 \node (true1) [SP, dashed, minimum width=6cm, text width=5cm, draw=RedOrange] at (-4,22.5) {\normalsize \emph{*Only for "Lista Kwot"*}\\ \textbf{Get Previous Year MPK}};
 \node (true2) [Data, minimum width=6cm, text width=5cm,dashed, draw=RedOrange] at (-4,21) {\normalsize \textbf{Select "MPK" column}};
 \node (true3) [Data, minimum width=6cm, text width=5cm,dashed, draw=RedOrange] at (-4,19.5) {\normalsize \textbf{MPK Object}};
@@ -107,7 +110,8 @@
 \node [font=\large, text width=4cm, align=center] at (11.25,0) {\textbf{If false}\\-Do nothing-};
 
 \node (stop) [startstop, minimum width=6cm, text width=5cm] at (2,-4.5) { \textbf{Send Batch Request}\\ Update Items};
-
+\node (annotation) [rectangle,text width=6.5cm, draw=SkyBlue,line width=0.75mm, inner sep=5pt] at (-8,1.25) {\textbf{For each list, a separate branch should be presented. However, due to the similarity between them, only one branch has been depicted to enhance clarity and readability.
+}};
 %Arrows
 \draw [arrow] (true1) -- (true2);
 \draw [arrow] (true2) -- (true3);
@@ -137,7 +141,8 @@
 
 \draw [arrow] (-4.125,5.5) -- +(0,-9) -- +(6.125,-9) --(stop);
 \draw [arrow] (8,-3) -- +(0,-0.5) -- +(-6,-0.5) --(stop);
-
+\draw [arrow, line width=0.75mm, SkyBlue] (annotation) -- (-10,5.75);
+\draw [arrow, line width=0.75mm, SkyBlue] (annotation) -- (2.25,1.675);
 \end{tikzpicture}
 
 };
@@ -148,5 +153,10 @@
 \draw [arrow] (selectCols) -- (Condition1);
 \draw [arrow] (Condition1) -- (ComplexNode);
 
+
+
 \end{tikzpicture}
 }
+\caption{Schemat blokowy procesu importu danych z arkusza kalkulacyjnego do bazy danych}
+\label{fig:flowchart}
+\end{figure}
