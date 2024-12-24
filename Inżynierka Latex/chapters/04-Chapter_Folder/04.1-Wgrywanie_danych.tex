@@ -125,23 +125,30 @@ Rysunek \ref{fig:columnmappingform} prezentuje wszystkie elementy formularza, w 
 
 \subsection{Integracja z listami SharePoint} Po zakończeniu walidacji nazw kolumn, kolejnym etapem jest integracja przetworzonych danych z listami SharePoint. Proces ten rozpoczyna się od wyboru roku i numeru indykacji przy użyciu dedykowanych kontrolek \emph{Dropdown}\footnote{\emph{Dropdown} -- kontrolka umożliwiająca wybór jednej z dostępnych wartości z rozwijanej listy, bez możliwości edycji.}. Wybrane wartości są następnie wykorzystywane podczas importu danych do odpowiednich list, co odbywa się za pomocą przycisku \emph{Upload data}. 
 
-Skutki kliknięcia przycisku mogą się różnić w zależności od wybranych wartości i tego czy nazwy kolumny zostały zmienione. 
+Skutki kliknięcia przycisku mogą się różnić w zależności od wybranych wartości i tego czy nazwy kolumny zostały zmienione. Rysunki \ref{fig:CorrectHeadersPopup} oraz \ref{fig:DoYouWantToOverwrite} przedstawiają dwa możliwe scenariusze, które mogą wystąpić po naciśnięciu przycisku. Pierwszy z nich występuje kiedy uprzednio nie został wciśnięty przycisk \emph{Update column names}. System upewnia się że użytkownik nie wgra przypadkowo danych z niepoprawnymi nagłówkami. Drugi natomiast pojawia sięw przypadku, gdy wybrane przez użytkownika rok oraz numer indykacji, istnieją w bazie danych. System pyta czy użytkownik chce nadpisać dane, które już tam się znajdują czy anulować operacje. W momencie kiedy nazwy kolumn nie zostaną zmienione oraz dane z wybranym rokiem i numerem indykacji istnieją w bazie danych, pojawiają się oba okna z informacjami.
 
 \begin{figure}[htbp]
     \centering
     % Pierwszy obrazek
-    \begin{minipage}{0.5\textwidth}
+    \begin{minipage}{0.48\textwidth}
         \centering
         \includegraphics[width=\linewidth]{figures/CorrectHeadersPopup.png}
-        \caption{Podpis pod pierwszym obrazkiem}
+        \caption{Zapytanie o poprawność nazw kolumn}
         \label{fig:CorrectHeadersPopup}
     \end{minipage}\hfill
     % Drugi obrazek
-    \begin{minipage}{0.5\textwidth}
+    \begin{minipage}{0.48\textwidth}
         \centering
         \includegraphics[width=\linewidth]{figures/DoUWantToOverwrite.png}
-        \caption{Podpis pod drugim obrazkiem}
+        \caption{Zapytanie o nadpisanie danych}
         \label{fig:DoYouWantToOverwrite}
     \end{minipage}
     \label{fig:obrazki}
 \end{figure}
+
+Kiedy użytkownik upewni się, że wszystkie dane są poprawne i zatwierdzi operację, system przystępuje do importu danych. W tym celu wywołuje kolejny przepływ w programie Power Automate, który przypisuje informacji do odpowiednich list w bazie danych upewniając się jednocześnie, że nie zostaną dodane duplikaty rekordów. 
+
+\noindent Przepływ ten jest bardzo rozbudowany, dlatego zamiast widoku edytora Power Automate, pokazany zostanie jego schemat blokowy na rysunku
+
+
+\input{figures/SchematBlokowyFlow}
