@@ -1,9 +1,11 @@
 \subsection{Interfejs procesu decyzyjnego}
 
-Interfejs obsługi procesu decyzyjnego został podzielony na dwa współpracujące ze sobą ekrany. Takie rozwiązanie pozwala na zachowanie przejrzystości prezentowanych informacji przy jednoczesnym zapewnieniu dostępu do wszystkich niezbędnych funkcjonalności.
+\customnote{ta cała sekcja wygląda jakby powinna być w implementacji, ale przydałoby się zostawić coś krótkiego o wypłenianiu
+
+    Interfejs obsługi procesu decyzyjnego został podzielony na dwa współpracujące ze sobą ekrany. Takie rozwiązanie pozwala na zachowanie przejrzystości prezentowanych informacji przy jednoczesnym zapewnieniu dostępu do wszystkich niezbędnych funkcjonalności.}
 
 \subsubsection{Ekran listy serwisów}
-Pierwszy ekran pełni funkcję panelu nawigacyjnego, prezentując podstawowe informacje o serwisach:
+\customnote{Pierwszy ekran pełni funkcję panelu nawigacyjnego, prezentując podstawowe informacje o serwisach:}
 \begin{itemize}
     \item Service Name -- nazwa serwisu,
     \item Service ID -- unikalny identyfikator,
@@ -19,7 +21,7 @@ Zaimplementowany system filtrowania umożliwia:
 \end{itemize}
 
 \subsubsection{Ekran szczegółowy serwisu}
-Po wybraniu serwisu z listy, użytkownik zostaje przekierowany do ekranu szczegółowego, który składa się z trzech głównych sekcji:
+\customnote{Po wybraniu serwisu z listy, użytkownik zostaje przekierowany do ekranu szczegółowego, który składa się z trzech głównych sekcji:}
 
 \paragraph{Sekcja historyczna}
 Zawiera dwie uzupełniające się tabele:
@@ -39,6 +41,10 @@ Zestaw pól do wprowadzenia informacji o bieżącej indykacji:
 \end{itemize}
 
 \paragraph{Panel podglądu}
-W celu zwiększenia czytelności, długie komentarze (powyżej 30 znaków) są początkowo prezentowane w formie skróconej. Pełna treść komentarza jest dostępna po jego wybraniu i wyświetlana w dedykowanym panelu podglądu.
+\customnote{W celu zwiększenia czytelności, długie komentarze (powyżej 30 znaków) są początkowo prezentowane w formie skróconej. Pełna treść komentarza jest dostępna po jego wybraniu i wyświetlana w dedykowanym panelu podglądu.
 
-System automatycznego uzupełniania wartości domyślnych przyspiesza proces decyzyjny, jednocześnie zachowując możliwość modyfikacji każdego z parametrów w razie potrzeby.
+    System automatycznego uzupełniania wartości domyślnych przyspiesza proces decyzyjny, jednocześnie zachowując możliwość modyfikacji każdego z parametrów w razie potrzeby.}
+
+Zaplanowano stworzenie interfejsu obsługi procesu decyzyjnego składającego się z dwóch ekranów, które zapewnią przejrzystość i pełną funkcjonalność podczas pracy z danymi serwisowymi. Pierwszy ekran będzie panelem nawigacyjnym, prezentującym kluczowe informacje o serwisach, takie jak nazwa, identyfikator czy status decyzji. Użytkownicy będą mieli możliwość filtrowania i wyszukiwania serwisów według różnych kryteriów.
+
+Drugi ekran, dostępny po wyborze konkretnego serwisu, zaoferuje szczegółowe informacje, umożliwiając przeglądanie historycznych danych i wprowadzanie nowych decyzji za pomocą formularza.
