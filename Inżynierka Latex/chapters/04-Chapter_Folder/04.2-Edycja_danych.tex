@@ -7,11 +7,11 @@ Po wstępnym podegraniu pliku źródłowego, następnym krokiem jest umożliwien
 \begin{comment}
 
 Ekran wyboru elementu do obróbki składa się z: \begin{enumerate}
-   \item listy, przedstawiającej dane z tymczasowej kolekcji \textit{MergedData}, utworzonej specjalnie na potrzeby obsługi wyboru danych do edycji,
-   \item pól wyszukiwania i filtrów, umożliwiających zawężenie listy na podstawie nazwy usługi, identyfikatora (\textit{Service ID}), miejsca powstawania kosztów (\textit{MPK}) oraz statusu decyzji (\textit{Accepted}, \textit{Not Accepted}, \textit{No Status}),
-   \item wykresu kołowego, prezentującego wizualne podsumowanie liczby elementów w każdej kategorii statusu decyzji,
-   \item interfejsu umożliwiającego dynamiczne dopasowanie wyników listy w czasie rzeczywistym, na podstawie wprowadzonych kryteriów wyszukiwania,
-   \item nagłówka, który przedstawia kontekst użytkownika, w tym nazwę i dane aktualnie zalogowanego użytkownika. \end{enumerate}
+    \item listy, przedstawiającej dane z tymczasowej kolekcji \textit{MergedData}, utworzonej specjalnie na potrzeby obsługi wyboru danych do edycji,
+    \item pól wyszukiwania i filtrów, umożliwiających zawężenie listy na podstawie nazwy usługi, identyfikatora (\textit{Service ID}), miejsca powstawania kosztów (\textit{MPK}) oraz statusu decyzji (\textit{Accepted}, \textit{Not Accepted}, \textit{No Status}),
+    \item wykresu kołowego, prezentującego wizualne podsumowanie liczby elementów w każdej kategorii statusu decyzji,
+    \item interfejsu umożliwiającego dynamiczne dopasowanie wyników listy w czasie rzeczywistym, na podstawie wprowadzonych kryteriów wyszukiwania,
+    \item nagłówka, który przedstawia kontekst użytkownika, w tym nazwę i dane aktualnie zalogowanego użytkownika. \end{enumerate}
 \end{comment}
 
 \subsubsection*{Lista danych}
@@ -22,10 +22,10 @@ Każdy element na liście posiada dodatkową funkcję interakcji. Po najechaniu 
 \subsubsection*{Pola wyszukiwania i filtry}
 Użytkownik ma możliwość zawężenia widocznych danych poprzez zastosowanie różnych kryteriów wyszukiwania. Pola obejmują:
 \begin{itemize}
-   \item {Wyszukiwanie po nazwie usługi (\textit{Service Name})} -- Obsługuje częściowe dopasowania dzięki wbudowanej funkcji \textit{StartsWith} (sprawdza, czy ciąg tekstowy zaczyna się od określonej frazy).
-   \item {Filtrowanie po identyfikatorze usługi (\textit{Service ID})} -- Umożliwia precyzyjne wyszukiwanie konkretnego elementu.
-   \item {Filtrowanie według miejsca powstawania kosztów (\textit{MPK})} -- Pozwala na szybkie odnalezienie danych przypisanych do konkretnego obszaru finansowego.
-   \item {Filtrowanie według statusu decyzji (\textit{Accepted}, \textit{Not Accepted}, \textit{No Status})} -- Dzięki zastosowaniu funkcji \textit{Switch} (zwraca wartość w zależności od spełnionego warunku), wartości statusów są mapowane na odpowiednie kody liczbowe.
+    \item {Wyszukiwanie po nazwie usługi (\textit{Service Name})} -- Obsługuje częściowe dopasowania dzięki wbudowanej funkcji \textit{StartsWith} (sprawdza, czy ciąg tekstowy zaczyna się od określonej frazy).
+    \item {Filtrowanie po identyfikatorze usługi (\textit{Service ID})} -- Umożliwia precyzyjne wyszukiwanie konkretnego elementu.
+    \item {Filtrowanie według miejsca powstawania kosztów (\textit{MPK})} -- Pozwala na szybkie odnalezienie danych przypisanych do konkretnego obszaru finansowego.
+    \item {Filtrowanie według statusu decyzji (\textit{Accepted}, \textit{Not Accepted}, \textit{No Status})} -- Dzięki zastosowaniu funkcji \textit{Switch} (zwraca wartość w zależności od spełnionego warunku), wartości statusów są mapowane na odpowiednie kody liczbowe.
 \end{itemize}
 Filtry te mogą być stosowane jednocześnie, co umożliwia precyzyjne dopasowanie wyświetlanych danych.
 
@@ -40,44 +40,44 @@ Ekran edycji elementu prezentuje szczegółowe informacje dotyczące wybranej us
 \subsubsection{Porównanie finalnych decyzji z poprzednich lat}
 W górnej części ekranu znajduje się tabela przedstawiająca porównanie danych finansowych oraz decyzji z trzech ostatnich lat. Dane te są automatycznie pobierane i zawierają:
 \begin{itemize}
-   \item {Rok (Year)} -- okres, którego dotyczy dana decyzja,
-   \item {Jednostka miary (Unit Of Measurement)} -- np. liczba użytkowników lub inne wskaźniki operacyjne,
-   \item {Planowane i rzeczywiste wartości finansowe} -- np. \textit{Current Year Plan} oraz \textit{Next Year Plan},
-   \item {Różnice w finansach (Difference)} -- różnica między planowanymi i rzeczywistymi kosztami,
-   \item {Status końcowej decyzji (Final Decision)} -- decyzje dotyczące planów z danego roku (\textit{Accepted, Not Accepted, No Status}).
+    \item {Rok (Year)} -- okres, którego dotyczy dana decyzja,
+    \item {Jednostka miary (Unit Of Measurement)} -- zazwyczaj ilość licencji. \customnote{w sumie to czasem było niecałkowite to idk}
+    \item {Zeszłoroczne i planowane na następny rok wartości finansowe} -- np. \textit{Current Year Plan} oraz \textit{Next Year Plan},
+    \item {Różnice w finansach (Difference)} -- różnica między zeszłorocznymi i potencjalnymi przyszłymi kosztami,
+    \item {Status końcowej decyzji (Final Decision)} -- decyzje dotyczące planów z danego roku (\textit{Accepted, Not Accepted, No Status}).
 \end{itemize}
 
 Sekcja ta pozwala użytkownikowi przeanalizować ostatnie decyzje oraz ocenić trendy finansowe dla danej usługi w kolejnych latach.
 
 \subsubsection{Link do instrukcji obsługi}
-Poniżej tabeli z porównaniem decyzji znajduje się link do dedykowanej instrukcji obsługi usługi. Link zapewnia użytkownikowi dostęp do szczegółowych informacji na temat zasad korzystania z danej usługi, co może być przydatne podczas edycji danych lub wprowadzania nowych decyzji.
+Poniżej tabeli z porównaniem decyzji znajduje się link do dedykowanej instrukcji obsługi usługi. Za pomocą linku użytkownik posiada dostęp do szczegółowych informacji na temat zasad korzystania z danej usługi, co może być przydatne podczas edycji danych lub wprowadzania nowych decyzji.
 
 \subsubsection{Porównanie tegorocznych indykacji}
 Sekcja ta prezentuje szczegóły kolejnych indykacji w ramach bieżącego roku. Użytkownik może zobaczyć i analizować szczegóły poszczególnych indykacji, takich jak:
 \begin{itemize}
-   \item {Numer indykacji (Indication Number)} -- numer kolejny przypisany do konkretnej decyzji,
-   \item {Komentarze} -- w tym \textit{Internal Comment, Comment PZ to WOB, Comment K-DES}, które umożliwiają przekazanie informacji pomiędzy działami,
-   \item {Data i autor komentarza} -- dane dotyczące daty wprowadzenia decyzji oraz osoby odpowiedzialnej,
-   \item {Status decyzji (Decision)} -- użytkownik może zobaczyć, czy decyzja została zaakceptowana (\textit{Accepted}), odrzucona (\textit{Not Accepted}) lub jeszcze nie podjęta (\textit{No Status}).
+    \item {Numer indykacji (Indication Number)} -- numer kolejny przypisany do konkretnej decyzji,
+    \item {Komentarze} -- w tym \textit{Internal Comment, Comment PZ to WOB, Comment K-DES}, które umożliwiają przekazanie informacji pomiędzy działami,
+    \item {Data i autor komentarza} -- dane dotyczące daty wprowadzenia decyzji oraz osoby odpowiedzialnej,
+    \item {Status decyzji (Decision)} -- użytkownik może zobaczyć, czy decyzja została zaakceptowana (\textit{Accepted}), odrzucona (\textit{Not Accepted}) lub jeszcze nie podjęta (\textit{No Status}).
 \end{itemize}
 
 \subsubsection{Formularz do uzupełnienia danych}
 Na samym dole strony znajduje się formularz umożliwiający wprowadzenie nowych danych lub aktualizację istniejących rekordów. Formularz zawiera pola takie jak:
 \begin{itemize}
-   \item {Rok (Year)} -- użytkownik może wybrać rok, którego dotyczy wpis,
-   \item {Numer indykacji (Indication Number)} -- kolejny numer przypisany do decyzji,
-   \item {Komentarze} -- pola do wprowadzenia uwag wewnętrznych, komentarzy między działami oraz końcowych komentarzy,
-   \item {Status decyzji (Decision)} -- lista rozwijana umożliwiająca wybór odpowiedniego statusu (\textit{Accepted, Not Accepted, No Status}),
-   \item {Data i autor} -- data oraz osoba odpowiedzialna za wprowadzenie wpisu.
+    \item {Rok (\textit{Year})} -- użytkownik może wybrać rok, którego dotyczy wpis,
+    \item {Numer indykacji (\textit{Indication Number})} -- kolejny numer przypisany do decyzji,
+    \item {Komentarze} -- pola do wprowadzenia uwag wewnętrznych, komentarzy między działami oraz końcowych komentarzy,
+    \item {Status decyzji (\textit{Decision})} -- lista rozwijana, umożliwiająca wybór odpowiedniego statusu (\textit{Accepted, Not Accepted, No Status}),
+    \item {Data i autor} -- data oraz osoba odpowiedzialna za wprowadzenie wpisu.
 \end{itemize}
 
 Przycisk \textit{Save} umożliwia zapisanie wprowadzonych zmian. Mechanizm ten:
 \begin{itemize}
-   \item Sprawdza istnienie wcześniejszych indykacji, aby upewnić się, że zachowana jest poprawna kolejność numeracji,
-   \item W przypadku istniejącego wpisu -- aktualizuje dane (\textit{Patch}),
-   \item W przypadku nowego wpisu -- tworzy nowy rekord (\textit{Defaults}),
-   \item Resetuje pola formularza oraz odświeża dane na ekranie, aby uwzględnić ostatnie zmiany,
-   \item Informuje użytkownika o powodzeniu lub błędach operacji za pomocą komunikatów (\textit{Notify}).
+    \item Sprawdza istnienie wcześniejszych indykacji, aby upewnić się, że zachowana jest poprawna kolejność numeracji,
+    \item W przypadku istniejącego wpisu -- aktualizuje dane (\textit{Patch}),
+    \item W przypadku nowego wpisu -- tworzy nowy rekord (\textit{Defaults}),
+    \item Resetuje pola formularza oraz odświeża dane na ekranie, aby uwzględnić ostatnie zmiany,
+    \item Informuje użytkownika o powodzeniu lub błędach operacji za pomocą komunikatów (\textit{Notify}).
 \end{itemize}
 
 \subsubsection{Podsumowanie}
