@@ -1,6 +1,12 @@
 \section{Ekran dodawania danych}
 
-Zdecydowano, że pierwszym ekranem aplikacji będzie ekran zapisu danych. Decyzja ta wynika z faktu, że bez przetworzonych danych, utworzenie innych ekranów byłoby zdecydowanie trudniejsze. Ekran ten składa się z elementów, które zostaną omówione poniżej.
+Zdecydowano, że pierwszym ekranem aplikacji będzie ekran zapisu danych. Decyzja ta wynika z faktu, że bez przetworzonych danych, utworzenie innych ekranów byłoby zdecydowanie trudniejsze. Rysunek \ref{fig:managedatascreen} przedstawia finalny wygląd ekranu dodawania danych do systemu. Komponenty znajdujące się na ekranie zostały opisane poniżej.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/ManageDataScreen.png}
+    \caption{Ekran dodawania danych do systemu} 
+    \label{fig:managedatascreen}
+\end{figure}
 
 \subsection{Zapis pliku w chmurze}
 Pierwszym etapem procesu jest zapis pliku w chmurze, co umożliwia jego udostępnienie innym systemom. Do realizacji tego zadania wykorzystano kontrolkę\footnote{Kontrolka -- element służący do nawigacji, wyświetlania danych i obsługi aplikacji.} \emph{Attachment Control}. Pozwala ona na zapisanie pliku w pamięci aplikacji. Odbywa się to przez naciśnięcie przycisku \emph{"Dołącz plik"} lub przy użyciu mechaniki \emph{przeciągnij i upuść} (\english{Drag And Drop}). 
@@ -15,9 +21,10 @@ Rysunek \ref{fig:savefileandrunscript}, przedstawia edytor programu Power Automa
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.9\textwidth]{figures/SaveFileAndRunScript.png}
-    \caption{Widok edytora przepływu SaveFileAndRunScript}
+    \caption{Widok przepływu SaveFileAndRunScript}
     \label{fig:savefileandrunscript}
 \end{figure}
+
 
 \begin{enumerate}
     \item \textbf{Funkcja: Power Apps (V2)} \\
@@ -244,3 +251,12 @@ Poniżej wyjaśniono działanie poszczególnych bloków znajdujących się na sc
     
     \item \textbf{Condition 3} sprawdza czy zmienna \emph{Errors} zawiera jakiekolwiek kody błędów. Jeśli tak to przepływ zostaje przerwany. W przeciwnym wypadku zwracana jest informacja do aplikacji, że zapis danych zakończył się powodzeniem.
 \end{enumerate}
+
+\subsection{Uzupełnianie numerów MPK}
+Ostatnią funkcją tego ekranu jest możliwość uzupełniania lub edycji numerów MPK. W tym celu ponownie wykorzystano galerię, która tym razem składa się z trzech kolumn. Dwie pierwsze kolumny zawierają pola tekstowe (\definicja{Label}), które prezentują nazwę usługi oraz odpowiadający jej identyfikator. Ostatnia kolumna zawiera pole danych wejściowych (\definicja{TextInput}), do którego użytkownik wprowadza odpowiedni numer MPK. Nad galerią znajduje się dodatkowe pole, w którym można wpisać kryteria filtrowania, takie jak nazwa, identyfikator bądź numer MPK. Obok znajduje się przełącznik (\definicja{Toggle}), który umożliwia wyświetlenie usług z przypisanym już numerem MPK. Istniejące numery MPK wyświetlają się jako domyślny tekst kontrolki \emph{TextInput} i mogą być edytowane. Ostatnim elementem ekranu jest pole tekstowe informujące użytkownika o liczbie usług bez przypisanego miejsca powstawania kosztów oraz o tym, że dane są zapisywane automatycznie.
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\textwidth]{figures/FillMPKForm.png}
+    \caption{Formularz wypełniania/edycji numerów MPK}
+    \label{fig:fillmpkform}
+\end{figure}
