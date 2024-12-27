@@ -1,6 +1,6 @@
 \section{Edycja danych}
 
-Po wstępnym podegraniu pliku źródłowego, następnym krokiem jest umożliwienie użytkownikom modyfikacji danych w celu wprowadzenia niezbędnych aktualizacji dotyczących usług. W związku z tym utworzono dwa ekrany -- pierwszy służy do wyboru usługi z listy, a drugi umożliwia jej edycję oraz przedstawia niezbędne szczegóły.
+Po zapisaniu najnowszych danych, następnym krokiem jest wprowadzenie niezbędnych aktualizacji dotyczących usług. W związku z tym utworzono dwa ekrany -- pierwszy służy do wyboru usługi z listy, a drugi przedstawia niezbędne szczegóły oraz umożliwia edycję związanych z nią informacji.
 
 \subsection{Ekran wyboru usługi do edycji}
 
@@ -14,7 +14,7 @@ Ekran wyboru elementu do obróbki składa się z: \begin{enumerate}
     \item nagłówka, który przedstawia kontekst użytkownika, w tym nazwę i dane aktualnie zalogowanego użytkownika. \end{enumerate}
 \end{comment}
 
-\subsubsection*{Lista danych}
+\subsubsection*{Lista wyboru serwisu}
 Lista prezentuje dane pochodzące z dynamicznej kolekcji \textit{MergedData}, która została utworzona w celu zintegrowania informacji z trzech różnych list SharePoint (\textit{Lista\_Uslug}, \textit{Lista\_Kwot}, \textit{Lista\_Indykacji}). Dzięki zastosowaniu wbudowanych funkcji \textit{LookUp} (wyszukiwanie pojedynczego elementu w źródle danych na podstawie warunku) oraz \textit{AddColumns} (dodawanie nowych kolumn do istniejącego źródła danych), dane są filtrowane tak, aby wyświetlać jedynie najnowsze rekordy, np. dla najświeższych decyzji i kwot. Taka struktura zapewnia użytkownikom dostęp do aktualnych informacji bez konieczności ręcznego przeszukiwania źródłowych list. Lista jest dynamiczna, co oznacza, że zmiany w danych źródłowych są automatycznie uwzględniane.
 
 Każdy element na liście posiada dodatkową funkcję interakcji. Po najechaniu kursorem na wybraną usługę (funkcja \textit{hover}), element wizualnie zmienia swój wygląd -- zwęża się, zmienia kolor oraz staje się możliwy do kliknięcia. Kliknięcie przenosi użytkownika do dedykowanego ekranu edycji, który umożliwia szczegółowe zarządzanie wybraną usługą.
@@ -55,9 +55,9 @@ Poniżej tabeli z porównaniem decyzji znajduje się link do dedykowanej instruk
 \subsubsection{Porównanie tegorocznych indykacji}
 Sekcja ta prezentuje szczegóły kolejnych indykacji w ramach bieżącego roku. Użytkownik może zobaczyć i analizować szczegóły poszczególnych indykacji, takich jak:
 \begin{itemize}
-    \item {Numer indykacji (Indication Number)} -- numer kolejny przypisany do konkretnej decyzji,
+    \item {Numer indykacji (Indication Number)} -- \customnote{\textbf{??? wtf ->} numer kolejny przypisany do konkretnej decyzji},
     \item {Komentarze} -- w tym \textit{Internal Comment, Comment PZ to WOB, Comment K-DES}, które umożliwiają przekazanie informacji pomiędzy działami,
-    \item {Data i autor komentarza} -- dane dotyczące daty wprowadzenia decyzji oraz osoby odpowiedzialnej,
+    \item {Data i autor komentarza} -- \customnote{\textbf{tutaj umo też zbędne bo chyba nie trzeba tłumaczyć że autor komentarza to autor komentarza a data komentarza to data komentarza nie?} dane dotyczące daty wprowadzenia decyzji oraz osoby odpowiedzialnej},
     \item {Status decyzji (Decision)} -- użytkownik może zobaczyć, czy decyzja została zaakceptowana (\textit{Accepted}), odrzucona (\textit{Not Accepted}) lub jeszcze nie podjęta (\textit{No Status}).
 \end{itemize}
 
@@ -81,4 +81,5 @@ Przycisk \textit{Save} umożliwia zapisanie wprowadzonych zmian. Mechanizm ten:
 \end{itemize}
 
 \subsubsection{Podsumowanie}
-Ekran edycji elementu został zaprojektowany tak, aby umożliwić użytkownikom zarówno przeglądanie historycznych danych finansowych, jak i łatwe wprowadzanie nowych decyzji lub modyfikację istniejących. Dzięki logicznemu układowi sekcji oraz dynamicznej aktualizacji danych, interfejs wspiera efektywne zarządzanie informacjami dla każdej usługi.
+\customnote{\textbf{To to chyba do rozdziału 'Podsumowanie' bedzie co?}
+    Ekran edycji elementu został zaprojektowany tak, aby umożliwić użytkownikom zarówno przeglądanie historycznych danych finansowych, jak i łatwe wprowadzanie nowych decyzji lub modyfikację istniejących. Dzięki logicznemu układowi sekcji oraz dynamicznej aktualizacji danych, interfejs wspiera efektywne zarządzanie informacjami dla każdej usługi.}

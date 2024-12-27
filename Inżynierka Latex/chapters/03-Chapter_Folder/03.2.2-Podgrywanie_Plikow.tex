@@ -33,9 +33,9 @@ Po ustaleniu struktury danych wykorzystywanych przez system, kolejnym etapem jes
     Rozwiązaniem okazało się zastosowanie skryptu pakietu Office, działającego bezpośrednio w arkuszu. Skrypt ten automatycznie tworzy tabelę o dynamicznym rozmiarze oraz usuwa puste kolumny. Zaimplementowany algorytm skutecznie identyfikuje początek tabeli oraz określa jej wymiary na podstawie liczby wierszy i kolumn, pomijając nieistotne dane.}
 
 
-W celu dostosowania danych do struktury bazy, planowane jest zaimplementowanie formularza walidacyjnego dla nazw kolumn. System będzie pobierał nazwy istniejących kolumn z arkusza i umożliwiał ich mapowanie na predefiniowaną listę nagłówków z list SharePoint.
+W celu dostosowania danych do struktury bazy, planowane jest zaimplementowanie formularza walidacyjnego dla nazw kolumn. System pobiera nazwy istniejących kolumn z arkusza i umożliwia ich mapowanie na predefiniowaną listę nagłówków z list SharePoint.
 
-Po uporządkowaniu struktury, użytkownik będzie określał rok oraz numer indykacji dla importowanego arkusza. Następnie dane będą przekazywane do \emph{flow} w programie \emph{Power Automate}, który przypisze je do odpowiednich list w bazie danych, jednocześnie zapobiegając duplikacji rekordów.
+Po uporządkowaniu struktury, użytkownik określa rok oraz numer indykacji dla importowanego arkusza. Następnie dane przekazywane są do \emph{flow} w programie \emph{Power Automate}, który przypisze je do odpowiednich list w bazie danych, jednocześnie zapobiegając duplikacji rekordów.
 
-Interfejs zostanie dodatkowo wyposażony w formularz służący do przypisywania numerów \emph{MPK} nowym serwisom. Jest to kluczowy element, ponieważ numer \emph{MPK} determinuje obszar odpowiedzialny za obsługę danej usługi. Dla serwisów występujących w poprzednich latach, system automatycznie przepisze istniejące numery \emph{MPK}, redukując ilość danych do wprowadzenia. Jednocześnie zachowana będzie możliwość modyfikacji wcześniej przypisanych numerów.
+Interfejs jest dodatkowo wyposażony w formularz służący do przypisywania numerów \emph{MPK} nowym serwisom. Jest to kluczowy element, ponieważ numer \emph{MPK} determinuje obszar odpowiedzialny za obsługę danej usługi. Dla serwisów występujących w poprzednich latach, system automatycznie przypisuje istniejące numery \emph{MPK}, redukując ilość danych do wprowadzenia. Jednocześnie zachowana będzie możliwość modyfikacji wcześniej przypisanych numerów.
 

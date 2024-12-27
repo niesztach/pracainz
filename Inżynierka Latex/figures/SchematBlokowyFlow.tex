@@ -1,21 +1,4 @@
-% Zmodyfikowane style z dodaną czcionką \large
-\tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm, text centered, line width=2pt, draw={rgb,255:red,116; green,39; blue,116}, fill={rgb,255:red,234; green,223; blue,234}]
 
-\tikzstyle{processExcel} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, line width=2pt, draw={rgb,255:red,16; green,124; blue,65}, fill=ForestGreen!80]
-
-\tikzstyle{Variable} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, line width=2pt, draw={rgb,255:red,119; green,11; blue,214}, fill={rgb,255:red,171; green,104; blue,230}]
-
-\tikzstyle{Data} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, line width=2pt, draw={rgb,255:red,140; green,108; blue,255}, fill={rgb,255:red,166; green,141; blue,255}]
-
-\tikzstyle{SP} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, line width=2pt, draw={rgb,255:red,3 ; green,108; blue,112}, fill={rgb,255:red,39; green,181; blue,194}, align=center]
-
-\tikzstyle{decision} = [diamond, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=green!30]
-
-\tikzstyle{decision} = [diamond, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=green!30]
-\tikzstyle{arrow} = [thick,->,>=stealth]
-\tikzstyle{data} = [parallelogram, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=yellow!30]
-\begin{figure}
-\resizebox{0.95\textwidth}{!}{%
 \begin{tikzpicture}[node distance=3cm]
    
 % Start node
@@ -32,10 +15,10 @@
 \node (initializeVars) [Variable, align=center, text width=12cm, below of=getTables, yshift=-0.5cm] {
 \textbf{Initialize Variables:}\\[4pt]
 \begin{tabular}{@{}ll@{}}
-- Excel Table (string) & - ItemsAddedToListaUslug (string) \\
-- ItemsAddedToListaKwot (string) & - ItemsAddedToListaIndykacji (string) \\
-- BatchRequestHeader (string) & - EndOfBatchRequest (string) \\
-- Errors (string) \\
+- ExcelFile (Array) & - ItemsAddedToListaUslug (String) \\
+- ItemsAddedToListaKwot (String) & - ItemsAddedToListaIndykacji (String) \\
+- BatchRequestHeader (String) & - EndOfBatchRequest (String) \\
+- Errors (String) \\
 \end{tabular}
 };
 
@@ -62,10 +45,10 @@
 
 \node (ComplexNode) [draw=none, inner sep=0pt, anchor=north] at (Condition1.south) {%
     \begin{tikzpicture}[baseline]
-\draw [ color={rgb,255:red,251; green,137; blue,129} , fill={rgb,255:red,254; green,237; blue,236}, line width=1pt , dashed] (2,23.75) rectangle  node {}  (14,-3); %false
-\draw [ color={rgb,255:red,136; green,218; blue,141} , fill={rgb,255:red,237; green,249; blue,238}, line width=1pt , dashed] (-10.25,23.75) rectangle  node {}  (2,5.5); %true
+\draw [ color={rgb,255:red,251; green,137; blue,129} , fill={rgb,255:red,254; green,237; blue,236}, line width=1pt , dashed] (2,23.75) rectangle  node {}  (14,1.425); %false
+\draw [ color={rgb,255:red,136; green,218; blue,141} , fill={rgb,255:red,237; green,249; blue,238}, line width=1pt , dashed] (-10.25,23.75) rectangle  node {}  (2,4.25); %true
 \draw [ color=SkyBlue, line width=3pt] (2.25,21.25) rectangle  node {}  (13.75,1.675); %false
-\draw [ color=SkyBlue, line width=3pt] (-10,22.75) rectangle  node {}  (1.75,5.75); %true
+\draw [ color=SkyBlue, line width=3pt] (-10,22.75) rectangle  node {}  (1.75,4.5); %true
 
 \node (true1) [SP, dashed, minimum width=6cm, text width=5cm, draw=RedOrange] at (-4,22.5) {\normalsize \emph{*Only for "Lista Kwot"*}\\ \textbf{Get Previous Year MPK}};
 \node (true2) [Data, minimum width=6cm, text width=5cm,dashed, draw=RedOrange] at (-4,21) {\normalsize \textbf{Select "MPK" column}};
@@ -74,12 +57,13 @@
 \node (true5) [Data, minimum width=6cm, text width=5cm] at (-4,16.5) {\normalsize \textbf{Create Filter Key}};
 \node (true6) [Data, minimum width=6cm, text width=5cm] at (-4,15) {\normalsize \textbf{Filter array}};
 
-\draw [ color={rgb,255:red,136; green,218; blue,141} , fill={rgb,255:red,237; green,249; blue,238}, line width=1pt , dashed] (-9.75,12.5) rectangle  node {}  (-4.28,6);
+\draw [ color={rgb,255:red,136; green,218; blue,141} , fill={rgb,255:red,237; green,249; blue,238}, line width=1pt , dashed] (-9.75,12.5) rectangle  node {}  (-4.28,4.75);
 \node (true11) [Data, minimum width=4cm, text width=3cm] at (-7,11) {\normalsize \textbf{Select columns to add to list}};
-\node  (true12) [Data, minimum width=4cm] at (-7,9.5) {\normalsize \textbf{Join headers}};
-\node  (true13) [SP, minimum width=4cm, text width=4cm] at (-7,8) {\normalsize \textbf{Send an HTTP request to Sharepoint}};
-\draw [ color={rgb,255:red,251; green,137; blue,129} , fill={rgb,255:red,254; green,237; blue,236}, line width=1pt , dashed] (-4.24,12.5) rectangle  node {}  (1.5,6);
-\node (Condition2) [rectangle, minimum width=3cm, minimum height=1cm, text centered, line width=2pt, draw={rgb,255:red,72; green,79; blue,88}, fill={rgb,255:red,149; green,153; blue,158}, minimum width=6cm, text width=5cm] at (-4,13.5) {\large \textbf{Condition 2}};
+\node (true12) [Data, minimum width=4cm] at (-7,9.5) {\normalsize \textbf{Join headers}};
+\node (true13) [SP, minimum width=4cm, text width=4cm] at (-7,8) {\normalsize \textbf{Send an HTTP request to Sharepoint}};
+\node (true14) [Variable, minimum width=4cm, text width=3.5cm, inner sep=5pt] at (-7,6.5) { \textbf{Assign result of send batch data to Error var}};
+\draw [ color={rgb,255:red,251; green,137; blue,129} , fill={rgb,255:red,254; green,237; blue,236}, line width=1pt , dashed] (-4.24,12.5) rectangle  node {}  (1.5,4.75);
+\node (Condition2) [rectangle, minimum width=3cm, minimum height=1cm, text centered, line width=2pt, draw={rgb,255:red,72; green,79; blue,88}, fill={rgb,255:red,149; green,153; blue,158}, minimum width=6cm, text width=5cm] at (-4,13.5) {\large \textbf{Condition 2}\\ \emph{!empty(Filter array)}};
 \node [font=\large] at (-4.25,23.25) {\textbf{If true}};
 \node [font=\large] at (8,23.25) {\textbf{If false}};
 \node [font=\large] at (-7,12) {\textbf{If true}};
@@ -102,15 +86,15 @@
 \node (false13) [SP, minimum width=6cm, text width=5cm] at (8,4.5) { \textbf{Send Batch Request}\\ Update Items};
 \node (false14) [Variable, minimum width=6cm, text width=5cm] at (8,3) { \textbf{Assign result of send batch data to Error var}};
 
-\draw [ color={rgb,255:red,251; green,137; blue,129} , fill={rgb,255:red,254; green,237; blue,236}, line width=1pt , dashed] (8,0.5) rectangle  node {}  (13.5,-2.5);
-\draw [ color={rgb,255:red,136; green,218; blue,141} , fill={rgb,255:red,237; green,249; blue,238}, line width=1pt , dashed] (2.5,0.5) rectangle  node {}  (8,-2.5);
-\node[Data, minimum width=4cm, draw={rgb,255:red,244; green,23; blue,0} , fill={rgb,255:red,253; green,220; blue,217}] at (5.25,-1) {\normalsize \textbf{Terminate}};
-\node (Condition3) [rectangle, minimum width=3cm, minimum height=1cm, text centered, line width=2pt, draw={rgb,255:red,72; green,79; blue,88}, fill={rgb,255:red,149; green,153; blue,158}, minimum width=6cm, text width=5cm] at (8,1.5) {\large \textbf{Condition 3}};
-    \node [font=\large] at (5.25,0) {\textbf{If true}};
-\node [font=\large, text width=4cm, align=center] at (11.25,0) {\textbf{If false}\\-Do nothing-};
+\draw [ color={rgb,255:red,251; green,137; blue,129} , fill={rgb,255:red,254; green,237; blue,236}, line width=1pt , dashed] (2,-1) rectangle  node {}  (7.5,-4);
+\draw [ color={rgb,255:red,136; green,218; blue,141} , fill={rgb,255:red,237; green,249; blue,238}, line width=1pt , dashed] (-3.5,-1) rectangle  node {}  (2,-4);
+\node[Data, minimum width=4cm, draw={rgb,255:red,244; green,23; blue,0} , fill={rgb,255:red,253; green,220; blue,217}] at (-0.75,-2) {\normalsize \textbf{Terminate}};
+\node (Condition3) [rectangle, minimum width=3cm, minimum height=1cm, text centered, line width=2pt, draw={rgb,255:red,72; green,79; blue,88}, fill={rgb,255:red,149; green,153; blue,158}, minimum width=6cm, text width=5cm] at (2,0) {\large \textbf{Condition 3}};
+    \node [font=\large] at (-0.75,-1.5) {\textbf{If true}};
+\node [font=\large, text width=4cm, align=center] at (5.25,-1.5) {\textbf{If false}\\-Do nothing-};
 
 \node (stop) [startstop, minimum width=6cm, text width=5cm] at (2,-4.5) { \textbf{Send Batch Request}\\ Update Items};
-\node (annotation) [rectangle,text width=6.5cm, draw=SkyBlue,line width=0.75mm, inner sep=5pt] at (-8,1.25) {\textbf{For each list, a separate branch should be presented. However, due to the similarity between them, only one branch has been depicted to enhance clarity and readability.
+\node (annotation) [rectangle,text width=6.5cm, draw=SkyBlue,line width=0.75mm, inner sep=5pt] at (-8,3) {\textbf{For each list, a separate branch should be presented. However, due to the similarity between them, only one branch has been depicted to enhance clarity and readability.
 }};
 %Arrows
 \draw [arrow] (true1) -- (true2);
@@ -136,12 +120,13 @@
 \draw [arrow] (false11) -- (false12);
 \draw [arrow] (false12) -- (false13);
 \draw [arrow] (false13) -- (false14);
-\draw [arrow] (false14) -- (Condition3);
+\draw [arrow] (Condition3) -- (stop);
 
 
-\draw [arrow] (-4.125,5.5) -- +(0,-9) -- +(6.125,-9) --(stop);
-\draw [arrow] (8,-3) -- +(0,-0.5) -- +(-6,-0.5) --(stop);
-\draw [arrow, line width=0.75mm, SkyBlue] (annotation) -- (-10,5.75);
+
+\draw [arrow] (-4.125,4.25) -- +(0,-3.325) -- +(6.125,-3.325) --(Condition3);
+\draw [arrow] (8,1.425) -- +(0,-0.5) -- +(-6,-0.5) --(Condition3);
+\draw [arrow, line width=0.75mm, SkyBlue] (annotation) -- (-10,4.5);
 \draw [arrow, line width=0.75mm, SkyBlue] (annotation) -- (2.25,1.675);
 \end{tikzpicture}
 
@@ -151,12 +136,8 @@
 \draw [arrow] (initializeVars) -- (applyToEach);
 \draw [arrow] (applyToEach) -- (selectCols);
 \draw [arrow] (selectCols) -- (Condition1);
-\draw [arrow] (Condition1) -- (ComplexNode);
+
 
 
 
 \end{tikzpicture}
-}
-\caption{Schemat blokowy procesu importu danych z arkusza kalkulacyjnego do bazy danych}
-\label{fig:flowchart}
-\end{figure}

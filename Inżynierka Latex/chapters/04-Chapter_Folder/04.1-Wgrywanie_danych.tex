@@ -5,7 +5,7 @@ Zdecydowano, że pierwszym ekranem aplikacji będzie ekran zapisu danych. Decyzj
 \subsection{Zapis pliku w chmurze}
 Pierwszym etapem procesu jest zapis pliku w chmurze, co umożliwia jego udostępnienie innym systemom. Do realizacji tego zadania wykorzystano kontrolkę\footnote{Kontrolka -- element służący do nawigacji, wyświetlania danych i obsługi aplikacji.} \emph{Attachment Control}. Pozwala ona na zapisanie pliku w pamięci aplikacji. Odbywa się to przez naciśnięcie przycisku \emph{"Dołącz plik"} lub przy użyciu mechaniki \emph{przeciągnij i upuść} (\english{Drag And Drop}). 
 
-Aby przekazać plik oraz jego zawartość należy nacisnąć przycisk opisany jako \emph{Save attachments} znajdujący się pod wcześniej omawianym elementem. Naciśnięcie go skutkuje wywołaniem szeregu funkcji opisanych we właściwości \emph{OnSelect}. W pierwszej kolejności sprawdzane jest, czy plik został załadowany. Jeśli tak, to wywoływany jest przepływ \emph{SaveFileAndRunScript}. Wynik przepływu jest zapisywany w zmiennej tablicowej, która w Power Apps określana jest jako \definicja{kolekcja}, o nazwie \emph{FlowOutput}. Po wykonaniu się przepływu, pliki zapisane w pamięci aplikacji zostają usunięte.
+Aby dalej przekazać plik oraz jego zawartość należy nacisnąć przycisk opisany jako \emph{Save attachments} znajdujący się pod wcześniej omawianym elementem. Naciśnięcie go skutkuje wywołaniem szeregu funkcji opisanych we właściwości \emph{OnSelect}. W pierwszej kolejności sprawdzane jest, czy plik został załadowany. Jeśli tak, to wywoływany jest przepływ \emph{SaveFileAndRunScript}. Wynik przepływu jest zapisywany w zmiennej tablicowej, która w Power Apps określana jest jako \definicja{kolekcja}, o nazwie \emph{FlowOutput}. Po wykonaniu się przepływu, pliki zapisane w folderze SharePoint, zostają usunięte z pamięci aplikacji.
 
 
 
@@ -15,7 +15,7 @@ Rysunek \ref{fig:savefileandrunscript}, przedstawia edytor programu Power Automa
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.9\textwidth]{figures/SaveFileAndRunScript.png}
-    \caption{Widok przepływu SaveFileAndRunScript}
+    \caption{Widok edytora przepływu SaveFileAndRunScript}
     \label{fig:savefileandrunscript}
 \end{figure}
 
@@ -107,11 +107,15 @@ Rysunek \ref{fig:saveattachmentsform} ilustruje opisane wcześniej elementy ekra
 
 \subsection{Walidacja nazw kolumn} Kolejnym etapem przed zapisaniem danych do bazy jest walidacja nazw kolumn. W tym celu zaimplementowano formularz, którego układ przedstawiono na rysunku \ref{fig:columnmappingform}. Formularz zawiera \emph{galerię} – element umożliwiający wyświetlanie wielu rekordów danych o różnych typach. Pola wyświetlające dane w galerii mogą być dostosowywane w dowolny sposób w zależności od potrzeb użytkownika.
 
-\noindent Galeria składa się z dwóch kolumn: \begin{itemize} \item Lewa kolumna prezentuje obecne nazwy kolumn, które są wyświetlane za pomocą kontrolki \emph{Label}\footnote{\emph{Label} -- kontrolka tekstowa umożliwiająca wyświetlanie statycznych wartości.}. \item Prawa kolumna zawiera kontrolkę \emph{ComboBox}\footnote{\emph{ComboBox} -- rozwijana lista z możliwością wprowadzania tekstu.}, umożliwiającą wybór nazwy z listy standardowych nagłówków. Lista wartości w kontrolce \emph{ComboBox} jest generowana przez skrypt opisany w poprzednich sekcjach. \end{itemize}
+\noindent Galeria składa się z dwóch kolumn: 
+\begin{itemize} 
+    \item Lewa kolumna prezentuje obecne nazwy kolumn, które są wyświetlane za pomocą kontrolki \emph{Label}\footnote{\emph{Label} -- kontrolka tekstowa umożliwiająca wyświetlanie statycznych wartości.}. 
+    \item Prawa kolumna zawiera kontrolkę \emph{ComboBox}\footnote{\emph{ComboBox} -- rozwijana lista z możliwością wprowadzania tekstu}, która umożliwia wybór nazwy ze standardowej listy nagłówków. Wartości domyślne widoczne w kontrolkach \emph{ComboBox} są generowane przez wcześniej opisany skrypt w taki sposób, aby do oryginalnej nazwy kolumny dopasowana została najbardziej podobna nazwa z predefiniowanej listy nagłówków. Ma to na celu minimalizację danych wprowadzonych przez użytkownika.
+\end{itemize}
 
 Po prawej stronie formularza znajduje się instrukcja użytkownika, zawierająca wskazówki dotyczące prawidłowego uzupełniania nazw kolumn. Poniżej instrukcji umieszczono przycisk \emph{Update column names}, który umożliwia wprowadzenie zmian w strukturze danych.
 
-\noindent Działanie tego mechanizmu opiera się na zastosowaniu skryptu pakietu Office. Skrypt jako parametr wejściowy przyjmuje zmienną tablicową w formacie JSON, zawierającą mapowanie oryginalnych nazw kolumn z poprawionymi wartościami wybranymi przez użytkownika. Następnie skrypt iteruje po wierszu zawierającym nagłówki kolumn i dokonuje ich zamiany zgodnie z mapowaniem. Po zakończeniu działania skrypt zwraca nową strukturę nazw kolumn.
+\noindent Działanie tego mechanizmu opiera się na zastosowaniu skryptu pakietu Office, wywoływanego przy użyciu kolejnego przepływu. Skrypt jako parametr wejściowy przyjmuje zmienną tablicową w formacie JSON, zawierającą mapowanie oryginalnych nazw kolumn z poprawionymi wartościami wybranymi przez użytkownika. Następnie skrypt iteruje po wierszu zawierającym nagłówki kolumn i dokonuje ich zamiany zgodnie z mapowaniem. Po zakończeniu działania skrypt zwraca nową strukturę nazw kolumn.
 
 Rysunek \ref{fig:columnmappingform} prezentuje wszystkie elementy formularza, w tym kontrolki umożliwiające wybór roku i numeru indykacji, które zostały umieszczone pod przyciskiem \emph{Update column names}. Kontrolki te, wraz z przyciskiem \emph{Upload data}, są kluczowe dla kolejnego etapu przetwarzania danych, obejmującego ich integrację z listami SharePoint. 
 
@@ -123,9 +127,9 @@ Rysunek \ref{fig:columnmappingform} prezentuje wszystkie elementy formularza, w 
     \label{fig:columnmappingform}
 \end{figure}
 
-\subsection{Integracja z listami SharePoint} Po zakończeniu walidacji nazw kolumn, kolejnym etapem jest integracja przetworzonych danych z listami SharePoint. Proces ten rozpoczyna się od wyboru roku i numeru indykacji przy użyciu dedykowanych kontrolek \emph{Dropdown}\footnote{\emph{Dropdown} -- kontrolka umożliwiająca wybór jednej z dostępnych wartości z rozwijanej listy, bez możliwości edycji.}. Wybrane wartości są następnie wykorzystywane podczas importu danych do odpowiednich list, co odbywa się za pomocą przycisku \emph{Upload data}. 
+\subsection{Integracja z listami SharePoint} Po zakończeniu walidacji nazw kolumn, kolejnym etapem jest zapisanie przetworzonych danych w utworzonej strukturze SharePoint. Proces ten rozpoczyna się od wyboru roku i numeru indykacji przy użyciu dedykowanych kontrolek \emph{Dropdown}\footnote{\emph{Dropdown} -- kontrolka umożliwiająca wybór jednej z dostępnych wartości z rozwijanej listy, bez możliwości edycji.}. Wybrane wartości są następnie wykorzystywane podczas importu danych do odpowiednich list, co odbywa się za pomocą przycisku \emph{Upload data}. 
 
-Skutki kliknięcia przycisku mogą się różnić w zależności od wybranych wartości i tego czy nazwy kolumny zostały zmienione. Rysunki \ref{fig:CorrectHeadersPopup} oraz \ref{fig:DoYouWantToOverwrite} przedstawiają dwa możliwe scenariusze, które mogą wystąpić po naciśnięciu przycisku. Pierwszy z nich występuje kiedy uprzednio nie został wciśnięty przycisk \emph{Update column names}. System upewnia się że użytkownik nie wgra przypadkowo danych z niepoprawnymi nagłówkami. Drugi natomiast pojawia sięw przypadku, gdy wybrane przez użytkownika rok oraz numer indykacji, istnieją w bazie danych. System pyta czy użytkownik chce nadpisać dane, które już tam się znajdują czy anulować operacje. W momencie kiedy nazwy kolumn nie zostaną zmienione oraz dane z wybranym rokiem i numerem indykacji istnieją w bazie danych, pojawiają się oba okna z informacjami.
+Skutki kliknięcia przycisku mogą się różnić w zależności od wybranych wartości i tego czy nazwy kolumny zostały zmienione. Rysunki \ref{fig:CorrectHeadersPopup} oraz \ref{fig:DoYouWantToOverwrite} przedstawiają dwa możliwe scenariusze, które mogą wystąpić po naciśnięciu przycisku. Pierwszy z nich występuje kiedy uprzednio nie został wciśnięty przycisk \emph{Update column names}. System upewnia się że użytkownik nie wgra przypadkowo danych z niepoprawnymi nagłówkami. Drugi natomiast pojawia się w przypadku, gdy wybrane przez użytkownika rok oraz numer indykacji, istnieją w bazie danych. System pyta czy użytkownik chce nadpisać dane, które już tam się znajdują czy anulować operacje. W momencie kiedy nazwy kolumn nie zostaną zmienione oraz dane z wybranym rokiem i numerem indykacji istnieją w bazie danych, pojawiają się oba okna z informacjami.
 
 \begin{figure}[htbp]
     \centering
@@ -148,7 +152,77 @@ Skutki kliknięcia przycisku mogą się różnić w zależności od wybranych wa
 
 Kiedy użytkownik upewni się, że wszystkie dane są poprawne i zatwierdzi operację, system przystępuje do importu danych. W tym celu wywołuje kolejny przepływ w programie Power Automate, który przypisuje informacji do odpowiednich list w bazie danych upewniając się jednocześnie, że nie zostaną dodane duplikaty rekordów. 
 
-\noindent Przepływ ten jest bardzo rozbudowany, dlatego zamiast widoku edytora Power Automate, pokazany zostanie jego schemat blokowy na rysunku
+\noindent Przepływ ten jest bardzo rozbudowany, dlatego zamiast widoku edytora Power Automate,na rysunku \ref{fig:flowchart} pokazany został schemat blokowy, który reprezentuje kolejność wykonywania poszczególnych kroków. Został on uproszczony, ponieważ bloku umieszczone w błękitnych ramkach, powinny być powielone do trzech równoległych gałęzi. Wynika to z faktu, że dla wszystkich list procedura jest identyczna, a różnicą są m.in. nazwy list użyte w nagłówkach, ciałach o raz stopkach rządań HTTP. Ponadto elementy, które mają przerywaną, pomarańczową ramkę to elementy, które znajdują się w głęzi dotyczącej listy kwot. Odpowiadają one za pobieranie i przepisywanie numeru MPK z roku wcześniej.
 
 
+% Zmodyfikowane style z dodaną czcionką \large
+\tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm, text centered, line width=2pt, draw={rgb,255:red,116; green,39; blue,116}, fill={rgb,255:red,234; green,223; blue,234}]
+
+\tikzstyle{processExcel} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, line width=2pt, draw={rgb,255:red,16; green,124; blue,65}, fill=ForestGreen!80]
+
+\tikzstyle{Variable} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, line width=2pt, draw={rgb,255:red,119; green,11; blue,214}, fill={rgb,255:red,171; green,104; blue,230}]
+
+\tikzstyle{Data} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, line width=2pt, draw={rgb,255:red,140; green,108; blue,255}, fill={rgb,255:red,166; green,141; blue,255}]
+
+\tikzstyle{SP} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, line width=2pt, draw={rgb,255:red,3 ; green,108; blue,112}, fill={rgb,255:red,39; green,181; blue,194}, align=center]
+
+\tikzstyle{decision} = [diamond, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=green!30]
+
+\tikzstyle{decision} = [diamond, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=green!30]
+\tikzstyle{arrow} = [thick,->,>=stealth]
+\tikzstyle{data} = [parallelogram, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=yellow!30]
+\begin{figure}
+\resizebox{0.95\textwidth}{!}{%
 \input{figures/SchematBlokowyFlow}
+}
+\caption{Schemat blokowy procesu importu danych z arkusza kalkulacyjnego do bazy danych}
+\label{fig:flowchart}
+\end{figure}
+
+Poniżej wyjaśniono działanie poszczególnych bloków znajdujących się na schemacie. Elementy oznaczone symbolem (\textasteriskcentered) odnoszą się do bloków znajdujących się w pomarańczowej, przerywanej ramce.
+\begin{enumerate}
+    \item Blok \textbf{Trigger: Power Apps} jesy wyzwalaczem działania przepływu. Uruchamia się kiedy użytkownik wciśnie przycisk w aplikacji. Jako parametry wejściowe przyjmuje nazwę pliku, rok i numer indykacji jakie mają być przypsiane do danych oraz informacje czy nadpisać istniejące rekordy czy też nie.
+    
+    \item \textbf{Get Tables} pobiera nazwy wszystkich tabel z pliku o nazwie przekazanej do wyzwalacza (każdy plik powinien zawierać jedną tabelę, ale w Power Automate trzeba pobrać wszystkie możliwe).
+    \item Funkcja \textbf{Initialize variable} tworzy następujące zmienne:
+    \begin{itemize}
+    \item \emph{ExcelFile} -- zmienna tablicowa, przechowująca dane z arkusza,
+    \item \emph{ItemsAddedToListaUsług/Kwot/Indykacji} -- te zmienne przechowują \emph{ciało rządania HTTP}, które jest konstruowane w trakcie działania przepływu.
+    \item \emph{BatchRequestHeader} oraz \emph{EndOfBatchRequest} -- przechowują one stałe nagłówki i stopkę rządania HTTP, które są wspólne dla wszystkich zapytań.
+    \end{itemize}
+    \item Pętla \textbf{Apply to each}, dodana automatycznie przez Power Automate, iteruje po nazwach tabel pobranych z pliku a następnie dla każdej z nich przepisuje dane do zmiennej \emph{ExcelFile}. 
+    \item Funkcja \textbf{Select Columns from Excel}, pozwala na kształtowanie danych. Jako wejście przyjmuje ona \emph{ExcelFile} a następnie mapuje wartości tej zmiennej do wybranych kluczy. Dzięki temu można odwołać się do dowolnej kolumny danych.
+    \item Blok \textbf{Condition 1} sprawdza czy wartość \emph{Overwrite} jest równa \emph{false}. \\
+    Jeśli tak to wykonywane są instrukcje wewnątrz bloku \emph{If true}. Gałąź ta odpowiada za dopisanie nowych danych do bazy. W tym celu wykonane są następujące instrukcje:
+    \begin{itemize}[label=\textasteriskcentered]
+        \item \textbf{Get Previous Year MPK} -- Pobranie elementów z listy kwot dla roku niżej niż przekazany w parametrze wejściowym,
+        \item \textbf{Select "MPK" column} jako wejście przyjmuje odpowiedź z bloku wyżej, ale tutaj zamiast przypisywania wartości do klucza, zawiera następujące wyrażenie:
+        
+        \begin{center}
+        \texttt{concat("",item()?['Service\_ID'],'":',item())}
+        \end{center}
+        
+        \emph{item()} odwołuje się do pojedynczego elementu danych wejściowych. Zatem to wyrażenie tworzy strukturę obiektów, gdzie nazwą obiektu jest \emph{Service\_ID}, natomiast jako właściwości obiektu przypisane są dane z arkusza odpowiadające tej usłudze.
+        \item \textbf{MPK Object} przekształca strukturę utworzoną w poprzednim kroku na listę obiektów JSON.
+    \end{itemize}
+
+    \begin{itemize}
+    \item\textbf{Get "Lista Usług/Kwot/Indykacji"} -- pobiera pełną listę rekordów z odpowiedniej listy w bazie danych.
+    \item \textbf{Create Filter Key} tworzy klucz filtrujący. Dla listy usług nie jest on wymagany. Dla listy kwot kluczem jest rok przekazany w parametrze wejściowym. Natomiast dla listy indykacji jest to rok oraz numer indykacji połączone w jeden ciąg znaków.
+    \item \textbf{Filter array} blok ten wykorzystany jest do porównania elementów dla danego roku i indykacji na liście SharePoint z elementami w arkuszu. Ma on za zadanie zwrócić tablicę z elementami unikalnymi dla arkusza.
+    \item \textbf{Condition 2} sprawdza czy tablica zwrócona przez \emph{Filter array} nie jest pusta. Jeśli nie zawiera ona unikatowych elementów to przepływ kończy działanie.
+    Jeśli natomiast tablica zawiera unikatowe elementy to przepływ przechodzi do kolejnego kroku w gałęzi \emph{If true}.
+    \item \textbf{Select columns to add to list} -- mapuje informacje z arkusza do kluczy odpowiadających strukturze każdej z list w bazie danych.
+    \item \textbf{Join headers} -- konwertuje tablicę powstałą w poprzednim kroku na ciąg znaków, będący ciałem rządania HTTP. Instrukcja ta zmienia separator między wierszami tabeli ze średnika na nagłówek, który musi znajdować się między każdym wysłanym zestawem danych. Dla każdej z list jest on inny.
+    \item \textbf{Send an HTTP request to SharePoint} -- wysyła kompletne rządanie HTTP do odpowiedniej listy w bazie danych. Wysyłane rządanie zawiera:
+    \begin{itemize}
+        \item Nagłówek otwierający rządanie -- \emph{BatchRequestHeader},
+        \item Ciało rządania powstałe w kroku wcześniej -- wynik \emph{Join headers},
+        \item Stopkę rządania -- \emph{EndOfBatchRequest}.
+    \end{itemize}
+    \item \textbf{Assign result of send batch data to Error var} -- jak nazwa bloku wskazuje, przypisuje odpowiedź serwera na wysłane rządanie w celu późniejszej analizy.
+    \end{itemize}
+
+    
+    \item \textbf{Condition 3} sprawdza czy zmienna \emph{Errors} zawiera jakiekolwiek kody błędów. Jeśli tak to przepływ zostaje przerwany. W przeciwnym wypadku zwracana jest informacja do aplikacji, że zapis danych zakończył się powodzeniem.
+\end{enumerate}
