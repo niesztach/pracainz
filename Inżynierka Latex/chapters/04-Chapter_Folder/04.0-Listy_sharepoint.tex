@@ -1,3 +1,62 @@
 \section{Utworzenie bazy danych na platformie Sharepoint}
 
-Zgodnie z koncepcją, zostały utworzone 3 listy na platformie SharePoint, które...
+Zgodnie z koncepcją, baza danych utworzona została w środowisku SharePoint.
+Pierwszym krokiem było stworzenie strony dedykowanej temu procesowi. Jest to niezwykle proste. W ekranie startowym programu należy wybrać opcję \emph{Utwórz witrynę}. Następnie należy wybrać typ witryny \emph{Witryna zespołu} oraz szablon określający jej wygląd. Na koniec należy określić nazwę tworzonej strony.
+
+Kolejnym krokiem jest utworzenie struktury list oraz plików. Na potrzeby procesu utworzono dwa foldery -- \emph{TempFiles} przechowujący arkusze przed zapisaniem ich danych na listach oraz \emph{ArchivedFiles} przechowujący pliki po zakończeniu procesu.
+Ponadto utworzono trzy listy:
+\begin{itemize}
+    \item \emph{Lista\_Uslug},
+    \item \emph{Lista\_Kwot},
+    \item \emph{Lista\_Indykacji}.
+\end{itemize}
+Ich struktura jest taka sama jak opisana w podsekcji \ref{Subsec: StrukturaBazyDanych}. 
+W celu dodania tych elementów należy wejść w utworzoną witrynę, następnie wybrać \emph{Zawartość witryny} z bocznego paska nawigacji. Dalej, należy wcisnąć przycisk \emph{Nowy} i wybrać typ elementu -- \emph{Lista} oraz \emph{Biblioteka dokumentów}. Na końcu trzbea podać nazwę oraz opcjonalnie opis elementu.
+Po wykonaniu tych kroków, folder jest gotowy do użycia. Jednakże w przypadku list należy jeszcze zdefiniować kolumny. W tym celu należy wejść w utworzoną listę i wybrać przycisk \emph{Dodaje kolumnę} znajdujący się po prawej stronie domyślnie utworzonych kolumn. Dalej pojawi się okno z możliwością wyboru typu kolumny oraz jej nazwy. Po zatwierdzeniu, kolumna zostanie dodana do listy.
+Na koniec należy skonfigurować niektóre kolumny. Aby to zrobić należy wybrać ustawienia strony i nacisnąć pozycję \emph{Ustawienia listy}. Tam wybieramy nazwę kolumny, którą chcemy skofigurować.\\
+Tabela \ref{tab:SharepointList} przedstawia konfigurację listy:
+\begin{table}[t]
+    \centering
+    \caption{Konfiguracja listy na platformie Sharepoint}
+    \label{tab:SharepointList}
+\begin{tabular}{|l|l|}
+    \hline
+    \textbf{Nazwa kolumny} & \textbf{Typ} \\ \hline
+    Service\_ID & Liczba \\ \hline
+    Service\_Name & Pojedynczy wiersz tekstu \\ \hline
+    Service\_Group & Pojedynczy wiersz tekstu \\ \hline
+    Service\_Sub\_Group & Pojedynczy wiersz tekstu \\ \hline
+    Service\_Main\_Group & Pojedynczy wiersz tekstu \\ \hline
+    Instruction\_Link & Pojedynczy wiersz tekstu \\ \hline
+    Unit\_Of\_Measurement & Pojedynczy wiersz tekstu \\ \hline
+    Settlement\_Type & Pojedynczy wiersz tekstu \\ \hline
+    Business\_Service\_Manager & Pojedynczy wiersz tekstu \\ \hline
+    Current\_Year\_Plan\_EUR & Liczba \\ \hline
+    QTY\_Current\_Year & Liczba \\ \hline
+    Next\_Year\_Plan\_EUR & Liczba \\ \hline
+    QTY\_Next\_Year & Liczba \\ \hline
+    Difference & Obliczeniowa \\ \hline
+    MPK & Pojedynczy wiersz tekstu \\ \hline
+    Year & Liczba \\ \hline
+    IndicationNo & Liczba \\ \hline
+    Comment\_Date & Pojedynczy wiersz tekstu \\ \hline
+    Comment\_Author & Wiele wierszy tekstu \\ \hline
+    Comment\_PZ\_to\_WOB & Wiele wierszy tekstu \\ \hline
+    Comment\_BSM & Wiele wierszy tekstu \\ \hline
+    Comment\_K-DES & Wiele wierszy tekstu \\ \hline
+    Comment\_Intern & Wiele wierszy tekstu \\ \hline
+    Decision & Liczba \\ \hline
+    Final\_comment & Wiele wierszy tekstu \\ \hline
+    \end{tabular}
+\end{table}
+
+    \noindent Kolumna \emph{Difference} jest kolumną obliczeniową co oznacza, że jej wartość jest obliczana względem podanej formuły. W tym przypadku oblicza ona różnicę cen między rokiem następnym a bieżącym. \\
+    Kolumna \emph{MPK} pomimo wartości liczbowych, jest typu tekstowego gdyż znacznie upraszcza to filtrowanie oraz przepisywanie istniejących numerów do nowych danych. \\
+    Kolumna \emph{Decision} jest kolumną liczbową ponieważ status decyzji konwertowany jest na kod liczbowy aby przyspieszyć proces filtrowania:
+    \begin{itemize}
+        \item \emph{Accepted} $\rightarrow$ 1,
+        \item \emph{Not Accepted} $\rightarrow$ -1,
+        \item \emph{No Status} $\rightarrow$ 0.
+    \end{itemize}
+    
+

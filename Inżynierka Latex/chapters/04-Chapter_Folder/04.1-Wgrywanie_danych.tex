@@ -223,6 +223,24 @@ Poniżej wyjaśniono działanie poszczególnych bloków znajdujących się na sc
     \item \textbf{Assign result of send batch data to Error var} -- jak nazwa bloku wskazuje, przypisuje odpowiedź serwera na wysłane rządanie w celu późniejszej analizy.
     \end{itemize}
 
+    Kiedy jednak wartość zmiennej \emph{Overwrite} wynosi \emph{true}, oznacza to, że istniejące rekordy mają zostać zaaktualizowane. Przeplyw przechodzi do gałęzi \emph{If false} i wykonuje następujące kroki:
+    \begin{itemize}
+        \item \textbf{batchTemplate} -- tworzy wspólny szablon rządania HTTP.
+        \item \textbf{Get backend list name} pobiera ona wewnętrzną nazwę listy SharePoint. Jest to konieczne, ponieważ w rządaniu HTTP należy ostrożnie używać znaków specjalnych.
+        \item \textbf{Get list} odczytuje dane z każdej z list.
+    \end{itemize}
+    \begin{itemize}[label=\textasteriskcentered]
+\item Funkcje \textbf{Get Previous Year MPK}, \textbf{Select "MPK" column} oraz \textbf{MPK Object} wykonują te same zadania co w wcześniej omawianym scenariuszu. 
+    \end{itemize}
+    \begin{itemize}
+    \item Kroki \textbf{Select SP ID} i \textbf{SP List create object} działają podobnie jak mechanizm pobierania numerów MPK z roku poprzedniego z tym, że mapują one identyfikatory wewnętrzne elementów listy SharePoint. Jest to konieczne ponieważ aby zaktualizować rekord, należy odwołać się do niego względem tego właśnie identyfikatora a nie np. nazwy lub \emph{Service\_ID}.
+    \item \textbf{Select columns to update} -- przydziela informacje z odpowiednich kolumn do odpowiednich list.
+    \item \textbf{Filter out null IDs} -- odfiltrowuje elementy, które nie mają przypisanego identyfikatora SharePoint. Gdyby nie ten krok, próba aktualizacji rekordu bez identyfikatora zakończyłaby się błędem.
+    \item  \textbf{Replace Template Data} -- wstawia wybrane informacje do szablonu rządania HTTP.
+    \item \textbf{batchData} -- w kroku tym, znaki specjalne są zakodowane procentowo\footnote{\emph{Kodowanie procentowe} -- metoda reprezentowania znaków specjalnych w adresach URL w formie zgodnej z protokołem HTTP. Polega na zastępowaniu niebezpiecznych lub niedozwolonych znaków ich odpowiednikami w postaci procentowego kodu, który składa się z symbolu "\%" i dwóch cyfr szesnastkowych reprezentujących kod ASCII danego znaku.} (znane również jako \emph{kodowanie URL}). Jest to wymagane aby uniknąć błędów. 
+    \item \textbf{Send Batch Request} -- wysyła rządanie aktualizacji danych do SharePoint.
+    \item \textbf{Assign result of send batch data to Error var} -- przypisuje odpowiedź serwera na wysłane rządanie w celu późniejszej analizy.
+    \end{itemize}
     
     \item \textbf{Condition 3} sprawdza czy zmienna \emph{Errors} zawiera jakiekolwiek kody błędów. Jeśli tak to przepływ zostaje przerwany. W przeciwnym wypadku zwracana jest informacja do aplikacji, że zapis danych zakończył się powodzeniem.
 \end{enumerate}
