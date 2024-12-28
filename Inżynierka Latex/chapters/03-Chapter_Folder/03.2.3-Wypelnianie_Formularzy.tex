@@ -1,50 +1,33 @@
 \subsection{Interfejs procesu decyzyjnego}
+Interfejs obsługi procesu decyzyjnego został podzielony na dwa współpracujące ze sobą ekrany. Takie rozwiązanie pozwala na zachowanie przejrzystości prezentowanych informacji przy jednoczesnym zapewnieniu dostępu do wszystkich niezbędnych funkcjonalności.
 
-\customnote{ta cała sekcja wygląda jakby powinna być w implementacji, ale przydałoby się zostawić coś krótkiego o wypłenianiu
-
-    Interfejs obsługi procesu decyzyjnego został podzielony na dwa współpracujące ze sobą ekrany. Takie rozwiązanie pozwala na zachowanie przejrzystości prezentowanych informacji przy jednoczesnym zapewnieniu dostępu do wszystkich niezbędnych funkcjonalności.}
-
-\subsubsection{Ekran listy serwisów}
-\customnote{Pierwszy ekran pełni funkcję panelu nawigacyjnego, prezentując podstawowe informacje o serwisach:}
+\subsubsection{Ekran nawigacyjny}
+Pierwszy ekran pełni rolę panelu nawigacyjnego, prezentującym kluczowe informacje dotyczące usługi:
 \begin{itemize}
     \item Service Name -- nazwa serwisu,
-    \item Service ID -- unikalny identyfikator,
-    \item MPK -- numer księgowy obszaru odpowiedzialnego,
+    \item Service ID -- unikalny identyfikator usługi,
+    \item MPK -- numer określający miejsce powstawania kosztów,
     \item Decision -- aktualny status decyzji.
 \end{itemize}
-
-Zaimplementowany system filtrowania umożliwia:
+Ponadto użytkownicy będą mieli możliwość filtrowania i wyszukiwania serwisów według następujących kryteriów:
 \begin{itemize}
-    \item wyszukiwanie serwisów po ID lub nazwie,
+    \item wyszukiwanie serwisów względem ID,
+    \item \item wyszukiwanie serwisów względem nazwy,
     \item filtrowanie według przypisanych numerów MPK,
-    \item segregację według statusu decyzji (\emph{Accepted}, \emph{Not Accepted}, \emph{No Status}).
+    \item filtrowanie według statusu decyzji (\emph{Accepted}, \emph{Not Accepted}, \emph{No Status}).
 \end{itemize}
 
-\subsubsection{Ekran szczegółowy serwisu}
-\customnote{Po wybraniu serwisu z listy, użytkownik zostaje przekierowany do ekranu szczegółowego, który składa się z trzech głównych sekcji:}
-
-\paragraph{Sekcja historyczna}
-Zawiera dwie uzupełniające się tabele:
+\subsubsection{Ekran szczegółowy}
+Po wybraniu serwisu z listy, użytkownik zostaje przekierowany do ekranu szczegółowego, który składa się z trzech głównych sekcji:
 \begin{itemize}
-    \item tabela przeglądowa -- prezentująca historię decyzji z poprzednich lat,
-    \item tabela szczegółowa -- wyświetlająca pełne informacje dla wybranego roku (domyślnie rok poprzedni).
+    \item \textbf{Podgląd danych historycznych} -- prezentuje on zarówno ogólne informacje o serwisie zbierane na przestrzeni lat, jak i szczegóły dotyczące poszczególnych indykacji.
+    \item \textbf{Formularz decyzyjny} -- zestaw pól do wprowadzenia informacji o bieżącej indykacji. Składają się na niego:
+    \begin{itemize}
+        \item rok (wartość domyślna: bieżący),
+        \item numer indykacji (wartość domyślna: kolejny wolny numer),
+        \item autor (wartość domyślna: zalogowany użytkownik),
+        \item komentarze (wewnętrzny, BSM, K-DES),
+        \item decyzja (wartość domyślna: poprzednia decyzja).
+    \end{itemize}
+    
 \end{itemize}
-
-\paragraph{Formularz decyzyjny}
-Zestaw pól do wprowadzenia informacji o bieżącej indykacji:
-\begin{itemize}
-    \item rok (wartość domyślna: bieżący),
-    \item numer indykacji (wartość domyślna: kolejny wolny numer),
-    \item autor (wartość domyślna: zalogowany użytkownik),
-    \item komentarze (wewnętrzny, BSM, K-DES),
-    \item decyzja (wartość domyślna: poprzednia decyzja).
-\end{itemize}
-
-\paragraph{Panel podglądu}
-\customnote{W celu zwiększenia czytelności, długie komentarze (powyżej 30 znaków) są początkowo prezentowane w formie skróconej. Pełna treść komentarza jest dostępna po jego wybraniu i wyświetlana w dedykowanym panelu podglądu.
-
-    System automatycznego uzupełniania wartości domyślnych przyspiesza proces decyzyjny, jednocześnie zachowując możliwość modyfikacji każdego z parametrów w razie potrzeby.}
-
-Zaplanowano stworzenie interfejsu obsługi procesu decyzyjnego składającego się z dwóch ekranów, które zapewnią przejrzystość i pełną funkcjonalność podczas pracy z danymi serwisowymi. Pierwszy ekran będzie panelem nawigacyjnym, prezentującym kluczowe informacje o serwisach, takie jak nazwa, identyfikator czy status decyzji. Użytkownicy będą mieli możliwość filtrowania i wyszukiwania serwisów według różnych kryteriów.
-
-Drugi ekran, dostępny po wyborze konkretnego serwisu, zaoferuje szczegółowe informacje, umożliwiając przeglądanie historycznych danych i wprowadzanie nowych decyzji za pomocą formularza.

@@ -1,6 +1,10 @@
 \section{Ekran dodawania danych}
+Głównym wyzwaniem okazał się brak systematycznej organizacji danych w arkuszach programu
+Excel, co skutkowało niekompatybilnością z zaprojektowaną bazą danych. W celu rozwiązania tego
+problemu, opracowano dedykowany interfejs w aplikacji, który wspomaga użytkownika w procesie
+przetwarzania danych, minimalizując ryzyko wystąpienia błędów. 
 
-Zdecydowano, że pierwszym ekranem aplikacji będzie ekran zapisu danych. Decyzja ta wynika z faktu, że bez przetworzonych danych, utworzenie innych ekranów byłoby zdecydowanie trudniejsze. Rysunek \ref{fig:managedatascreen} przedstawia finalny wygląd ekranu dodawania danych do systemu. Komponenty znajdujące się na ekranie zostały opisane poniżej.
+\noindent Rysunek \ref{fig:managedatascreen} przedstawia finalny wygląd ekranu dodawania danych do systemu. Komponenty znajdujące się na ekranie zostały opisane poniżej.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{figures/ManageDataScreen.png}
@@ -9,7 +13,7 @@ Zdecydowano, że pierwszym ekranem aplikacji będzie ekran zapisu danych. Decyzj
 \end{figure}
 
 \subsection{Zapis pliku w chmurze}
-Pierwszym etapem procesu jest zapis pliku w chmurze, co umożliwia jego udostępnienie innym systemom. Do realizacji tego zadania wykorzystano kontrolkę\footnote{Kontrolka -- element służący do nawigacji, wyświetlania danych i obsługi aplikacji.} \emph{Attachment Control}. Pozwala ona na zapisanie pliku w pamięci aplikacji. Odbywa się to przez naciśnięcie przycisku \emph{"Dołącz plik"} lub przy użyciu mechaniki \emph{przeciągnij i upuść} (\english{Drag And Drop}). 
+Pierwszym etapem procesu jest tymczasowy zapis pliku Excel w chmurze, co umożliwia jego udostępnienie innym systemom. Do realizacji tego zadania wykorzystano kontrolkę\footnote{Kontrolka -- element służący do nawigacji, wyświetlania danych i obsługi aplikacji.} \emph{Attachment Control}. Pozwala ona na zapisanie pliku w pamięci aplikacji. Odbywa się to przez naciśnięcie przycisku \emph{"Dołącz plik"} lub przy użyciu mechaniki \emph{przeciągnij i upuść} (\english{Drag And Drop}). 
 
 Aby dalej przekazać plik oraz jego zawartość należy nacisnąć przycisk opisany jako \emph{Save attachments} znajdujący się pod wcześniej omawianym elementem. Naciśnięcie go skutkuje wywołaniem szeregu funkcji opisanych we właściwości \emph{OnSelect}. W pierwszej kolejności sprawdzane jest, czy plik został załadowany. Jeśli tak, to wywoływany jest przepływ \emph{SaveFileAndRunScript}. Wynik przepływu jest zapisywany w zmiennej tablicowej, która w Power Apps określana jest jako \definicja{kolekcja}, o nazwie \emph{FlowOutput}. Po wykonaniu się przepływu, pliki zapisane w folderze SharePoint, zostają usunięte z pamięci aplikacji.
 
@@ -64,7 +68,7 @@ Rysunek \ref{fig:savefileandrunscript}, przedstawia edytor programu Power Automa
 \end{enumerate}
 
 \subsection{Skrypt pakietu Office}
-Po utworzeniu pliku w SharePoint, w ramach przepływu następuje jego przetworzenie przez skrypt. Jego zadaniem jest dostosowanie pliku do wymagań systemu. Poniżej przedstawiono kroki działania skryptu:
+Po utworzeniu pliku w SharePoint, w ramach przepływu następuje jego przetworzenie przez skrypt. Jest to niezbędne, jeśli chodzi o działanie procesu. Domyślnie otrzymane dane w pliku Excel są niewidoczne dla większości systemów, mogą one odczytać jedynie informacje zorganizowane w \emph{tabele programu Excel}\footnote{Tabela w programie Excel wymaga osobnej deklaracji poprzez zaznaczenie zakresu komórek i wybór opcji \emph{Narzędzia główne}$\to$\emph{Formatuj jako tabelę}}. Dlatego też powstał skrypt, który działa bezpośrednio w arkuszu. Jego zadaniem jest automatyczne utworzenie tabeli oraz dostosowanie jej do wymagań systemu. Poniżej przedstawiono kroki działania skryptu:
 
 \begin{enumerate}
     \item \textbf{Wybór arkusza roboczego} \\
