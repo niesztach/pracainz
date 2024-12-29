@@ -4,17 +4,13 @@ Kolejnym elementem jest ekran startowy aplikacji. Zawiera on przyciski, które p
 
 %tutaj bedzie obrazek tego ekranu
 
-Dodatkowo, podczas uruchomienia aplikacji, pobierane są dane z list SharePointowych a następnie odpowiednio przetwarzane w celu płynnego wyświetlania ich w aplikacji.
-\lstdefinestyle{MyStyle}{
-    language=PowerFx,
-    morekeywords=[5]{UżytkownicyusługiOffice365},
-    keywordstyle=[5]\color{black},
-    alsoletter={365},  % This tells the listings package to treat 365 as part of word
-    literate={365}{365}1  % This treats 365 as literal text
-}
+Dodatkowo, podczas uruchomienia aplikacji, pobierane są dane z list SharePointowych a następnie odpowiednio przetwarzane w celu płynnego wyświetlania ich w aplikacji. \\
+Kod wywoływany podczas uruchamiania aplikacji został przedstawiony na listingu \ref{lst:OnStartCode}.
 
-\begin{lstlisting}[style=MyStyle]
-    Set(varDownloadingData;true);;
+\lstset{language=C,caption={Kod wywoływany podczas uruchamiania aplikacji},label=lst:OnStartCode}
+\begin{lstlisting}[language=PowerFx]
+    
+ Set(varDownloadingData;true);;
  ClearCollect(colYears;{Value: Text(Now();"yyyy")-2};
  {Value: Text(Now();"yyyy")-1};
  {Value: Text(Now();"yyyy")+0};
@@ -24,7 +20,7 @@ Dodatkowo, podczas uruchomienia aplikacji, pobierane są dane z list SharePointo
  
  ClearCollect(colNumbers; {Value: 1};{Value: 2};{Value: 3};{Value: 4};{Value: 5});;
  
- 
+ Set(UserVar;UżytkownicyusługiOffice365.MyProfile());;
  
  // W OnStart aplikacji lub OnVisible ekranu
  ClearCollect(LocalServiceData; Lista_Uslug);;
@@ -48,4 +44,22 @@ Dodatkowo, podczas uruchomienia aplikacji, pobierane są dane z list SharePointo
      )
  );;
  Set(varDownloadingData;false);;
-\end{lstlisting}
+ \end{lstlisting}
+
+ W pierwszej kolejności funkcja \emph{Set}, przypisuje zmiennej \textit{varDownloadingData} wartość \textit{true}.
+ Odpowiada ona za wyświetlenie indykatora ładowania oraz zablokowanie elementów ekranu co ma na celu zabezpieczenie przed wprowadzaniem zmian podczas ładowania się aplikacji.
+Następnie wywołana zostaje funkcja \emph{ClearCollect}, która tworzy kolekcję o nazwie \textit{colYears}, przekazanej jako pierwszy argument. Drugi argument zawiera tablicę, która ma być przypisana do kolekcji. Zawiera ona pięc elementów, które są rokami wykorzystywanymi w polach \emph{Dropdown}.
+W podobny sposób powstaje kolekcja \textit{colNumbers}, która zawiera numery indykacji.
+Funkcja \emph{Set} w linii 12, pobiera informacje dotyczące obecnego użytkownika. 
+Później powstają lokalne kopie trzech list: \textit{LocalServiceData}, \textit{LocalCostData} oraz \textit{LocalIndicationsData}.
+
+Przedostatnim krokiem jest utworzenie kolekcji \textit{MergedData}, która zawiera połączone informacje z list \textit{Lista\_Uslug}, \textit{Lista\_Kwot} oraz \textit{Lista\_Indykacji}.
+Funcja \emph{AddColumns()} jako pierwszy argument przyjmuje nazwy kolumn, drugi, opcjonalny argument to źródło z którego pobierane są dane natomiast trzecim jest warunekiem określającym jakie kolumny ze źródła wyodrębnić. Dodawane kolumny wyszukiwane są w innych listach z użyciem funkcji \emph{LookUp()} oraz \emph{Filter()}.
+Kolekcja ta łączy ze sobą dane dopasowując je  względem \emph{Service\_ID}, \emph{Year} oraz \emph{IndicationNo} tworząc tabelę zawierającą informacje z najnowszej indykacji.
+
+Na końcu do zmiennej \textit{varDownloadingData} przypisywana jest wartość \textit{false}, co oznacza, że dane zostały już pobrane i aplikacja jest gotowa do użytku.
+
+Celem pobrania lokalnych kopii list, jest przyspieszenie działania mechanizmu filtrowania podczas wyboru usługi do edycji. 
+
+
+
