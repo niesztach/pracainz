@@ -1,15 +1,19 @@
 D\section{Ekran startowy aplikacji i przygotowanie danych}
 Kiedy dane zostały dostosowane do działania systemu, można przystąpić do implementacji pozostałych części rozwiązania.
-Kolejnym elementem jest ekran startowy aplikacji. Zawiera on przyciski, które przekierowują użytkownika do odpowiednich sekcji aplikacji.
+Kolejnym elementem jest ekran startowy aplikacji, widoczny na rysunku \ref{fig:homescreen}. Zawiera on przyciski, które przekierowują użytkownika do odpowiednich sekcji aplikacji.
 
-%tutaj bedzie obrazek tego ekranu
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/HomeScreen.png}
+    \caption{Ekran startowy aplikacji} 
+    \label{fig:homescreen}
+\end{figure}
 
 Dodatkowo, podczas uruchomienia aplikacji, pobierane są dane z list SharePointowych a następnie odpowiednio przetwarzane w celu płynnego wyświetlania ich w aplikacji. \\
-Kod wywoływany podczas uruchamiania aplikacji został przedstawiony na listingu \ref{lst:OnStartCode}.
+Kod w języku \emph{Power Fx} wywoływany podczas uruchamiania aplikacji został przedstawiony na listingu \ref{lst:OnStartCode}.
 
 \lstset{language=C,caption={Kod wywoływany podczas uruchamiania aplikacji},label=lst:OnStartCode}
 \begin{lstlisting}[language=PowerFx]
-    
  Set(varDownloadingData;true);;
  ClearCollect(colYears;{Value: Text(Now();"yyyy")-2};
  {Value: Text(Now();"yyyy")-1};
