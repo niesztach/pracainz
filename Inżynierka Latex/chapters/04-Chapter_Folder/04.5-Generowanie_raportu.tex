@@ -1,3 +1,37 @@
 \section{Generowanie raportu}
 
-W następstwie uzupełnienia wymaganych danych możliwe jest...
+Docelowym działaniem aplikacji, będącym zwieńczeniem wszystkich jej funkcjonalności, jest możliwość wygenerowania finalnego raportu w formacie arkusza kalkulacyjnego na podstawie uzupełnionej bazy danych. W związku z tym w Power Apps przygotowano mechanizm łączący dane z trzech list sharepointowych, które następnie są przesyłane do w Power Automate, gdzie podlegają dalszemu przetwarzaniu, czego wynikiem jest uzyskanie gotowego arkusza Excel, który jest zapisywany na platformie SharePoint.
+
+\subsection{Łączenie źródeł danych do formy docelowej}
+
+Pierwszym krokiem do wygenerowania gotowego raportu jest konsolidacja potrzebnych danych w odpowiedniej formie. Do tego celu zaimplementowano ekran, który składa się z dwóch pionowych części -- węższej po lewej stronie oraz szerszej po prawej. W pierwszej z nich znajdują się dwa menu wyboru z listy (\customnote{\textit{dropdowny}}), z których istnieje możliwość wyboru indykacji oraz roku do pobrania danych z list, natomiast w drugiej widnieje podgląd zawartości danych do wygenerowania w formie tabeli, która może zostać przekazana do Power Automate.
+
+\subsection{Przekazywanie danych do Power Automate}
+
+W prawym dolnym rogu interfejsu znajduje się przycisk zapisu (\textit{Save}), który w momencie jego realizacji wywołuje \textit{flow}, służące do tworzenia pliku z danych wejściowych. Dane wejściowe przekazywane są w formacie JSON i zawierają już połączone dane z trzech źródeł w formie dopasowania do aktualnego roku i indykacji.
+
+\customnote{tu może opisać lekko tego jsona z przekazywaniem i wywoływanie? w sensie GenerateRaport()}
+
+
+\begin{lstlisting}[language=PowerFx]
+
+GenerateRaport.Run(
+    Substitute(
+        "[" & 
+        Concat(
+            CombinedData;
+            "{""Service_ID"":""" & Service_ID & """," &
+            """Service_Name"":""" & Service_Name & """," &
+            """MPK"":""" & MPK & """," &
+            """Comment_PZ_to_WOB"":""" & Comment_PZ_to_WOB & """," &
+            """Decision"":""" & Decision & """},"
+        ) & 
+        "]",
+        "},]"; 
+        "}]"
+    ),
+    IndicationNoCollect.Value,
+    YearNoCollect.Value
+)
+
+\end{lstlisting}
