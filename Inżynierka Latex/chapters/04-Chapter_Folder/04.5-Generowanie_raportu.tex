@@ -6,32 +6,58 @@ Docelowym działaniem aplikacji, będącym zwieńczeniem wszystkich jej funkcjon
 
 Pierwszym krokiem do wygenerowania gotowego raportu jest konsolidacja potrzebnych danych w odpowiedniej formie. Do tego celu zaimplementowano ekran, który składa się z dwóch pionowych części -- węższej po lewej stronie oraz szerszej po prawej. W pierwszej z nich znajdują się dwa menu wyboru z listy (\customnote{\textit{dropdowny}}), z których istnieje możliwość wyboru indykacji oraz roku do pobrania danych z list, natomiast w drugiej widnieje podgląd zawartości danych do wygenerowania w formie tabeli, która może zostać przekazana do Power Automate.
 
-\subsection{Przekazywanie danych do Power Automate}
+Zebrane dane przechowywane są w tymczasowej kolekcji \textit{CombinedData}, która składa się z informacji z trzech źródeł, odpowiednio dopasowanych do wybranego przez użytkownika roku oraz indykacji. Przykładowy fragment kodu odpowiedzialnego za tworzenie tej kolekcji przedstawiono w listingu~\ref{lst:combineddata}:
 
-W prawym dolnym rogu interfejsu znajduje się przycisk zapisu (\textit{Save}), który w momencie jego realizacji wywołuje \textit{flow}, służące do tworzenia pliku z danych wejściowych. Dane wejściowe przekazywane są w formacie JSON i zawierają już połączone dane z trzech źródeł w formie dopasowania do aktualnego roku i indykacji.
-
-\customnote{tu może opisać lekko tego jsona z przekazywaniem i wywoływanie? w sensie GenerateRaport()}
-
-
-\begin{lstlisting}[language=PowerFx]
-
-GenerateRaport.Run(
-    Substitute(
-        "[" & 
-        Concat(
-            CombinedData;
-            "{""Service_ID"":""" & Service_ID & """," &
-            """Service_Name"":""" & Service_Name & """," &
-            """MPK"":""" & MPK & """," &
-            """Comment_PZ_to_WOB"":""" & Comment_PZ_to_WOB & """," &
-            """Decision"":""" & Decision & """},"
-        ) & 
-        "]",
-        "},]"; 
-        "}]"
-    ),
-    IndicationNoCollect.Value,
-    YearNoCollect.Value
-)
+\begin{lstlisting}[language=PowerFx, caption={Fragment kodu tworzącego kolekcję CombinedData}, label={lst:combineddata}] 
+    ClearCollect(
+    CombinedData;
+    AddColumns(
+        LocalServiceData;
+        MPK;
+        LookUp(
+            LocalCostData;
+            Service_ID = LocalServiceData[@Service_ID] && Year = Year_Dropdown_1.Selected.Value;
+            MPK
+        );
+        Comment_PZ_to_WOB;
+        LookUp(
+            LocalIndicationsData;
+            Service_ID = LocalServiceData[@Service_ID] && Year = Year_Dropdown_1.Selected.Value && IndicationNo = IndicationNo_Dropdown_1.Selected.Value;
+            Comment_PZ_to_WOB);     
+    [...]
+);;
 
 \end{lstlisting}
+
+W fragmencie kodu przedstawiono wykorzystanie funkcji \textit{LookUp}, która pozwala na pobranie danych z różnych kolekcji na podstawie określonych kryteriów. Przykładowo, pierwszy \textit{LookUp} dopasowuje dane z tabeli \textit{LocalCostData}
+
+\customnote{Nie no musze zobaczyc w apce jak te lookupy byly zrobione bo nie pamietam, ale to jutro}
+
+
+\subsection{Przekazywanie danych do Power Automate}
+
+W prawym dolnym rogu interfejsu znajduje się przycisk (\textit{Generate Raport}), który po naciśnięciu uruchamia \textit{flow} w Power Automate, odpowiedzialne za tworzenie pliku na podstawie danych wejściowych. Dane te są przekazywane do usługi Power Automate w postaci ciągu tekstowego, sformatowanego jako JSON\footnote{JSON - format wymiany danych, który jest oparty na strukturze tekstowej}, wykorzystując połączone informacje z trzech źródeł zawarte w kolekcji \textit{CombinedData}, dostosowane do wybranego przez użytkownika zestawu roku i indykacji. Kod wywołujący funkcję \textit{GenerateRaport} przedstawiono w listingu~\ref{lst:generateraport}.
+
+
+
+\begin{lstlisting}[language=PowerFx, caption={Kod wywołujący funkcję GenerateRaport}, label={lst:generateraport}]
+    GenerateRaport.Run(
+        Substitute(
+            "[" & 
+            Concat(
+                CombinedData;
+                "{""Service_ID"":""" & Service_ID & """," &
+                """Service_Name"":""" & Service_Name & """," &
+                """MPK"":""" & MPK & """," &
+                """Comment_PZ_to_WOB"":""" & Comment_PZ_to_WOB & """," &
+                """Decision"":""" & Decision & """},"
+            ) & 
+            "]",
+            "},]"; 
+            "}]"
+        ),
+        IndicationNoCollect.Value,
+        YearNoCollect.Value
+    )
+    \end{lstlisting}
+
