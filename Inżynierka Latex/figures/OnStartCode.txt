@@ -1,0 +1,34 @@
+Set(varDownloadingData;true);;
+ClearCollect(colYears;{Value: Text(Now();"yyyy")-2};
+{Value: Text(Now();"yyyy")-1};
+{Value: Text(Now();"yyyy")+0};
+{Value: Text(Now();"yyyy")+1};
+{Value: Text(Now();"yyyy")+2}
+);;
+
+ClearCollect(colNumbers; {Value: 1};{Value: 2};{Value: 3};{Value: 4};{Value: 5});;
+
+Set(UserVar;UżytkownicyusługiOffice365.MyProfile());;
+
+// W OnStart aplikacji lub OnVisible ekranu
+ClearCollect(LocalServiceData; Lista_Uslug);;
+ClearCollect(LocalCostData; Lista_Kwot);;
+ClearCollect(LocalIndicationsData; Lista_Indykacji);;
+ClearCollect(
+    MergedData;
+    AddColumns(
+        Lista_Uslug;
+        Kwoty; LookUp(
+            Lista_Kwot;
+            Service_ID = Lista_Uslug[@Service_ID] &&
+            Year = Max(Filter(Lista_Kwot; Service_ID = Lista_Uslug[@Service_ID]); Year)
+        );
+        Indykacje; LookUp(
+            Lista_Indykacji;
+            Service_ID = Lista_Uslug[@Service_ID] &&
+            Year = Max(Filter(Lista_Indykacji; Service_ID = Lista_Uslug[@Service_ID]); Year) &&
+            IndicationNo = Max(Filter(Lista_Indykacji; Service_ID = Lista_Uslug[@Service_ID] && Year = Max(Filter(Lista_Indykacji; Service_ID = Lista_Uslug[@Service_ID]); Year)); IndicationNo)
+        )
+    )
+);;
+Set(varDownloadingData;false);;
