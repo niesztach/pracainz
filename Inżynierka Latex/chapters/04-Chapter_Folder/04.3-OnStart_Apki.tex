@@ -1,0 +1,52 @@
+\section{Ekran startowy aplikacji i przygotowanie danych}
+Kiedy dane zostały dostosowane do działania systemu, można przystąpić do implementacji pozostałych części rozwiązania. 
+Kolejnym elementem jest ekran startowy aplikacji. Zawiera on przyciski, które przekierowują użytkownika do odpowiednich sekcji aplikacji. 
+
+%tutaj bedzie obrazek tego ekranu
+
+Dodatkowo, podczas uruchomienia aplikacji, pobierane są dane z list SharePointowych a następnie odpowiednio przetwarzane w celu płynnego wyświetlania ich w aplikacji.
+\lstdefinestyle{MyStyle}{
+    language=PowerFx,
+    frame=single,
+    morekeywords=[5]{UżytkownicyusługiOffice365},
+    keywordstyle=[5]\color{black},
+    alsoletter={365},  % This tells the listings package to treat 365 as part of word
+    literate={365}{365}1  % This treats 365 as literal text
+}
+
+\begin{lstlisting}[style=MyStyle]
+    Set(varDownloadingData;true);;
+ ClearCollect(colYears;{Value: Text(Now();"yyyy")-2};
+ {Value: Text(Now();"yyyy")-1};
+ {Value: Text(Now();"yyyy")+0};
+ {Value: Text(Now();"yyyy")+1};
+ {Value: Text(Now();"yyyy")+2}
+ );;
+ 
+ ClearCollect(colNumbers; {Value: 1};{Value: 2};{Value: 3};{Value: 4};{Value: 5});;
+ 
+ Set(UserVar;UżytkownicyusługiOffice365.MyProfile());;
+ 
+ // W OnStart aplikacji lub OnVisible ekranu
+ ClearCollect(LocalServiceData; Lista_Uslug);;
+ ClearCollect(LocalCostData; Lista_Kwot);;
+ ClearCollect(LocalIndicationsData; Lista_Indykacji);;
+ ClearCollect(
+     MergedData;
+     AddColumns(
+         Lista_Uslug;
+         Kwoty; LookUp(
+             Lista_Kwot;
+             Service_ID = Lista_Uslug[@Service_ID] &&
+             Year = Max(Filter(Lista_Kwot; Service_ID = Lista_Uslug[@Service_ID]); Year)
+         );
+         Indykacje; LookUp(
+             Lista_Indykacji;
+             Service_ID = Lista_Uslug[@Service_ID] &&
+             Year = Max(Filter(Lista_Indykacji; Service_ID = Lista_Uslug[@Service_ID]); Year) &&
+             IndicationNo = Max(Filter(Lista_Indykacji; Service_ID = Lista_Uslug[@Service_ID] && Year = Max(Filter(Lista_Indykacji; Service_ID = Lista_Uslug[@Service_ID]); Year)); IndicationNo)
+         )
+     )
+ );;
+ Set(varDownloadingData;false);;
+\end{lstlisting}

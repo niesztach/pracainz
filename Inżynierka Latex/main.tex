@@ -34,6 +34,8 @@
 \usepackage{listings}
 \usepackage{enumitem}
 \usepackage{longtable}
+\usepackage{listings} 
+
 
 \newcommand{\customnote}[1]{\sethlcolor{yellow}\hl{#1}}
 
@@ -41,7 +43,80 @@
 
 \newcolumntype{W}{>{\centering\arraybackslash}p{5cm}}
 \newcolumntype{w}{>{\centering\arraybackslash}m{1.2cm}}
+% Config listingu:
 
+% Definicje kolorów
+\definecolor{functioncolor}{rgb}{0.16,0.37,0.64}  % rgb(41,94,163)
+\definecolor{collectioncolor}{rgb}{0.08,0.53,0.56} % rgb(20,134,143)
+\definecolor{numbercolor}{rgb}{0.71,0.29,0.0}      % rgb(182,73,0)
+\definecolor{stringcolor}{rgb}{0.64,0.09,0.09}     % rgb(162,23,23)
+\definecolor{commentcolor}{rgb}{0.0,0.45,0.0}      % rgb(0,114,0)
+\definecolor{boolcolor}{rgb}{0.47,0.33,0.28}       % rgb(121,85,72)
+
+% Definicja stylu dla Power FX
+\lstdefinelanguage{PowerFx}{
+    morekeywords={Set, ClearCollect, LookUp, AddColumns, Filter, Max, Text, Now, If, And, Or,MyProfile},
+    sensitive=true,
+    keywordstyle=\color{functioncolor}\bfseries,
+    commentstyle=\color{commentcolor}\itshape,
+    stringstyle=\color{stringcolor},
+    identifierstyle=\color{black},   % Standardowy kolor dla identyfikatorów
+    numbers=left,
+    numberstyle=\tiny\color{black},
+    morestring=[b]",
+    morestring=[s]{\%}{\%},
+    morekeywords=[2]{true,false},  % Kolor dla true/false
+    keywordstyle=[2]\color{boolcolor},
+    morekeywords=[3]{1,2,3,4,5},   % Kolor dla liczb (możesz dodać inne liczby)
+    keywordstyle=[3]\color{numbercolor},
+    % Określenie, które identyfikatory traktować jako kolekcje
+    morekeywords=[4]{Lista_Uslug, Lista_Kwot, Lista_Indykacji},  % Przykład kolekcji
+    keywordstyle=[4]\color{collectioncolor},
+}
+
+\lstset{
+literate=%
+    *{0}{{{\color{numbercolor}0}}}1
+     {1}{{{\color{numbercolor}1}}}1
+     {2}{{{\color{numbercolor}2}}}1
+     {3}{{{\color{numbercolor}3}}}1
+     {4}{{{\color{numbercolor}4}}}1
+     {5}{{{\color{numbercolor}5}}}1
+     {6}{{{\color{numbercolor}6}}}1
+     {7}{{{\color{numbercolor}7}}}1
+     {8}{{{\color{numbercolor}8}}}1
+     {9}{{{\color{numbercolor}9}}}1
+     {ą}{{\k a}}1
+  	    {Ą}{{\k A}}1
+           {ż}{{\. z}}1
+           {Ż}{{\. Z}}1
+           {ź}{{\' z}}1
+           {Ź}{{\' Z}}1
+           {ć}{{\' c}}1
+           {Ć}{{\' C}}1
+           {ę}{{\k e}}1
+           {Ę}{{\k E}}1
+           {ó}{{\' o}}1
+           {Ó}{{\' O}}1
+           {ń}{{\' n}}1
+           {Ń}{{\' N}}1
+           {ś}{{\' s}}1
+           {Ś}{{\' S}}1
+           {ł}{{\l}}1
+           {Ł}{{\L}}1
+     {true}{{{\color{boolcolor}true}}}5
+     {false}{{{\color{boolcolor}false}}}5,
+    backgroundcolor=\color{white},   % kolor tła
+    basicstyle=\ttfamily\small,       % styl tekstu
+    breaklines=true,                 % łamanie długich linii
+    showstringspaces=false,          % nie pokazuj spacji w stringach
+    captionpos=b,                    % pozycja podpisu
+    escapeinside={\%*}{*)},          % umożliwia wstawienie LaTeX w kodzie
+    morekeywords=[5]{UżytkownicyusługiOffice365},  % Aby liczba 365 nie była pomarańczowa
+    keywordstyle=[5]\color{black},
+}
+
+\lstset{language=PowerFx}
 
 %--------------------------------------
 % Strona tytułowa \ Front page
