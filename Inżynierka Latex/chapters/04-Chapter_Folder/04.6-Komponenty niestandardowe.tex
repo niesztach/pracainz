@@ -1,0 +1,39 @@
+\section{Składniki}
+Składniki to niestandardowe elementy, które można tworzyć w Power Apps. Są one wykorzystywane do tworzenia złożonych konfiguracji, które nie są dostępne w standardowych kontrolkach. Przydatne są szczególnie w momencie kiedy chcemy stworzyć element, który będzie wykorzystywany w wielu miejscach aplikacji. W zależności od potrzeb, można stworzyć zarówno proste elementy, jak i bardziej skomplikowane, które będą spełniały określone wymagania. Ponieżej omówiono dwa składniki stworzone w ramach aplikacji.
+
+\subsection{Nagłówek ekranu}
+Pierwszym niestandardowym komponentem jest wstążka znajdująca się na górze ekranów. Składa się ona z następujących elementów:
+\begin{itemize}
+\item logo firmy -- jest to element dekoracyjny,
+\item przycisk powrotu do poprzedniego ekranu -- oznaczony strzałką w lewo, dzięki funkcji \textit{Back()} przenosi użytkownika do poprzedniego ekranu,
+\item przycisk powrotu do ekranu głównego -- reprezentowany poprzez ikonę domu, przenosi użytkownika do ekranu głównego aplikacji (\emph(Navigate(HomeScreen, ScreenTransition.Cover))),
+\item dane użytkownika -- wyświetlane są dane zalogowanego użytkownika, takie jak imię, nazwisko oraz adres email. Pobierane są one przy pomocy \emph{Office365Users.MyProfile()}. 
+\item awatar użytkownika -- również pobierany z użyciem {Office365Users.MyProfile()}. W przypadku braku zdjęcia, wyświetlane są inicjały użytkownika.
+\end{itemize}
+
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/HeaderComponent.png}
+    \caption{Nagłówek ekranu} 
+    \label{fig:headercomponent}
+\end{figure}
+
+Warto zauważyć, że tytuły widoczne na ekranach, nie są integralną częścią wstążki. Wynika to z faktu, że po dodaniu kontrolki \emph{label}, pozwalającej na wyświetlenie tekstu, nie jest możliwe zmienienie jej  tekstu we właściwościach utworzonego składnika. W związku z tym, tytuły są dodawane na każdym ekranie osobno.
+
+\subsection{Kontrolka ładowania}
+Drugim niestandardowym składnikiem jest kontrolka infromaująca o ładowaniu się aplikacji. Składa się ona z trzech elementów:
+\begin{itemize}
+    \item koło ładowania -- animowana grafika w formacie \emph{SVG}(\definicja{Scalable Vector Graphics}).
+    \item tekst -- informacja dla użytkownika, że aplikacja ładuje dane,
+        \item tło -- półprzezroczyste tło z filterm powodującym rozmycie elementów ekranu. Tło wykonane przy użyciu \emph{tekst HTML}.
+\end{itemize}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/SpinnerComponent.png}
+    \caption{Kontrolka ładowania} 
+    \label{fig:spinnercomponent}
+    \end{figure}
+
