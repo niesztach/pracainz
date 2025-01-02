@@ -1,5 +1,5 @@
 D\section{Ekran startowy aplikacji i przygotowanie danych}
-Kiedy dane zostały dostosowane do działania systemu, można przystąpić do implementacji pozostałych części rozwiązania.
+Kiedy dane zostały dostosowane do działania systemu, przystąpiono do implementacji pozostałych części rozwiązania.
 Kolejnym elementem jest ekran startowy aplikacji, widoczny na rysunku \ref{fig:homescreen}. Zawiera on przyciski, które przekierowują użytkownika do odpowiednich sekcji aplikacji.
 
 \begin{figure}[h]
@@ -10,7 +10,7 @@ Kolejnym elementem jest ekran startowy aplikacji, widoczny na rysunku \ref{fig:h
 \end{figure}
 
 Dodatkowo, podczas uruchomienia aplikacji, pobierane są dane z list SharePointowych a następnie odpowiednio przetwarzane w celu płynnego wyświetlania ich w aplikacji. \\
-Kod w języku \emph{Power Fx} wywoływany podczas uruchamiania aplikacji został przedstawiony na listingu \ref{lst:OnStartCode}.
+Kod w języku \emph{Power Fx} wywoływany podczas uruchamiania aplikacji został przedstawiony w listingu \ref{lst:OnStartCode}.
 
 \lstset{language=C,caption={Kod wywoływany podczas uruchamiania aplikacji},label=lst:OnStartCode}
 \begin{lstlisting}[language=PowerFx]
@@ -50,20 +50,29 @@ Kod w języku \emph{Power Fx} wywoływany podczas uruchamiania aplikacji został
  Set(varDownloadingData;false);;
  \end{lstlisting}
 
- W pierwszej kolejności funkcja \emph{Set}, przypisuje zmiennej \textit{varDownloadingData} wartość \textit{true}.
- Odpowiada ona za wyświetlenie indykatora ładowania oraz zablokowanie elementów ekranu co ma na celu zabezpieczenie przed wprowadzaniem zmian podczas ładowania się aplikacji.
-Następnie wywołana zostaje funkcja \emph{ClearCollect}, która tworzy kolekcję o nazwie \textit{colYears}, przekazanej jako pierwszy argument. Drugi argument zawiera tablicę, która ma być przypisana do kolekcji. Zawiera ona pięc elementów, które są rokami wykorzystywanymi w polach \emph{Dropdown}.
-W podobny sposób powstaje kolekcja \textit{colNumbers}, która zawiera numery indykacji.
-Funkcja \emph{Set} w linii 12, pobiera informacje dotyczące obecnego użytkownika. 
-Później powstają lokalne kopie trzech list: \textit{LocalServiceData}, \textit{LocalCostData} oraz \textit{LocalIndicationsData}.
+ Na początku zmiennej \emph{varDownloadingData} przypisywana jest wartość \emph{true} za pomocą funkcji \emph{Set()}. Zmienna ta odpowiada za wyświetlenie wskaźnika ładowania oraz zablokowanie interfejsu użytkownika, aby uniemożliwić wprowadzanie zmian w trakcie ładowania danych.
 
-Przedostatnim krokiem jest utworzenie kolekcji \textit{MergedData}, która zawiera połączone informacje z list \textit{Lista\_Uslug}, \textit{Lista\_Kwot} oraz \textit{Lista\_Indykacji}.
-Funcja \emph{AddColumns()} jako pierwszy argument przyjmuje nazwy kolumn, drugi, opcjonalny argument to źródło z którego pobierane są dane natomiast trzecim jest warunekiem określającym jakie kolumny ze źródła wyodrębnić. Dodawane kolumny wyszukiwane są w innych listach z użyciem funkcji \emph{LookUp()} oraz \emph{Filter()}.
-Kolekcja ta łączy ze sobą dane dopasowując je  względem \emph{Service\_ID}, \emph{Year} oraz \emph{IndicationNo} tworząc tabelę zawierającą informacje z najnowszej indykacji.
+Następnie funkcja \emph{ClearCollect()} tworzy kolekcję \emph{colYears}, która zawiera pięć elementów reprezentujących zakres lat od dwóch lat wstecz do dwóch lat naprzód. Podobnie powstaje kolekcja \emph{colNumbers}, zawierająca numery indykacji, które mogą być wykorzystywane w odpowiednich polach \emph{Dropdown}. Kolekcje te są pomocne przy budowie dynamicznego interfejsu użytkownika.
 
-Na końcu do zmiennej \textit{varDownloadingData} przypisywana jest wartość \textit{false}, co oznacza, że dane zostały już pobrane i aplikacja jest gotowa do użytku.
+Za pomocą funkcji \emph{Set()} w kolejnej linii pobierane są informacje o obecnym użytkowniku i przypisywane do zmiennej \emph{UserVar}. Informacje te mogą być używane do personalizacji aplikacji lub kontroli dostępu.
 
-Celem pobrania lokalnych kopii list, jest przyspieszenie działania mechanizmu filtrowania podczas wyboru usługi do edycji. 
+Aplikacja tworzy następnie lokalne kopie trzech list danych (\emph{Lista\_Uslug}, \emph{Lista\_Kwot}, \emph{Lista\_Indykacji}) przy użyciu funkcji \emph{ClearCollect()}, co pozwala na szybsze filtrowanie i manipulację danymi podczas użytkowania aplikacji.
+
+Kolejnym krokiem jest utworzenie kolekcji \emph{MergedData}, która łączy dane z list lokalnych kopii list. W tym celu zastosowano funkcję \emph{AddColumns()}, która dodaje dwie nowe kolumny: \emph{Kwoty} oraz \emph{Indykacje}. Dane w tych kolumnach są wyodrębniane przy użyciu funkcji \emph{LookUp()} oraz \emph{Filter()}, które umożliwiają filtrowanie i wyszukiwanie danych na podstawie określonych kryteriów.
+
+Funkcja \emph{LookUp()} zwraca pierwszy rekord spełniający podane warunki, natomiast \emph{Filter()} generuje zbiór rekordów spełniających zadane kryteria. W analizowanym kodzie funkcje te są zagnieżdżone, co umożliwia precyzyjne wyodrębnienie danych z list na podstawie trzech kluczowych kryteriów:
+\begin{itemize}
+    \item \emph{Service\_ID} – identyfikator usługi,
+    \item \emph{Year} – najwyższy rok dla pasującego identyfikatora usługi,
+    \item \emph{IndicationNo} – maksymalny numer indykacji dla rekordów o zgodnym \emph{Service\_ID} i \emph{Year}.
+\end{itemize}
+
+Ostatecznie kolekcja \emph{MergedData} zawiera dane dla najnowszego roku i najwyższego numeru indykacji dla każdej usługi.
+
+Na końcu zmiennej \emph{varDownloadingData} przypisywana jest wartość \emph{false}, co oznacza zakończenie procesu pobierania danych i gotowość aplikacji do użytku.
+
+Lokalne kopie list (\emph{LocalServiceData}, \emph{LocalCostData}, \emph{LocalIndicationsData}) zostały utworzone w celu przyspieszenia działania mechanizmu filtrowania oraz zwiększenia efektywności podczas wyboru usług do edycji.
+
 
 
 
