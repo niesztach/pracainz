@@ -14,40 +14,117 @@ Kod w języku \emph{Power Fx} wywoływany podczas uruchamiania aplikacji został
 
 \lstset{language=C,caption={Kod wywoływany podczas uruchamiania aplikacji},label=lst:OnStartCode}
 \begin{lstlisting}[language=PowerFx]
- Set(varDownloadingData;true);;
- ClearCollect(colYears;{Value: Text(Now();"yyyy")-2};
- {Value: Text(Now();"yyyy")-1};
- {Value: Text(Now();"yyyy")+0};
- {Value: Text(Now();"yyyy")+1};
- {Value: Text(Now();"yyyy")+2}
- );;
- 
- ClearCollect(colNumbers; {Value: 1};{Value: 2};{Value: 3};{Value: 4};{Value: 5});;
- 
- Set(UserVar;UżytkownicyusługiOffice365.MyProfile());;
- 
- // W OnStart aplikacji lub OnVisible ekranu
- ClearCollect(LocalServiceData; Lista_Uslug);;
- ClearCollect(LocalCostData; Lista_Kwot);;
- ClearCollect(LocalIndicationsData; Lista_Indykacji);;
- ClearCollect(
-     MergedData;
-     AddColumns(
-         Lista_Uslug;
-         Kwoty; LookUp(
-             Lista_Kwot;
-             Service_ID = Lista_Uslug[@Service_ID] &&
-             Year = Max(Filter(Lista_Kwot; Service_ID = Lista_Uslug[@Service_ID]); Year)
-         );
-         Indykacje; LookUp(
-             Lista_Indykacji;
-             Service_ID = Lista_Uslug[@Service_ID] &&
-             Year = Max(Filter(Lista_Indykacji; Service_ID = Lista_Uslug[@Service_ID]); Year) &&
-             IndicationNo = Max(Filter(Lista_Indykacji; Service_ID = Lista_Uslug[@Service_ID] && Year = Max(Filter(Lista_Indykacji; Service_ID = Lista_Uslug[@Service_ID]); Year)); IndicationNo)
-         )
-     )
- );;
- Set(varDownloadingData;false);;
+    Set(
+        varDownloadingData;
+        true
+    );;
+    ClearCollect(
+        colYears;
+        {
+            Value: Text(
+                Now();
+                "yyyy"
+            ) - 2
+        };
+        {
+            Value: Text(
+                Now();
+                "yyyy"
+            ) - 1
+        };
+        {
+            Value: Text(
+                Now();
+                "yyyy"
+            ) + 0
+        };
+        {
+            Value: Text(
+                Now();
+                "yyyy"
+            ) + 1
+        };
+        {
+            Value: Text(
+                Now();
+                "yyyy"
+            ) + 2
+        }
+    );;
+    Set(
+        VWBlue;
+        ColorValue("#002e5f")
+    );;
+    ClearCollect(
+        colNumbers;
+        {Value: 1};
+        {Value: 2};
+        {Value: 3};
+        {Value: 4};
+        {Value: 5}
+    );;
+    Set(
+        UserVar;
+        UżytkownicyusługiOffice365.MyProfile()
+    );;
+    // W OnStart aplikacji lub OnVisible ekranu
+    ClearCollect(
+        LocalServiceData;
+        Lista_Uslug
+    );;
+    ClearCollect(
+        LocalCostData;
+        Lista_Kwot
+    );;
+    ClearCollect(
+        LocalIndicationsData;
+        Lista_Indykacji
+    );;
+    ClearCollect(
+        MergedData;
+        AddColumns(
+            LocalServiceData;
+            Kwoty;
+            LookUp(
+                LocalCostData;
+                Service_ID = LocalServiceData[@Service_ID] && Year = Max(
+                    Filter(
+                        LocalCostData;
+                        Service_ID = LocalServiceData[@Service_ID]
+                    );
+                    Year
+                )
+            );
+            Indykacje;
+            LookUp(
+                LocalIndicationsData;
+                Service_ID = LocalServiceData[@Service_ID] && Year = Max(
+                    Filter(
+                        LocalIndicationsData;
+                        Service_ID = LocalServiceData[@Service_ID]
+                    );
+                    Year
+                ) && IndicationNo = Max(
+                    Filter(
+                        LocalIndicationsData;
+                        Service_ID = LocalServiceData[@Service_ID] && Year = Max(
+                            Filter(
+                                LocalIndicationsData;
+                                Service_ID = LocalServiceData[@Service_ID]
+                            );
+                            Year
+                        )
+                    );
+                    IndicationNo
+                )
+            )
+        )
+    );;
+    Set(
+        varDownloadingData;
+        false
+    );;
+    
  \end{lstlisting}
 
  Na początku zmiennej \emph{varDownloadingData} przypisywana jest wartość \emph{true} za pomocą funkcji \emph{Set()}. Zmienna ta odpowiada za wyświetlenie wskaźnika ładowania oraz zablokowanie interfejsu użytkownika, aby uniemożliwić wprowadzanie zmian w trakcie ładowania danych.
