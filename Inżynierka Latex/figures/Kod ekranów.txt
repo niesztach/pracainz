@@ -1,0 +1,1261 @@
+kod ekranu wyboru usługi:
+- ChooseFormToFill:
+    Control: Screen
+    Properties:
+      LoadingSpinner: =LoadingSpinner.Data
+    Children:
+    - LoadingBackground_2:
+        Control: HtmlViewer
+        Properties:
+          HtmlText: |+
+            =$"<div style='background: rgba(255,255,255,0.4); backdrop-filter: blur(10px); border-radius: 8px; position: fixed; top: 0; left: 0; width: {Self.Width}px; height: {Self.Height}px; display: flex; align-items: center; justify-content: center; text-align: center; flex-direction: column;'>
+                    </div>
+            </div>"
+          Color: =RGBA(255, 255, 255, 1)
+          Height: =Parent.Height
+          PaddingTop: =0
+          Size: =
+          Visible: =varDownloadingData
+          Width: =Parent.Width
+    - TitleBar_Title_9:
+        Control: Label
+        Properties:
+          Text: ="Service Selection"
+          Align: =Align.Center
+          AutoHeight: =true
+          Color: =RGBA(255, 255, 255, 1)
+          FontWeight: =FontWeight.Semibold
+          Height: =Max(TitleBar_Ribbon_1.Height-20)
+          Size: =Max(App.Height, App.MinScreenHeight)/30
+          Width: =Max(App.Width, App.MinScreenWidth)/2
+          X: =(TitleBar_Ribbon_9.Width-Self.Width)/2
+          Y: =(TitleBar_Ribbon_9.Height-Self.Height)/2
+    - TitleBar_Ribbon_9:
+        Control: Component
+        ComponentName: TitleBar_Ribbon
+        Properties:
+          Height: =Max(App.Height, App.MinScreenHeight)/10
+          Width: =Max(App.Width, App.MinScreenWidth)
+    - CompositePieChart3:
+        Control: Group
+        Children:
+        - Legend:
+            Control: Legend
+            Properties:
+              Items: =["Accepted","No Status","Not Accepted", "No data found"]
+              Height: =200
+              ItemColorSet: =PieChart.ItemColorSet
+              Size: =16
+              Width: =(Parent.Width-Self.X-16)/2
+              X: =Gallery1.X+Gallery1.Width+16
+              Y: =PieChart.Y+PieChart.Height+16
+        - PieChart:
+            Control: PieChart
+            Properties:
+              Items: |-
+                =
+                [CountIf(Gallery1.AllItems,ThisRecord.Status_Item.Text = "Accepted"),CountIf(Gallery1.AllItems,ThisRecord.Status_Item.Text = "No Status"),CountIf(Gallery1.AllItems,ThisRecord.Status_Item.Text = "Not Accepted"),CountIf(Gallery1.AllItems,ThisRecord.Status_Item.Text = "No data found")]
+              ItemColorSet: =[Color.PaleGreen,Color.Gold,Color.IndianRed,Color.SkyBlue]
+              Width: =Parent.Width-Self.X-16
+              X: =Gallery1.X+Gallery1.Width+16
+              Y: =(Parent.Height-Self.Height-16-Legend.Height+TitleBar_Ribbon_9.Height)/2
+        - ChartTitle:
+            Control: Label
+            Properties:
+              Text: =""
+              Align: =Align.Center
+              Height: =25
+              Width: =Parent.Width-Self.X-16
+              X: =Gallery1.X+Gallery1.Width+16
+              Y: =Gallery1.Y
+    - Icon1_2:
+        Control: Icon
+        Properties:
+          Icon: ="Search"
+          IconColor: =VWTheme.Colors.Primary
+          Visible: =If(IsBlank(SearchName.Value),true,false)
+          X: =SearchMPK.X+SearchMPK.Width-Self.Width
+          Y: =SearchName.Y
+    - Icon1_1:
+        Control: Icon
+        Properties:
+          Icon: ="Search"
+          IconColor: =VWTheme.Colors.Primary
+          Visible: =If(IsBlank(SearchName.Value),true,false)
+          X: =SearchID.X+SearchID.Width-Self.Width
+          Y: =SearchName.Y
+    - Icon1:
+        Control: Icon
+        Properties:
+          Icon: ="Search"
+          IconColor: =VWTheme.Colors.Primary
+          X: =SearchName.X+SearchName.Width-Self.Width
+          Y: =SearchName.Y
+    - FilterStatus:
+        Control: ComboBox
+        Variant: pcfdataset
+        Properties:
+          OnChange: =
+          FontSize: =Parent.Height/35
+          InputTextPlaceholder: ="Latest Status"
+          Items: =["Accepted","Not Accepted","No Status"]
+          Width: =Parent.Width/8+8
+          X: =SearchMPK.X+SearchMPK.Width
+          Y: =SearchName.Y
+    - SearchMPK:
+        Control: TextInput
+        Properties:
+          OnChange: =
+          Appearance: ='TextInputCanvas.Appearance'.FilledDarker
+          FontSize: =Parent.Height/35
+          PaddingRight: =0
+          Placeholder: ="MPK"
+          TriggerOutput: ='TextInputCanvas.TriggerOutput'.Delayed
+          Type: ='TextInputCanvas.Type'.Search
+          Width: =Parent.Width/8
+          X: =SearchID.X+SearchID.Width
+          Y: =SearchName.Y
+    - SearchID:
+        Control: TextInput
+        Properties:
+          OnChange: =
+          Appearance: ='TextInputCanvas.Appearance'.FilledDarker
+          FontSize: =Parent.Height/35
+          PaddingRight: =0
+          Placeholder: ="Service ID"
+          TriggerOutput: ='TextInputCanvas.TriggerOutput'.Delayed
+          Type: ='TextInputCanvas.Type'.Search
+          Width: =Parent.Width/8
+          X: =SearchName.X+SearchName.Width
+          Y: =SearchName.Y
+    - SearchName:
+        Control: TextInput
+        Properties:
+          OnChange: =
+          Appearance: ='TextInputCanvas.Appearance'.FilledDarker
+          FontSize: =Parent.Height/35
+          PaddingRight: |+
+            =0
+          Placeholder: ="Business Service Name"
+          TriggerOutput: ='TextInputCanvas.TriggerOutput'.Delayed
+          Type: ='TextInputCanvas.Type'.Search
+          Width: =Parent.Width/4
+          X: |-
+            =16
+            //(Parent.Width-Self.Width-SearchID.Width-SearchMPK.Width-FilterStatus.Width)/2
+          Y: =TitleBar_Ribbon_9.Height+4
+    - Gallery1:
+        Control: Gallery
+        Variant: galleryVertical
+        Properties:
+          OnSelect: =Set(ChosenServiceID,Gallery1.Selected.Service_ID); Navigate(FillForm);
+          Items: |+
+            =Filter(MergedData,
+                (IsBlank(SearchName.Value) || StartsWith(Lower(Service_Name), Lower(SearchName.Value))) &&
+                (IsBlank(SearchID.Value) || Service_ID = Value(SearchID.Value)) &&
+                (IsBlank(SearchMPK.Value) || Kwoty.MPK = SearchMPK.Value) &&
+                (IsBlank(FilterStatus.Selected.Value) || Indykacje.Decision = Switch(FilterStatus.Selected.Value, "Accepted", 1, "Not Accepted", -1, "No Status", 0))
+            )
+          DelayItemLoading: =true
+          Height: =Parent.Height-TitleBar_Ribbon_9.Height-16-SearchName.Height
+          Layout: =Layout.Vertical
+          LoadingSpinner: =LoadingSpinner.Data
+          ShowScrollbar: =false
+          TemplatePadding: =0
+          TemplateSize: =Service_Name_Item1.Size*2
+          Transition: =Transition.Push
+          Width: =SearchName.Width+SearchID.Width+SearchMPK.Width+FilterStatus.Width
+          X: =SearchName.X
+          Y: =SearchName.Y+SearchName.Height+4
+        Children:
+        - Invisible_Button:
+            Control: Classic/Button
+            Properties:
+              OnSelect: |-
+                =Set(ChosenServiceID, ThisItem.Service_ID);
+                Navigate(FillForm, ScreenTransition.None);
+              Text: =
+              BorderStyle: =BorderStyle.None
+              Fill: =Color.Transparent
+              Height: =Parent.TemplateHeight
+              HoverFill: =RGBA(75,98,160,0.2)
+              PressedFill: =RGBA(75,98,160,0.4)
+              RadiusBottomLeft: =0
+              RadiusBottomRight: =0
+              RadiusTopLeft: =0
+              RadiusTopRight: =0
+              Width: =Parent.Width
+        - Status_Item:
+            Control: Text
+            Properties:
+              Align: ="Center"
+              Fill: |-
+                =Switch(
+                    Self.Text,
+                    "Accepted",
+                    Color.PaleGreen,
+                    "No Status",
+                    Color.Gold,
+                    "Not Accepted",
+                    Color.IndianRed,
+                    Color.SkyBlue
+                )
+              PaddingLeft: =0
+              Size: =Service_Name_Item1.Size
+              Text: |+
+                =Switch(ThisItem.Indykacje.Decision,
+                    1, "Accepted",
+                    0, "No Status",
+                    -1, "Not Accepted",
+                    "No data found"
+                )
+              Height: =Service_Name_Item1.Height
+              Width: =FilterStatus.Width
+              X: =Service_MPK_Item1.Width+Service_MPK_Item1.X
+        - Service_MPK_Item1:
+            Control: Text
+            Properties:
+              Align: ="Center"
+              Fill: =Color.Transparent
+              PaddingLeft: =5
+              Size: =Service_Name_Item1.Size
+              Text: =ThisItem.Kwoty.MPK
+              Height: =Service_Name_Item1.Height
+              Width: =SearchMPK.Width
+              X: =Service_ID_Item1.Width+Service_ID_Item1.X
+        - Service_ID_Item1:
+            Control: Text
+            Properties:
+              Align: ="Center"
+              Fill: =Color.Transparent
+              PaddingLeft: =5
+              Size: =Service_Name_Item1.Size
+              Text: =ThisItem.Service_ID
+              Height: =Service_Name_Item1.Height
+              Width: =SearchID.Width
+              X: =Service_Name_Item1.Width+Service_Name_Item1.X
+        - Service_Name_Item1:
+            Control: Text
+            Properties:
+              Fill: =Color.Transparent
+              PaddingLeft: =5
+              Size: =Max(App.Height, App.MinScreenHeight)/55
+              Text: =ThisItem.Service_Name
+              Height: =Self.Size*2
+              Width: =SearchName.Width
+
+
+Kod ekranu wypełniania danych:
+- FillForm:
+    Control: Screen
+    Variant: phoneLayout_FluidGridWithHeaderPageLayout_ver3.0
+    Properties:
+      LoadingSpinner: =LoadingSpinner.Data
+    Children:
+    - LoadingBackground_3:
+        Control: HtmlViewer
+        Properties:
+          HtmlText: |+
+            =$"<div style='background: rgba(255,255,255,0.4); backdrop-filter: blur(10px); border-radius: 8px; position: fixed; top: 0; left: 0; width: {Self.Width}px; height: {Self.Height}px; display: flex; align-items: center; justify-content: center; text-align: center; flex-direction: column;'>
+                    </div>
+            </div>"
+          Color: =RGBA(255, 255, 255, 1)
+          Height: =Parent.Height
+          PaddingTop: =0
+          Size: =
+          Visible: =varDownloadingData
+          Width: =Parent.Width
+    - Service_Info_Title:
+        Control: HtmlViewer
+        Properties:
+          HtmlText: |+
+            ="<div style='display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; text-align: center; font-family: Segoe UI; color: #FFFFFF; line-height: 1.1;'>
+                <p style='font-size: "&Self.Height*0.3125&"px; font-weight: bold; margin: 0;'>
+                    " & LookUp(Lista_Uslug, Service_ID = ChosenServiceID, Service_Name) & "
+                </p>
+                <div style='font-size: "&Self.Height*0.208&"px; margin: 0;'>
+                    <b>Service ID</b>: " & ChosenServiceID & "
+                    &emsp;&emsp;<b>MPK</b>: " & LookUp(Lista_Kwot, Service_ID = ChosenServiceID, MPK) & "
+                    <br><b>Service Manager</b>: " & LookUp(Lista_Kwot, Service_ID = ChosenServiceID, Business_Service_Manager) & "
+                </div>
+            </div>"
+          Height: =TitleBar_Ribbon_3.Height
+          PaddingBottom: =0
+          PaddingTop: =0
+          Width: =3*Parent.Width/5
+          X: =(Parent.Width-Self.Width)/2
+    - TitleBar_Ribbon_3:
+        Control: Component
+        ComponentName: TitleBar_Ribbon
+        Properties:
+          Height: =Max(App.Height, App.MinScreenHeight)/10
+          Width: =Max(App.Width, App.MinScreenWidth)
+    - Canvas2:
+        Control: FluidGrid
+        Variant: fluidGridWithBlankCard
+        Properties:
+          BorderThickness: =0
+          Height: =Parent.Height - Self.Y
+          Width: =Parent.Width
+          Y: =TitleBar_Ribbon_3.Y + TitleBar_Ribbon_3.Height
+        Children:
+        - FillData:
+            Control: DataCard
+            Variant: blankCard
+            Properties:
+              BorderColor: =VWBlue
+              BorderThickness: =2
+              Height: =Parent.Height
+              Width: =1366
+              WidthFit: =true
+              Y: =2
+            Children:
+            - ComboboxCanvas1:
+                Control: ComboBox
+                Variant: pcfdataset
+                Properties:
+                  DefaultSelectedItems: =UserVar
+                  InputTextPlaceholder: ="Choose comment author."
+                  Items: =UżytkownicyusługiOffice365.SearchUserV2({searchTerm:Self.SearchText,top:5}).value
+                  TriggerOutput: ='ComboboxCanvas.TriggerOutput'.Delayed
+                  Width: =YrAndIndication.Width
+                  X: =CommentAuthor.X
+                  Y: =CommentAuthor.Y+CommentAuthor.Height
+                Children:
+                - DisplayName2:
+                    Control: PowerApps_CoreControls_ComboboxCanvasTemplate_dataField
+                    Variant: textualColumn
+                    Properties:
+                      FieldDisplayName: ="DisplayName"
+                      FieldName: ="DisplayName"
+                      FieldType: ="s"
+                      Order: =1
+            - TextCanvas2:
+                Control: Text
+                Properties:
+                  Text: =
+                  X: =1083
+                  Y: =217
+            - CommentAuthorInput:
+                Control: TextInput
+                Properties:
+                  TriggerOutput: ='TextInputCanvas.TriggerOutput'.Keypress
+                  Value: =UserVar.DisplayName
+                  Height: =Year_Dropdown.Height
+                  Visible: =false
+                  Width: =YrAndIndication.Width
+                  X: =CommentAuthor.X
+                  Y: =CommentAuthor.Y+CommentAuthor.Height
+            - Save_To_Sharepoint_Button:
+                Control: Button
+                Properties:
+                  OnSelect: "=If(\r\n    // Dla indykacji nr 1\r\n    IndicationNo_Dropdown.Selected.Value = 1,\r\n    \r\n    // Check if there is already 1st indication\r\n    If(\r\n        !IsBlank(\r\n            LookUp(\r\n                Lista_Indykacji,\r\n                Year = Year_Dropdown.Selected.Value &&\r\n                IndicationNo = 1 &&\r\n                Service_ID = ChosenServiceID\r\n            )\r\n        ),\r\n        // Update of an existing record\r\n        Set(\r\n            TempOutput,\r\n            Patch(\r\n                Lista_Indykacji,\r\n                LookUp(\r\n                    Lista_Indykacji,\r\n                    Year = Year_Dropdown.Selected.Value &&\r\n                    IndicationNo = 1 &&\r\n                    Service_ID = ChosenServiceID\r\n                ),\r\n                {\r\n                    Comment_date: Text(CommentDateInput.SelectedDate),\r\n                    Comment_author: ComboboxCanvas1.Selected.DisplayName,\r\n                    Comment_PZ_to_WOB: CommentToWOBInput.Value,\r\n                    Comment_Intern: InternalCommentInput.Value,\r\n                    Decision: Switch(\r\n                        DropdownCanvas1.Selected.Value,\r\n                        \"Accepted\", 1,\r\n                        \"No Status\", 0,\r\n                        \"Not Accepted\", -1,\r\n                        0\r\n                    )\r\n                }\r\n            )\r\n        );\r\n        Notify(\"A record has been succesfully updated!\", NotificationType.Success)\r\n    ,\r\n        // If record does not exist, create it\r\n        Set(\r\n            TempOutput,\r\n            Patch(\r\n                Lista_Indykacji,\r\n                Defaults(Lista_Indykacji),\r\n                {\r\n                    Service_ID: ChosenServiceID,\r\n                    Year: Year_Dropdown.Selected.Value,\r\n                    IndicationNo: 1,\r\n                    Comment_date: Text(CommentDateInput.SelectedDate),\r\n                    Comment_author: ComboboxCanvas1.Selected.DisplayName,\r\n                    Comment_PZ_to_WOB: CommentToWOBInput.Value,\r\n                    Comment_Intern: InternalCommentInput.Value,\r\n                    Decision: Switch(\r\n                        DropdownCanvas1.Selected.Value,\r\n                        \"Accepted\", 1,\r\n                        \"No Status\", 0,\r\n                        \"Not Accepted\", -1,\r\n                        0\r\n                    )\r\n                }\r\n            )\r\n        );\r\n        Notify(\"The record has been succesfully created!\", NotificationType.Success)\r\n    )\r\n,\r\n    // For indications greater than 1\r\n    If(\r\n        IndicationNo_Dropdown.Selected.Value > 1,\r\n        \r\n        // Check if previous indication exists\r\n        If(\r\n            IsBlank(\r\n                LookUp(\r\n                    Lista_Indykacji,\r\n                    Year = Year_Dropdown.Selected.Value && \r\n                    IndicationNo = IndicationNo_Dropdown.Selected.Value - 1 &&\r\n                    Service_ID = ChosenServiceID\r\n                )\r\n            ),\r\n            Notify(\"Error! Previous indication does not exist!\", NotificationType.Error)\r\n        ,\r\n            // Continue if previous indication exists\r\n            If(\r\n                !IsBlank(\r\n                    LookUp(\r\n                        Lista_Indykacji, \r\n                        Year = Year_Dropdown.Selected.Value && \r\n                        IndicationNo = IndicationNo_Dropdown.Selected.Value && \r\n                        Service_ID = ChosenServiceID\r\n                    )\r\n                ),\r\n                // Update of existing record\r\n                Set(\r\n                    TempOutput,\r\n                    Patch(\r\n                        Lista_Indykacji,\r\n                        LookUp(\r\n                            Lista_Indykacji, \r\n                            Year = Year_Dropdown.Selected.Value && \r\n                            IndicationNo = IndicationNo_Dropdown.Selected.Value && \r\n                            Service_ID = ChosenServiceID\r\n                        ),\r\n                        {\r\n                            Comment_date: Text(CommentDateInput.SelectedDate),\r\n                            Comment_author: ComboboxCanvas1.Selected.DisplayName,\r\n                            Comment_PZ_to_WOB: CommentToWOBInput.Value,\r\n                            Comment_Intern: InternalCommentInput.Value,\r\n                            Decision: Switch(\r\n                                DropdownCanvas1.Selected.Value,\r\n                                \"Accepted\", 1,\r\n                                \"No Status\", 0,\r\n                                \"Not Accepted\", -1,\r\n                                0\r\n                            )\r\n                        }\r\n                    )\r\n                );\r\n                Notify(\"A record has been succesfully updated.\", NotificationType.Success)\r\n            ,\r\n                // Creating new record\r\n                Set(\r\n                    TempOutput,\r\n                    Patch(\r\n                        Lista_Indykacji,\r\n                        Defaults(Lista_Indykacji),\r\n                        {\r\n                            Service_ID: ChosenServiceID,\r\n                            Year: Year_Dropdown.Selected.Value,\r\n                            IndicationNo: IndicationNo_Dropdown.Selected.Value,\r\n                            Comment_date: Text(CommentDateInput.SelectedDate),\r\n                            Comment_author: ComboboxCanvas1.Selected.DisplayName,\r\n                            Comment_PZ_to_WOB: CommentToWOBInput.Value,\r\n                            Comment_Intern: InternalCommentInput.Value,\r\n                            Decision: Switch(\r\n                                DropdownCanvas1.Selected.Value,\r\n                                \"Accepted\", 1,\r\n                                \"No Status\", 0,\r\n                                \"Not Accepted\", -1,\r\n                                0\r\n                            )\r\n                        }\r\n                    )\r\n                );\r\n                Notify(\"A new record has been successfully created!\", NotificationType.Success)\r\n            )\r\n        )\r\n    )\r\n);\r\n\r\nRefresh(Lista_Indykacji);\r\nRefresh(Lista_Kwot);\r\nReset(CommentDateInput);\r\nReset(ComboboxCanvas1);\r\nReset(CommentToWOBInput);\r\nReset(InternalCommentInput);\r\nReset(DropdownCanvas1);\r\n"
+                  Align: =Align.Center
+                  FontSize: =16*1.3
+                  Icon: ="CheckmarkCircle"
+                  Layout: ='ButtonCanvas.Layout'.IconAfter
+                  Text: ="Save"
+                  VerticalAlign: =VerticalAlign.Middle
+                  Height: =DropdownCanvas1.Height
+                  Width: =DropdownCanvas1.Width
+                  X: =DropdownCanvas1.X
+                  Y: =CommentToWOBInput.Y+CommentToWOBInput.Height-Self.Height
+            - IndicationNo_Dropdown:
+                Control: DropDown
+                Variant: pcfdataset
+                Properties:
+                  DefaultSelectedItems: ={Value:Max(Filter(Lista_Indykacji,Service_ID=ChosenServiceID&&Year=Year_Dropdown.Selected.Value),IndicationNo)+1}
+                  FontSize: =16
+                  Items: =Sequence(5)
+                  Height: =YrAndIndication.Height
+                  Width: =YrAndIndication.Width/2
+                  X: =YrAndIndication.X+Year_Dropdown.Width
+                  Y: =YrAndIndication.Y+YrAndIndication.Height
+            - Year_Dropdown:
+                Control: DropDown
+                Variant: pcfdataset
+                Properties:
+                  DefaultSelectedItems: |-
+                    ={Value: Text(Now(),"yyyy")}
+                  FontSize: =16
+                  Items: =colYears
+                  Height: =YrAndIndication.Height
+                  Width: =YrAndIndication.Width/2
+                  X: =YrAndIndication.X
+                  Y: =YrAndIndication.Y+YrAndIndication.Height
+            - DropdownCanvas1:
+                Control: DropDown
+                Variant: pcfdataset
+                Properties:
+                  DefaultSelectedItems: |-
+                    ={Value: Switch(LookUp(Lista_Indykacji,Service_ID=ChosenServiceID&&Year=Max(Filter(Lista_Indykacji,Service_ID=ChosenServiceID),Year)&&IndicationNo=Max(Filter(Lista_Indykacji,Service_ID=ChosenServiceID&&Year=Max(Filter(Lista_Indykacji,Service_ID=ChosenServiceID),Year)),IndicationNo),Decision),1,"Accepted",0,"No Status",-1,"Not Accepted","No Status")}
+                  Fill: =Switch(Self.Selected.Value,"Accepted",Color.PaleGreen,"No status",Color.Gold,"Not Accepted",Color.IndianRed,Color.Gold)
+                  FontSize: =Year_1.Size
+                  Items: =["Accepted", "No Status", "Not Accepted"]
+                  Height: =Year_Dropdown.Height
+                  Width: =Status.Width
+                  X: =Status.X
+                  Y: =Status.Y+Status.Height
+            - Status:
+                Control: Text
+                Properties:
+                  PaddingLeft: =5
+                  Size: =Year_1.Size
+                  Text: ="Enter decision:"
+                  Weight: ="Bold"
+                  Height: =Self.Size*2
+                  Width: =InternatComment.Width
+                  X: =InternatComment.X+InternatComment.Width+CommentToWOB.X
+                  Y: =Year_Dropdown.Y+Year_Dropdown.Height*2
+            - CommentToWOBInput:
+                Control: TextInput
+                Properties:
+                  FontSize: =16
+                  Mode: ="Multiline"
+                  Placeholder: ="Enter a comment to Wolfsburg employees here."
+                  Height: =Parent.Height/3
+                  Width: =InternatComment.Width
+                  X: =CommentToWOB.X
+                  Y: =CommentToWOB.Y+CommentToWOB.Height
+            - CommentToWOB:
+                Control: Text
+                Properties:
+                  PaddingLeft: =5
+                  Size: =Year_1.Size
+                  Text: ="Comment to WOB:"
+                  Weight: ="Bold"
+                  Height: =Self.Size*2
+                  Width: =InternatComment.Width
+                  X: =2*InternatComment.X+InternatComment.Width
+                  Y: =Year_Dropdown.Y+Year_Dropdown.Height*2
+            - CommentDateInput:
+                Control: DatePicker
+                Properties:
+                  FontSize: =16
+                  Format: ='DatePickerCanvas.Format'.Short
+                  Placeholder: =Text(Now(),"dd.mm.yyyy")
+                  SelectedDate: =Now()
+                  Height: =Year_Dropdown.Height
+                  Width: =YrAndIndication.Width
+                  X: =CommentAuthor.X+YrAndIndication.X+YrAndIndication.Width
+                  Y: =CommentDate.Y+CommentDate.Height
+            - CommentDate:
+                Control: Text
+                Properties:
+                  PaddingLeft: =5
+                  Size: =Year_1.Size
+                  Text: ="Comment date:"
+                  Weight: ="Bold"
+                  Height: =Self.Size*2
+                  Width: =YrAndIndication.Width
+                  X: =CommentAuthor.X+YrAndIndication.X+YrAndIndication.Width
+                  Y: =YrAndIndication.Y
+            - CommentAuthor:
+                Control: Text
+                Properties:
+                  PaddingLeft: =5
+                  Size: =Year_1.Size
+                  Text: ="Comment author:"
+                  Weight: ="Bold"
+                  Height: =Self.Size*2
+                  Width: =YrAndIndication.Width
+                  X: =YrAndIndication.X*2+YrAndIndication.Width
+                  Y: =YrAndIndication.Y
+            - InternalCommentInput:
+                Control: TextInput
+                Properties:
+                  FontSize: =16
+                  Mode: ="Multiline"
+                  Placeholder: ="Enter a comment to internal employees here."
+                  Height: =Parent.Height/3
+                  Width: =CommentAuthorInput.Width
+                  X: =InternatComment.X
+                  Y: =InternatComment.Y+InternatComment.Height
+            - InternatComment:
+                Control: Text
+                Properties:
+                  PaddingLeft: =5
+                  Size: =Year_1.Size
+                  Text: ="Internal comment:"
+                  Weight: ="Bold"
+                  Height: =Self.Size*2
+                  Width: =CommentAuthorInput.Width
+                  X: =YrAndIndication.X
+                  Y: =Year_Dropdown.Y+Year_Dropdown.Height*2
+            - YrAndIndication:
+                Control: Text
+                Properties:
+                  PaddingLeft: =5
+                  Size: =Year_1.Size
+                  Text: ="Year and Indication Number:"
+                  Weight: ="Bold"
+                  Height: =Self.Size*2
+                  Width: =(Parent.Width-Self.X)/3-Self.X
+                  X: =16
+                  Y: =16
+        - Lista_Indykacji_Card:
+            Control: DataCard
+            Variant: blankCard
+            Properties:
+              BorderColor: =VWBlue
+              BorderThickness: =2
+              Height: |-
+                =If(ShowCommentPopup,CommentPopup.Y+CommentPopup.Height+16,
+                Lista_Indykacji_Gallery.Y+Lista_Indykacji_Gallery.Height+16)
+              Width: =1366
+              WidthFit: =true
+              Y: =1
+            Children:
+            - Headers_1:
+                Control: Group
+                Children:
+                - Comment_K-DES:
+                    Control: Text
+                    Properties:
+                      Align: ="Center"
+                      BorderColor: =VWTheme.Colors.Primary
+                      BorderStyle: =BorderStyle.Solid
+                      BorderThickness: =2
+                      Fill: =VWTheme.Colors.Lighter80
+                      PaddingLeft: =5
+                      PaddingRight: =5
+                      Size: =IndicationNo_Header.Size
+                      Text: ="Comment K-DES"
+                      Weight: =IndicationNo_Header.Weight
+                      Height: =Self.Size*3
+                      Width: =(Parent.Width-IndicationNo_Header.X*2)/10
+                      X: =Comment_BSM.X+Comment_BSM.Width
+                      Y: =TextCanvas1_1.Y+TextCanvas1_1.Height
+                - Comment_BSM:
+                    Control: Text
+                    Properties:
+                      Align: ="Center"
+                      BorderColor: =VWTheme.Colors.Primary
+                      BorderStyle: =BorderStyle.Solid
+                      BorderThickness: =2
+                      Fill: =VWTheme.Colors.Lighter80
+                      PaddingLeft: =5
+                      PaddingRight: =5
+                      Size: =IndicationNo_Header.Size
+                      Text: ="Comment BSM"
+                      Weight: =IndicationNo_Header.Weight
+                      Height: =Self.Size*3
+                      Width: =(Parent.Width-IndicationNo_Header.X*2)/10
+                      X: =Comment_PZ_to_WOB.X+Comment_PZ_to_WOB.Width
+                      Y: =TextCanvas1_1.Y+TextCanvas1_1.Height
+                - Decision_Header:
+                    Control: Text
+                    Properties:
+                      Align: ="Center"
+                      BorderColor: =VWTheme.Colors.Primary
+                      BorderStyle: =BorderStyle.Solid
+                      BorderThickness: =2
+                      Fill: =VWTheme.Colors.Lighter80
+                      PaddingLeft: =5
+                      PaddingRight: =5
+                      Size: =IndicationNo_Header.Size
+                      Text: ="Decision"
+                      Weight: =IndicationNo_Header.Weight
+                      Height: =Self.Size*3
+                      Width: =(Parent.Width-IndicationNo_Header.X*2)/10
+                      X: =Final_Comment.X+Final_Comment.Width
+                      Y: =TextCanvas1_1.Y+TextCanvas1_1.Height
+                - Final_Comment:
+                    Control: Text
+                    Properties:
+                      Align: ="Center"
+                      BorderColor: =VWTheme.Colors.Primary
+                      BorderStyle: =BorderStyle.Solid
+                      BorderThickness: =2
+                      Fill: =VWTheme.Colors.Lighter80
+                      PaddingLeft: =5
+                      PaddingRight: =5
+                      Size: =IndicationNo_Header.Size
+                      Text: ="Final Comment"
+                      Weight: =IndicationNo_Header.Weight
+                      Height: =Self.Size*3
+                      Width: =(Parent.Width-IndicationNo_Header.X*2)/10
+                      X: ='Comment_K-DES'.X+'Comment_K-DES'.Width
+                      Y: =TextCanvas1_1.Y+TextCanvas1_1.Height
+                - Comment_PZ_to_WOB:
+                    Control: Text
+                    Properties:
+                      Align: ="Center"
+                      BorderColor: =VWTheme.Colors.Primary
+                      BorderStyle: =BorderStyle.Solid
+                      BorderThickness: =2
+                      Fill: =VWTheme.Colors.Lighter80
+                      PaddingLeft: =5
+                      PaddingRight: =5
+                      Size: =IndicationNo_Header.Size
+                      Text: ="Comment PZ to WOB"
+                      Weight: =IndicationNo_Header.Weight
+                      Height: =Self.Size*3
+                      Width: =(Parent.Width-IndicationNo_Header.X*2)/10
+                      X: =Comment_Intern.X+Comment_Intern.Width
+                      Y: =TextCanvas1_1.Y+TextCanvas1_1.Height
+                - Comment_Intern:
+                    Control: Text
+                    Properties:
+                      Align: ="Center"
+                      BorderColor: =VWTheme.Colors.Primary
+                      BorderStyle: =BorderStyle.Solid
+                      BorderThickness: =2
+                      Fill: =VWTheme.Colors.Lighter80
+                      PaddingLeft: =5
+                      PaddingRight: =5
+                      Size: =IndicationNo_Header.Size
+                      Text: ="Internal Comment"
+                      Weight: =IndicationNo_Header.Weight
+                      Height: =Self.Size*3
+                      Width: =(Parent.Width-IndicationNo_Header.X*2)/10
+                      X: =IndicationNo_Header.X+IndicationNo_Header.Width
+                      Y: =TextCanvas1_1.Y+TextCanvas1_1.Height
+                - IndicationNo_Header:
+                    Control: Text
+                    Properties:
+                      Align: ="Center"
+                      BorderColor: =VWTheme.Colors.Primary
+                      BorderStyle: =BorderStyle.Solid
+                      BorderThickness: =2
+                      Fill: =VWTheme.Colors.Lighter80
+                      PaddingLeft: =5
+                      PaddingRight: =5
+                      Size: =18
+                      Text: ="Indication Number"
+                      Weight: ="Bold"
+                      Height: =Self.Size*3
+                      Width: =(Parent.Width-IndicationNo_Header.X*2)/10
+                      X: =Year_1.X
+                      Y: =TextCanvas1_1.Y+TextCanvas1_1.Height
+            - ClosePopup:
+                Control: Button
+                Properties:
+                  OnSelect: =Set(ShowCommentPopup, false);
+                  Appearance: ='ButtonCanvas.Appearance'.Transparent
+                  FontSize: =32
+                  FontWeight: ="Bold"
+                  Icon: ="DismissCircle"
+                  IconStyle: ='ButtonCanvas.IconStyle'.Outline
+                  Layout: ='ButtonCanvas.Layout'.IconOnly
+                  Height: =36
+                  Visible: =ShowCommentPopup
+                  Width: =Self.Height
+                  X: =CommentPopup.X+CommentPopup.Width-Self.Width
+                  Y: =CommentPopup.Y
+            - CommentPopup:
+                Control: HtmlViewer
+                Properties:
+                  HtmlText: |
+                    ="<div style='font-family: Arial, sans-serif; line-height: 1.6; border: 2px solid #ddd; border-radius: 5px; padding: 10px; max-width: 600px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); font-size: 0.85em;'>
+                        <div style='color: #555;'>Autor: <span>" & SelectedComment.Author & "</span></div>
+                        <div style='color: #888; font-size: 0.85em;'>Data: <span>" & Text(SelectedComment.Date, "[$-pl]yyyy-MM-dd") & "</span></div>
+                        <div style='font-weight: bold; font-size: 1em; margin-bottom: 5px;'>Comment:</div>
+                        <div style='margin-top: 5px; font-size: 0.85em;'>
+                            <p>" & SelectedComment.Text & "</p>
+                        </div>
+                    </div>"
+                  AutoHeight: =true
+                  BorderColor: =VWBlue
+                  BorderStyle: ="Solid"
+                  BorderThickness: =2
+                  Fill: =RGBA(75,98,160,0.2)
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =16
+                  Visible: =ShowCommentPopup
+                  Width: =Parent.Width-Self.X-IndicationNo_Header.X
+                  X: |-
+                    =If(Self.Visible = true,
+                    Decision_Header.X+Decision_Header.Width+16,0)
+                  Y: |-
+                    =If(Self.Visible = true,
+                    IndicationNo_Header.Y,0)
+            - Lista_Indykacji_Gallery:
+                Control: Gallery
+                Variant: galleryVertical
+                Properties:
+                  Default: =LookUp(Lista_Indykacji,Service_ID = ChosenServiceID && Year = Text(Now(),"yyyy"))
+                  Items: |
+                    =/*If(!IsBlank(ChosenServiceID);If(!IsBlank(ChosenServiceYear);
+                    Filter(Lista_Indykacji;Service_ID = ChosenServiceID && Year = ChosenServiceYear);Filter(Lista_Indykacji;Service_ID = ChosenServiceID && Year = Text(Now();"yyyy")))) 
+                    */
+
+                    Sort(
+                        If(
+                            !IsBlank(ChosenServiceID),
+                            If(
+                                !IsBlank(ChosenServiceYear),
+                                Filter(Lista_Indykacji, Service_ID = ChosenServiceID && Year = ChosenServiceYear),
+                                Filter(Lista_Indykacji, Service_ID = ChosenServiceID && Year = Text(Now(), "yyyy"))
+                            )
+                        ),
+                        IndicationNo
+                    )
+                  BorderThickness: =1
+                  DelayItemLoading: =true
+                  Height: =If(!IsBlank(ChosenServiceID),Self.TemplateHeight*Self.AllItemsCount,Self.TemplateHeight)
+                  Layout: =Layout.Vertical
+                  LoadingSpinner: =LoadingSpinner.Data
+                  TemplatePadding: =0
+                  TemplateSize: |+
+                    =64
+                  Width: =Decision_Header.X+Decision_Header.Width-Self.X
+                  X: =Year_1.X
+                  Y: =IndicationNo_Header.Y+IndicationNo_Header.Height
+                Children:
+                - Rectangle1_1:
+                    Control: Rectangle
+                    Properties:
+                      OnSelect: =Select(Parent)
+                      Height: =2
+                      Width: =Parent.Width
+                      Y: =Parent.TemplateHeight-Self.Height
+                - Comment+K-DES_Item:
+                    Control: Label
+                    Properties:
+                      OnSelect: |+
+                        =Set(ShowCommentPopup, false);
+                        If(Len(ThisItem.'Comment_K-DES')>30,
+                        Set(ShowCommentPopup, true);
+                        Set(SelectedComment,{Text: ThisItem.'Comment_K-DES', Xval: Self.X,Author: ThisItem.Comment_author, Date: ThisItem.Comment_date}))
+
+
+                      Text: |+
+                        =If(!IsBlank(ThisItem.'Comment_K-DES'),
+                        If(Len(ThisItem.'Comment_K-DES')<45, ThisItem.'Comment_K-DES', Left(ThisItem.'Comment_K-DES', 45) & "..."))
+                      Tooltip: =If(!IsBlank(Self.Text),"Press to expand this comment.")
+                      Align: =Align.Center
+                      Fill: |-
+                        =If(ThisItem.'Comment_K-DES' = SelectedComment.Text&&ShowCommentPopup,
+                        RGBA(75,98,160,0.4),
+                        RGBA(0, 0, 0, 0))
+                      FontWeight: =FontWeight.Semibold
+                      Height: |+
+                        = Parent.TemplateHeight-Rectangle1_1.Height
+                      HoverFill: =RGBA(75,98,160,0.2)
+                      PressedFill: =RGBA(75,98,160,0.4)
+                      Size: =Year_Item.Size*0.75
+                      Width: =IndicationNo_Header.Width
+                      X: |
+                        ='Comment_K-DES'.X-IndicationNo_Header.X
+                      Y: |
+                        =0
+                - Comment_BSM_Item:
+                    Control: Label
+                    Properties:
+                      OnSelect: |+
+                        =Set(ShowCommentPopup, false);
+                        If(Len(ThisItem.Comment_BSM)>30,
+                        Set(ShowCommentPopup, true);
+                        Set(SelectedComment,{Text: ThisItem.Comment_BSM, Xval: Self.X,Author: ThisItem.Comment_author, Date: ThisItem.Comment_date}))
+                      Text: |+
+                        =If(!IsBlank(ThisItem.Comment_BSM),
+                        If(Len(ThisItem.Comment_BSM)<45, ThisItem.Comment_BSM, Left(ThisItem.Comment_BSM, 45) & "..."))
+                      Tooltip: =If(!IsBlank(Self.Text),"Press to expand this comment.")
+                      Align: =Align.Center
+                      Fill: |-
+                        =If(ThisItem.Comment_BSM = SelectedComment.Text&&ShowCommentPopup,
+                        RGBA(75,98,160,0.4),
+                        RGBA(0, 0, 0, 0))
+                      FontWeight: =FontWeight.Semibold
+                      Height: |+
+                        = Parent.TemplateHeight-Rectangle1_1.Height
+                      HoverFill: =RGBA(75,98,160,0.2)
+                      PressedFill: =RGBA(75,98,160,0.4)
+                      Size: =Year_Item.Size*0.75
+                      Width: =IndicationNo_Header.Width
+                      X: =Comment_BSM.X-IndicationNo_Header.X
+                      Y: |
+                        =0
+                - Decision_Item:
+                    Control: Label
+                    Properties:
+                      Text: =Switch(ThisItem.Decision,1,"Accepted",0,"No Status",-1,"Not Accepted","No Status")
+                      Tooltip: ="Press to expand this comment."
+                      Align: =Align.Center
+                      Fill: =Switch(ThisItem.Decision,1,Color.PaleGreen,0,Color.Gold,-1,Color.IndianRed,Color.Gold)
+                      FontWeight: =FontWeight.Semibold
+                      Height: =Parent.TemplateHeight-Rectangle1_1.Height
+                      Size: =Year_Item.Size*0.75
+                      Width: =IndicationNo_Header.Width
+                      X: =Decision_Header.X-IndicationNo_Header.X
+                      Y: |
+                        =0
+                - Final_Comment_Item:
+                    Control: Label
+                    Properties:
+                      OnSelect: |+
+                        =Set(ShowCommentPopup, false);
+                        If(Len(ThisItem.Final_Comment)>30,
+                        Set(ShowCommentPopup, true);
+                        Set(SelectedComment,{Text: ThisItem.Final_Comment, Xval: Self.X,Author: ThisItem.Comment_author, Date: ThisItem.Comment_date}))
+                      Text: |+
+                        =If(!IsBlank(ThisItem.Final_Comment),
+                        If(Len(ThisItem.Final_Comment)<45, ThisItem.Final_Comment, Left(ThisItem.Final_Comment, 45) & "..."))
+                      Tooltip: =If(!IsBlank(Self.Text),"Press to expand this comment.")
+                      Align: =Align.Center
+                      Fill: |-
+                        =If(ThisItem.Final_Comment = SelectedComment.Text&&ShowCommentPopup,
+                        RGBA(75,98,160,0.4),
+                        RGBA(0, 0, 0, 0))
+                      FontWeight: =FontWeight.Semibold
+                      Height: |+
+                        = Parent.TemplateHeight-Rectangle1_1.Height
+                      HoverFill: =RGBA(75,98,160,0.2)
+                      PressedFill: =RGBA(75,98,160,0.4)
+                      Size: =Year_Item.Size*0.75
+                      Width: =IndicationNo_Header.Width
+                      X: |
+                        =Final_Comment.X-IndicationNo_Header.X
+                      Y: |
+                        =0
+                - Comment_PZ_to_WOB_Item:
+                    Control: Label
+                    Properties:
+                      OnSelect: |+
+                        =Set(ShowCommentPopup, false);
+                        If(Len(ThisItem.Comment_PZ_to_WOB)>30,
+                        Set(ShowCommentPopup, true);
+                        Set(SelectedComment,{Text: ThisItem.Comment_PZ_to_WOB, Xval: Self.X,Author: ThisItem.Comment_author, Date: ThisItem.Comment_date}))
+
+                      Text: |+
+                        =If(!IsBlank(ThisItem.Comment_PZ_to_WOB),
+                        If(Len(ThisItem.Comment_PZ_to_WOB)<45, ThisItem.Comment_PZ_to_WOB, Left(ThisItem.Comment_PZ_to_WOB, 45) & "..."))
+                      Tooltip: =If(!IsBlank(Self.Text),"Press to expand this comment.")
+                      Align: =Align.Center
+                      Fill: |-
+                        =If(ThisItem.Comment_PZ_to_WOB = SelectedComment.Text&&ShowCommentPopup,
+                        RGBA(75,98,160,0.4),
+                        RGBA(0, 0, 0, 0))
+                      FontWeight: =FontWeight.Semibold
+                      Height: |+
+                        = Parent.TemplateHeight-Rectangle1_1.Height
+                      HoverFill: =RGBA(75,98,160,0.2)
+                      PressedFill: =RGBA(75,98,160,0.4)
+                      Size: =Year_Item.Size*0.75
+                      Width: =IndicationNo_Header.Width
+                      X: =Comment_PZ_to_WOB.X-IndicationNo_Header.X
+                      Y: |
+                        =0
+                - Internal_Comment_Item:
+                    Control: Label
+                    Properties:
+                      OnSelect: |+
+                        =Set(ShowCommentPopup, false);
+                        If(Len(ThisItem.Comment_Intern)>30,
+                        Set(ShowCommentPopup, true);
+                        Set(SelectedComment,{Text: ThisItem.Comment_Intern, Xval: Self.X,Author: ThisItem.Comment_author, Date: ThisItem.Comment_date}))
+                      Text: |+
+                        =/*If(!IsBlank(ThisItem.Comment_Intern);
+                        If(Len(ThisItem.Comment_Intern)<45; ThisItem.Comment_Intern; Left(ThisItem.Comment_Intern; 45) & "..."))
+                        */
+
+                        If(
+                            !IsBlank(ThisItem.Comment_Intern),
+                            If(
+                                Len(PlainText(ThisItem.Comment_Intern)) < 45, 
+                                PlainText(ThisItem.Comment_Intern), 
+                                Left(PlainText(ThisItem.Comment_Intern), 45) & "..."
+                            )
+                        )
+                      Tooltip: =If(!IsBlank(Self.Text),"Press to expand this comment.")
+                      Align: =Align.Center
+                      Fill: |-
+                        =If(ThisItem.Comment_Intern = SelectedComment.Text&&ShowCommentPopup,
+                        RGBA(75,98,160,0.4),
+                        RGBA(0, 0, 0, 0))
+                      FontWeight: =FontWeight.Semibold
+                      Height: |+
+                        = Parent.TemplateHeight-Rectangle1_1.Height
+                      HoverFill: =RGBA(75,98,160,0.2)
+                      PressedFill: =RGBA(75,98,160,0.4)
+                      Size: =Year_Item.Size*0.75
+                      Width: =IndicationNo_Header.Width
+                      X: =Comment_Intern.X-IndicationNo_Header.X
+                      Y: |
+                        =0
+                - IndicationNo_Item:
+                    Control: Label
+                    Properties:
+                      Text: =ThisItem.IndicationNo
+                      Align: =Align.Center
+                      FontWeight: =FontWeight.Semibold
+                      Height: =Parent.TemplateHeight-Rectangle1_1.Height
+                      Size: =Year_Item.Size*0.75
+                      Width: =IndicationNo_Header.Width
+                      Y: |+
+                        =0
+
+            - TextCanvas1_1:
+                Control: Text
+                Properties:
+                  AutoHeight: =true
+                  FontUnderline: =true
+                  Size: =24
+                  Text: ="Information from individual indications:"
+                  Weight: ="Bold"
+                  Width: =Parent.Width-Self.X*2
+                  X: =16
+                  Y: =16
+        - Lista_Kwot_Card:
+            Control: DataCard
+            Properties:
+              BorderColor: =VWBlue
+              BorderThickness: =2
+              Height: =LinkCanvas1.Y+LinkCanvas1.Height+16
+              Width: =Parent.Width
+            Children:
+            - TextCanvas1:
+                Control: Text
+                Properties:
+                  AutoHeight: =true
+                  FontUnderline: =true
+                  Size: =24
+                  Text: ="Annual price comparison:"
+                  Weight: ="Bold"
+                  Width: =Parent.Width-Self.X*2
+                  X: =16
+                  Y: =16
+            - Headers:
+                Control: Group
+                Children:
+                - FinalDecision_1:
+                    Control: Text
+                    Properties:
+                      Align: ="Center"
+                      BorderColor: =VWTheme.Colors.Primary
+                      BorderStyle: =BorderStyle.Solid
+                      BorderThickness: =2
+                      Fill: =VWTheme.Colors.Lighter80
+                      PaddingLeft: =5
+                      PaddingRight: =5
+                      Size: =Year_1.Size
+                      Text: ="Final Decision"
+                      Weight: =Year_1.Weight
+                      Height: |-
+                        =If(GalleryHidden,2,
+                        Self.Size*3.1)
+                      Width: =(Parent.Width-Year_1.X*2)/10
+                      X: =Difference_1.X+Difference_1.Width
+                      Y: =TextCanvas1.Y+TextCanvas1.Height
+                - Difference_1:
+                    Control: Text
+                    Properties:
+                      Align: ="Center"
+                      BorderColor: =VWTheme.Colors.Primary
+                      BorderStyle: =BorderStyle.Solid
+                      BorderThickness: =2
+                      Fill: =VWTheme.Colors.Lighter80
+                      PaddingLeft: =5
+                      PaddingRight: =5
+                      Size: =Year_1.Size
+                      Text: ="Difference"
+                      Weight: =Year_1.Weight
+                      Height: |-
+                        =If(GalleryHidden,2,
+                        Self.Size*3.1)
+                      Width: =(Parent.Width-Year_1.X*2)/10
+                      X: =Next_Year_QTY_1.X+Next_Year_QTY_1.Width
+                      Y: =TextCanvas1.Y+TextCanvas1.Height
+                - Next_Year_QTY_1:
+                    Control: Text
+                    Properties:
+                      Align: ="Center"
+                      BorderColor: =VWTheme.Colors.Primary
+                      BorderStyle: =BorderStyle.Solid
+                      BorderThickness: =2
+                      Fill: =VWTheme.Colors.Lighter80
+                      PaddingLeft: =5
+                      PaddingRight: =5
+                      Size: =Year_1.Size
+                      Text: ="Next Year QTY"
+                      Weight: =Year_1.Weight
+                      Height: |-
+                        =If(GalleryHidden,2,
+                        Self.Size*3.1)
+                      Width: =(Parent.Width-Year_1.X*2)/10
+                      X: =Next_Year_Plan_1.X+Next_Year_Plan_1.Width
+                      Y: =TextCanvas1.Y+TextCanvas1.Height
+                - Next_Year_Plan_1:
+                    Control: Text
+                    Properties:
+                      Align: ="Center"
+                      BorderColor: =VWTheme.Colors.Primary
+                      BorderStyle: =BorderStyle.Solid
+                      BorderThickness: =2
+                      Fill: =VWTheme.Colors.Lighter80
+                      PaddingLeft: =5
+                      PaddingRight: =5
+                      Size: =Year_1.Size
+                      Text: ="Next Year Plan"
+                      Weight: =Year_1.Weight
+                      Height: |-
+                        =If(GalleryHidden,2,
+                        Self.Size*3.1)
+                      Width: =(Parent.Width-Year_1.X*2)/10
+                      X: =Current_Year_QTY_1.X+Current_Year_QTY_1.Width
+                      Y: =TextCanvas1.Y+TextCanvas1.Height
+                - Current_Year_QTY_1:
+                    Control: Text
+                    Properties:
+                      Align: ="Center"
+                      BorderColor: =VWTheme.Colors.Primary
+                      BorderStyle: =BorderStyle.Solid
+                      BorderThickness: =2
+                      Fill: =VWTheme.Colors.Lighter80
+                      PaddingLeft: =5
+                      PaddingRight: =5
+                      Size: =Year_1.Size
+                      Text: ="Current Year QTY"
+                      Weight: =Year_1.Weight
+                      Height: |-
+                        =If(GalleryHidden,2,
+                        Self.Size*3.1)
+                      Width: =(Parent.Width-Year_1.X*2)/10
+                      X: =Current_Year_Plan_1.X+Current_Year_Plan_1.Width
+                      Y: =TextCanvas1.Y+TextCanvas1.Height
+                - Current_Year_Plan_1:
+                    Control: Text
+                    Properties:
+                      Align: ="Center"
+                      BorderColor: =VWTheme.Colors.Primary
+                      BorderStyle: =BorderStyle.Solid
+                      BorderThickness: =2
+                      Fill: =VWTheme.Colors.Lighter80
+                      PaddingLeft: =5
+                      PaddingRight: =5
+                      Size: =Year_1.Size
+                      Text: ="Current Year Plan"
+                      Weight: =Year_1.Weight
+                      Height: |-
+                        =If(GalleryHidden,2,
+                        Self.Size*3.1)
+                      Width: =(Parent.Width-Year_1.X*2)/10
+                      X: =Settlement_Type_1.X+Settlement_Type_1.Width
+                      Y: =TextCanvas1.Y+TextCanvas1.Height
+                - Settlement_Type_1:
+                    Control: Text
+                    Properties:
+                      Align: ="Center"
+                      BorderColor: =VWTheme.Colors.Primary
+                      BorderStyle: =BorderStyle.Solid
+                      BorderThickness: =2
+                      Fill: =VWTheme.Colors.Lighter80
+                      PaddingLeft: =5
+                      PaddingRight: =5
+                      Size: =Year_1.Size
+                      Text: ="Settlement Type"
+                      Weight: =Year_1.Weight
+                      Height: |-
+                        =If(GalleryHidden,2,
+                        Self.Size*3.1)
+                      Width: =(Parent.Width-Year_1.X*2)/10
+                      X: =Unit_Of_Measurement_1.X+Unit_Of_Measurement_1.Width
+                      Y: =TextCanvas1.Y+TextCanvas1.Height
+                - Unit_Of_Measurement_1:
+                    Control: Text
+                    Properties:
+                      Align: ="Center"
+                      BorderColor: =VWTheme.Colors.Primary
+                      BorderStyle: =BorderStyle.Solid
+                      BorderThickness: =2
+                      Fill: =VWTheme.Colors.Lighter80
+                      PaddingLeft: =5
+                      PaddingRight: =5
+                      Size: =Year_1.Size
+                      Text: ="Unit Of Measurement"
+                      Weight: =Year_1.Weight
+                      Height: |-
+                        =If(GalleryHidden,2,
+                        Self.Size*3.1)
+                      Width: =(Parent.Width-Year_1.X*2)/8
+                      X: =Year_1.X+Year_1.Width
+                      Y: =TextCanvas1.Y+TextCanvas1.Height
+                - Year_1:
+                    Control: Text
+                    Properties:
+                      Align: ="Center"
+                      BorderColor: =VWTheme.Colors.Primary
+                      BorderStyle: =BorderStyle.Solid
+                      BorderThickness: =2
+                      Fill: =VWTheme.Colors.Lighter80
+                      PaddingLeft: =5
+                      PaddingRight: =5
+                      Size: =17
+                      Text: ="Year"
+                      Weight: ="Bold"
+                      Height: |-
+                        =If(GalleryHidden,2,
+                        Self.Size*3.1)
+                      Width: =(Parent.Width-Year_1.X*2)/10
+                      X: =16
+                      Y: =TextCanvas1.Y+TextCanvas1.Height
+            - Lista_Kwot_Gallery:
+                Control: Gallery
+                Variant: galleryVertical
+                Properties:
+                  Items: |+
+                    =/*Filter(Lista_Kwot;Service_ID = ChosenServiceID)*/
+
+                    Sort(
+                        Filter(
+                            Lista_Kwot,
+                            Service_ID = ChosenServiceID
+                        ),
+                        Year
+                    )
+                  BorderThickness: =1
+                  DelayItemLoading: =true
+                  Height: =If(GalleryHidden,0,Self.TemplateHeight*Self.AllItemsCount)
+                  Layout: =Layout.Vertical
+                  LoadingSpinner: =LoadingSpinner.Data
+                  TemplatePadding: =0
+                  TemplateSize: =Year_1.Height+Rectangle1.Height
+                  Visible: =If(GalleryHidden,false,true)
+                  Width: =FinalDecision_1.X+FinalDecision_1.Width-Self.X
+                  X: =Year_1.X
+                  Y: =(Year_1.Y+Year_1.Height)
+                Children:
+                - Invisible_Button_1:
+                    Control: Classic/Button
+                    Properties:
+                      OnSelect: |-
+                        =Set(ChosenServiceYear, ThisItem.Year);
+                        Set(ShowCommentPopup,false);
+                      Text: =
+                      Tooltip: ="Select to display more information below."
+                      BorderStyle: =BorderStyle.None
+                      Fill: =Color.Transparent
+                      Height: =Parent.TemplateHeight
+                      HoverFill: =RGBA(75,98,160,0.2)
+                      PressedFill: =RGBA(75,98,160,0.4)
+                      RadiusBottomLeft: =0
+                      RadiusBottomRight: =0
+                      RadiusTopLeft: =0
+                      RadiusTopRight: =0
+                      Width: =Parent.Width
+                - Rectangle1:
+                    Control: Rectangle
+                    Properties:
+                      OnSelect: =Select(Parent)
+                      Height: =2
+                      Width: =Parent.Width
+                      Y: =Year_Item.Height
+                - FinalDecision:
+                    Control: Text
+                    Properties:
+                      Align: ="Center"
+                      Fill: =Switch(LookUp(Lista_Indykacji,Service_ID=ChosenServiceID&&Year=ThisItem.Year&&IndicationNo=Max(Filter(Lista_Indykacji,Service_ID=ChosenServiceID&&Year=ThisItem.Year),IndicationNo),Decision),1,Color.PaleGreen,0,Color.Gold,-1,Color.IndianRed,Color.Gold)
+                      Text: =Switch(LookUp(Lista_Indykacji,Service_ID=ChosenServiceID&&Year=ThisItem.Year&&IndicationNo=Max(Filter(Lista_Indykacji,Service_ID=ChosenServiceID&&Year=ThisItem.Year),IndicationNo),Decision),1,"Accepted",0,"No Status",-1,"Not Accepted","No Status")
+                      Weight: ='TextCanvas.Weight'.Semibold
+                      Height: =Lista_Kwot_Gallery.TemplateHeight-Rectangle1.Height
+                      Width: =Year_1.Width
+                      X: =FinalDecision_1.X-Year_1.X
+                - Difference:
+                    Control: Text
+                    Properties:
+                      Align: ="Center"
+                      Text: =Round(ThisItem.Next_Year_Plan_EUR-ThisItem.Current_Year_Plan_EUR,2)&" €"
+                      Weight: ='TextCanvas.Weight'.Semibold
+                      Height: =Lista_Kwot_Gallery.TemplateHeight-Rectangle1.Height
+                      Width: =Year_1.Width
+                      X: =Difference_1.X-Year_1.X
+                - Next_Year_QTY:
+                    Control: Text
+                    Properties:
+                      Align: ="Center"
+                      Text: =Round(ThisItem.QTY_Current_Year,2)
+                      Weight: ='TextCanvas.Weight'.Semibold
+                      Height: =Lista_Kwot_Gallery.TemplateHeight-Rectangle1.Height
+                      Width: =Year_1.Width
+                      X: =Next_Year_QTY_1.X-Year_1.X
+                - Next_Year_Plan:
+                    Control: Text
+                    Properties:
+                      Align: ="Center"
+                      Text: =Round(ThisItem.Current_Year_Plan_EUR,2)&" €"
+                      Weight: ='TextCanvas.Weight'.Semibold
+                      Height: =Lista_Kwot_Gallery.TemplateHeight-Rectangle1.Height
+                      Width: =Year_1.Width
+                      X: =Next_Year_Plan_1.X-Year_1.X
+                - Current_Year_QTY:
+                    Control: Text
+                    Properties:
+                      Align: ="Center"
+                      Text: =Round(ThisItem.QTY_Current_Year,2)
+                      Weight: ='TextCanvas.Weight'.Semibold
+                      Height: =Lista_Kwot_Gallery.TemplateHeight-Rectangle1.Height
+                      Width: =Year_1.Width
+                      X: =Current_Year_QTY_1.X-Year_1.X
+                - Current_Year_Plan:
+                    Control: Text
+                    Properties:
+                      Align: ="Center"
+                      Text: =Round(ThisItem.Current_Year_Plan_EUR,2)&" €"
+                      Weight: ='TextCanvas.Weight'.Semibold
+                      Height: =Lista_Kwot_Gallery.TemplateHeight-Rectangle1.Height
+                      Width: =Year_1.Width
+                      X: =Current_Year_Plan_1.X-Year_1.X
+                - Settlement_Type:
+                    Control: Text
+                    Properties:
+                      Align: ="Center"
+                      Text: =ThisItem.Settlement_Type
+                      Weight: ='TextCanvas.Weight'.Semibold
+                      Height: =Lista_Kwot_Gallery.TemplateHeight-Rectangle1.Height
+                      Width: =Year_1.Width
+                      X: =Settlement_Type_1.X-Year_1.X
+                - Unit_Of_Measurement:
+                    Control: Text
+                    Properties:
+                      Align: ="Center"
+                      Text: =ThisItem.Unit_Of_Measurement
+                      Weight: ='TextCanvas.Weight'.Semibold
+                      Height: =Lista_Kwot_Gallery.TemplateHeight-Rectangle1.Height
+                      Width: =Unit_Of_Measurement_1.Width
+                      X: =Unit_Of_Measurement_1.X-Year_1.X
+                - Year_Item:
+                    Control: Text
+                    Properties:
+                      Align: ="Center"
+                      Text: =ThisItem.Year
+                      Weight: ='TextCanvas.Weight'.Semibold
+                      Height: =Lista_Kwot_Gallery.TemplateHeight-Rectangle1.Height
+                      Width: =Year_1.Width
+            - LinkCanvas1:
+                Control: Link
+                Properties:
+                  FontUnderline: =true
+                  Text: "=\"\U0001F517Instruction link.\""
+                  URL: =LookUp(Lista_Uslug, Service_ID = ChosenServiceID,Instruction_Link)
+                  X: =TextCanvas1.X
+                  Y: =Lista_Kwot_Gallery.Y+Lista_Kwot_Gallery.Height
+            - MinimiseGallery:
+                Control: Button
+                Properties:
+                  OnSelect: |-
+                    =If(GalleryHidden,Set(GalleryHidden,false),
+                    Set(GalleryHidden,true))
+                  AccessibleLabel: =
+                  Align: =Align.Center
+                  Appearance: ='ButtonCanvas.Appearance'.Subtle
+                  FontColor: =VWTheme.Colors.Lighter10
+                  FontSize: =12
+                  FontWeight: ="Bold"
+                  Icon: =If(GalleryHidden,"ChevronDown","ChevronUp")
+                  Layout: ='ButtonCanvas.Layout'.IconAfter
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Text: |+
+                    =If(GalleryHidden,"Show list","Hide list")
+
+                  VerticalAlign: =VerticalAlign.Middle
+                  Height: =18
+                  Width: =FinalDecision_1.Width-34
+                  X: =FinalDecision_1.X+FinalDecision_1.Width-Self.Width
+                  Y: =Lista_Kwot_Gallery.Y+Lista_Kwot_Gallery.Height+1
