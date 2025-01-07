@@ -4,11 +4,11 @@ Składniki to niestandardowe elementy, które można implementować w środowisk
 \subsection{Nagłówek ekranu}
 Pierwszym niestandardowym komponentem jest wstążka znajdująca się na górze ekranów. Składa się ona z następujących elementów:
 \begin{itemize}
-\item logo firmy -- jest to element dekoracyjny,
-\item przycisk powrotu do poprzedniego ekranu -- oznaczony strzałką w lewo, dzięki funkcji \textit{Back()} przenosi użytkownika do poprzedniego ekranu,
-\item przycisk powrotu do ekranu głównego -- reprezentowany poprzez ikonę domu, przenosi użytkownika do ekranu głównego aplikacji (\emph{Navigate(HomeScreen, ScreenTransition.Cover)}),
-\item dane użytkownika -- wyświetlane są dane zalogowanego użytkownika, takie jak imię, nazwisko oraz adres email. Pobierane są one przy pomocy \emph{Office365Users.MyProfile()}\footnote{\emph{Office365Users} -- konektor pozwalający na dostęp do listy zawierającej informacje na temat użytkowników takich jak imie, nazwisko, dane kontaktowe lub dział. Atrybut \emph{MyProfile} pozwala na dostęp do informacji o bieżącym użytkowniku.}. 
-\item awatar użytkownika -- również pobierany z użyciem \emph{Office365Users.MyProfile()}. W przypadku braku zdjęcia, wyświetlane są inicjały użytkownika.
+    \item logo firmy -- jest to element dekoracyjny,
+    \item przycisk powrotu do poprzedniego ekranu -- oznaczony strzałką w lewo, dzięki funkcji \textit{Back()} przenosi użytkownika do poprzedniego ekranu,
+    \item przycisk powrotu do ekranu głównego -- reprezentowany poprzez ikonę domu, przenosi użytkownika do ekranu głównego aplikacji (\emph{Navigate(HomeScreen, ScreenTransition.Cover)}),
+    \item dane użytkownika -- wyświetlane są dane zalogowanego użytkownika, takie jak imię, nazwisko oraz adres email. Pobierane są one przy pomocy \emph{Office365Users.MyProfile()}\footnote{\emph{Office365Users} -- konektor pozwalający na dostęp do listy zawierającej informacje na temat użytkowników takich jak imie, nazwisko, dane kontaktowe lub dział. Atrybut \emph{MyProfile} pozwala na dostęp do informacji o bieżącym użytkowniku.}.
+    \item awatar użytkownika -- również pobierany z użyciem \emph{Office365Users.MyProfile()}. W przypadku braku zdjęcia, wyświetlane są inicjały użytkownika.
 \end{itemize}
 
 
@@ -16,24 +16,26 @@ Pierwszym niestandardowym komponentem jest wstążka znajdująca się na górze 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{figures/HeaderComponent.png}
-    \caption{Nagłówek ekranu} 
+    \caption{Nagłówek ekranu}
     \label{fig:headercomponent}
 \end{figure}
 
+
 Warto zauważyć, że tytuły widoczne na ekranach, nie są integralną częścią wstążki. Wynika to z faktu, że po dodaniu kontrolki \emph{label}, pozwalającej na wyświetlenie tekstu, nie jest możliwe zmienienie jej  tekstu we właściwościach utworzonego składnika. W związku z tym, tytuły są dodawane na każdym ekranie osobno.
+
 
 \subsection{Indykator ładowania}
 Drugim niestandardowym składnikiem jest kontrolka infromaująca o ładowaniu się aplikacji. Składa się ona z trzech elementów:
 \begin{itemize}
     \item koło ładowania -- animowana grafika w formacie \emph{SVG}(\definicja{Scalable Vector Graphics}).
     \item tekst -- informacja dla użytkownika, że aplikacja ładuje dane,
-        \item tło -- półprzezroczyste tło z filterm powodującym rozmycie elementów ekranu. Tło wykonane przy użyciu \emph{tekst HTML}.
+    \item tło -- półprzezroczyste tło z filterm powodującym rozmycie elementów ekranu. Tło wykonane przy użyciu \emph{tekst HTML}.
 \end{itemize}
 
-\begin{figure}[t]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{figures/SpinnerComponent.png}
-    \caption{Kontrolka ładowania} 
+    \caption{Kontrolka ładowania}
     \label{fig:spinnercomponent}
-    \end{figure}
+\end{figure}
 

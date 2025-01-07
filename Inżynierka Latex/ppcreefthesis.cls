@@ -21,7 +21,7 @@
 % Declare default options and load base package (memoir).
 %
 \DeclareOption{bachelor}
-   {\@ppbachelortrue}
+{\@ppbachelortrue}
 
 \ExecuteOptions{a4paper,pl,11pt,oneside,final}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{memoir}}
@@ -36,12 +36,12 @@
 \iflanguage{polish}{\@pppolishtrue}{\@pppolishfalse}
 
 \if@pppolish
-\selectlanguage{polish}
-\RequirePackage{indentfirst}
-% Force "Literatura" instead of "Bibliografia"
-\addto\captionspolish{\renewcommand{\bibname}{Literatura}}   
+  \selectlanguage{polish}
+  \RequirePackage{indentfirst}
+  % Force "Literatura" instead of "Bibliografia"
+  \addto\captionspolish{\renewcommand{\bibname}{Literatura}}
 \else
-\selectlanguage{english}
+  \selectlanguage{english}
 \fi
 
 \RequirePackage{graphicx}
@@ -49,9 +49,9 @@
 \RequirePackage{booktabs}
 
 \ifpdf
-	\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+  \DeclareGraphicsExtensions{.pdf,.png,.jpg}
 \else
-	\DeclareGraphicsExtensions{.eps}
+  \DeclareGraphicsExtensions{.eps}
 \fi
 \RequirePackage{fancyvrb}
 
@@ -62,29 +62,29 @@
 \RequirePackage{url}
 \RequirePackage{nameref}
 \RequirePackage{varioref}
-  
+
 \ifpdf
-        \usepackage[unicode,linktocpage,bookmarks]{hyperref}
+  \usepackage[unicode,linktocpage,bookmarks]{hyperref}
 \else
-        \usepackage[dvips,unicode,linktocpage,bookmarks]{hyperref}
+  \usepackage[dvips,unicode,linktocpage,bookmarks]{hyperref}
 \fi
 \hypersetup{
-    pdffitwindow=true,
-    bookmarksnumbered=true,
-    bookmarksopen=true,
-    colorlinks=true,
-    pdfpagelayout=SinglePage,
-    pdfpagemode=UseOutlines,
-    pdfstartview=Fit,
-    linkcolor=black,
-    citecolor=black,
-    anchorcolor=black,
-    filecolor=black,
-    menucolor=black,
-    urlcolor=black,
-    pdftitle={},
-    pdfauthor={},
-    pdfkeywords={}
+  pdffitwindow=true,
+  bookmarksnumbered=true,
+  bookmarksopen=true,
+  colorlinks=true,
+  pdfpagelayout=SinglePage,
+  pdfpagemode=UseOutlines,
+  pdfstartview=Fit,
+  linkcolor=black,
+  citecolor=black,
+  anchorcolor=black,
+  filecolor=black,
+  menucolor=black,
+  urlcolor=black,
+  pdftitle={},
+  pdfauthor={},
+  pdfkeywords={}
 }
 \RequirePackage{memhfixc}
 
@@ -92,11 +92,11 @@
 % Emulate setspace package for older versions of memoir.
 %
 \ifx\undefined\SingleSpacing
-\RequirePackage{setspace}
-\newcommand{\SingleSpacing}{\singlespacing}
+  \RequirePackage{setspace}
+  \newcommand{\SingleSpacing}{\singlespacing}
 \fi
 \ifx\undefined\OnehalfSpacing
-\newcommand{\OnehalfSpacing}{\onehalfspacing}
+  \newcommand{\OnehalfSpacing}{\onehalfspacing}
 \fi
 
 %--------------------------------------
@@ -113,44 +113,44 @@
 
 \setlength{\droptitle}{0cm}
 
-\preauthor{\begin{center}\Large\@authortitle} 
-\postauthor{\end{center}}
+\preauthor{\begin{center}\Large\@authortitle}
+    \postauthor{\end{center}}
 
 \renewcommand{\maketitlehooka}{%
-\begin{center}
-\if@pppolish
-  \includegraphics[width=\textwidth]{PUT/sygnet-pp.eps} \\
-WYDZIA{\L} AUTOMATYKI, ROBOTYKI I ELEKTROTECHNIKI\\
-\@ppinstitute
-\else
-  \includegraphics[width=\textwidth]{PUT/sygnet-pp-eng.eps} \\
-FACULTY OF AUTOMATIC CONTROL, ROBOTICS, AND ELECTRICAL ENGINEERING\\
-\@ppinstitute
-\fi
+  \begin{center}
+    \if@pppolish
+      \includegraphics[width=\textwidth]{PUT/sygnet-pp.eps} \\
+      WYDZIA{\L} AUTOMATYKI, ROBOTYKI I ELEKTROTECHNIKI\\
+      \@ppinstitute
+    \else
+      \includegraphics[width=\textwidth]{PUT/sygnet-pp-eng.eps} \\
+      FACULTY OF AUTOMATIC CONTROL, ROBOTICS, AND ELECTRICAL ENGINEERING\\
+      \@ppinstitute
+    \fi
 
-\vspace{1cm}
-\includegraphics[width=5cm]{PUT/logo-pp.pdf} \\
+    \vspace{1cm}
+    \includegraphics[width=5cm]{PUT/logo-pp.pdf} \\
 
-\end{center}}
+  \end{center}}
 
 
 
 
 \pretitle{\vspace{5mm}\begin{center}%
-\if@pppolish%
-  \if@ppbachelor 
-     \Large{Praca dyplomowa inżynierska}
-   \else 
-     \Large{Praca dyplomowa magisterska}
-   \fi
-\else
-\if@ppbachelor 
-\Large{Bachelor's thesis}
-\else 
-\Large{Master's thesis}
-\fi
-\fi\par\vspace{1cm}\Large\bfseries\MakeUppercase}
-\posttitle{\end{center}}
+    \if@pppolish%
+      \if@ppbachelor
+        \Large{Praca dyplomowa inżynierska}
+      \else
+        \Large{Praca dyplomowa magisterska}
+      \fi
+    \else
+      \if@ppbachelor
+        \Large{Bachelor's thesis}
+      \else
+        \Large{Master's thesis}
+      \fi
+    \fi\par\vspace{1cm}\Large\bfseries\MakeUppercase}
+    \posttitle{\end{center}}
 
 \newcommand{\album}[1]{\unskip ,~#1}
 \renewcommand{\and}{\\}
@@ -158,12 +158,12 @@ FACULTY OF AUTOMATIC CONTROL, ROBOTICS, AND ELECTRICAL ENGINEERING\\
 \renewcommand{\maketitlehookb}{\vspace{1cm}}
 
 \renewcommand{\maketitlehookc}{\vfill\begin{center}
-\if@pppolish
-Promotor\\\@ppsupervisor
-\else
-Supervisor\\\@ppsupervisor
-\fi\end{center}
-\vspace{2cm}\begin{center}POZNA\'N \@ppyear\if@pppolish\fi\end{center}
+    \if@pppolish
+      Promotor\\\@ppsupervisor
+    \else
+      Supervisor\\\@ppsupervisor
+    \fi\end{center}
+  \vspace{2cm}\begin{center}POZNA\'N \@ppyear\if@pppolish\fi\end{center}
 }
 
 %--------------------------------------
@@ -171,34 +171,34 @@ Supervisor\\\@ppsupervisor
 %--------------------------------------
 
 \newcommand{\ppcolophon}{%
-\renewcommand{\and}{\unskip{}, }%
-\renewcommand{\album}[1]{\unskip}%
-\cleardoublepage\thispagestyle{empty}\vspace*{\fill}%
-\footnotesize\SingleSpacing\noindent%
-\raisebox{-1.3cm}{\includegraphics[height=1.5cm]{PUT/logo-pp}}%
-\hspace{1.5em}%
-\begin{minipage}[t]{11cm}%
-\vglue 0pt\copyright{} \@ppyear\ \@author
+  \renewcommand{\and}{\unskip{}, }%
+  \renewcommand{\album}[1]{\unskip}%
+  \cleardoublepage\thispagestyle{empty}\vspace*{\fill}%
+  \footnotesize\SingleSpacing\noindent%
+  \raisebox{-1.3cm}{\includegraphics[height=1.5cm]{PUT/logo-pp}}%
+  \hspace{1.5em}%
+  \begin{minipage}[t]{11cm}%
+    \vglue 0pt\copyright{} \@ppyear\ \@author
 
-\medskip\noindent%
-\if@pppolish%
-\@ppinstitute\\
-Wydział Automatyki, Robotyki i Elektrotechniki%
-Politechnika Pozna\'nska%
-\else%
-Poznan University of Technology\\
-Faculty of Automatic Control, Robotics, and Electrical Engineering \\
-\@ppinstitute\\
-\fi
+    \medskip\noindent%
+    \if@pppolish%
+      \@ppinstitute\\
+      Politechnika Pozna\'nska, Wydział Automatyki, Robotyki i Elektrotechniki%
+    \else%
+      Poznan University of Technology\\
+      Faculty of Automatic Control, Robotics, and Electrical Engineering \\
+      \@ppinstitute\\
+    \fi
 
-\medskip\noindent%
-\if@pppolish%
-Sk{\l}ad przy u{\.z}yciu systemu \LaTeX{} na platformie Overleaf.
-\else%
-Typeset using \LaTeX\.
-\fi
+    \medskip\noindent%
+    \if@pppolish%
+      Skład dokumentu został wykonany przy użyciu systemu \LaTeX{}, z wykorzystaniem narzędzi takich jak \emph{LaTeX Workshop}, \emph{MiKTeX}, \emph{latexmk} oraz \emph{Visual Studio Code}.
 
-\end{minipage}
+    \else%
+      Typeset using \LaTeX\.
+    \fi
+
+  \end{minipage}
 }
 
 %--------------------------------------
@@ -212,10 +212,10 @@ Typeset using \LaTeX\.
   \let\@mkboth\markboth
   \def\chaptermark##1{\markboth{##1}{##1}}    % left mark & right marks
   \def\sectionmark##1{\markright{%
-    \ifnum \c@secnumdepth>\z@
-      \thesection. \ %
-    \fi
-    ##1}}
+      \ifnum \c@secnumdepth>\z@
+        \thesection. \ %
+      \fi
+      ##1}}
   \def\tocmark{\markboth{\contentsname}{}}
   \def\lofmark{\markboth{\listfigurename}{}}
   \def\lotmark{\markboth{\listtablename}{}}
@@ -256,18 +256,18 @@ Typeset using \LaTeX\.
 \captiontitlefont{\footnotesize}
 
 \newcommand{\fcmfcaption}[2][\@empty]{
-\captionnamefont{\footnotesize\bfseries}%
-\captiondelim{.~}
-\captionstyle{}
-\captiontitlefont{\footnotesize}
-\ifx #1\@empty \caption{#2}\else \caption[#1]{#2}}
+  \captionnamefont{\footnotesize\bfseries}%
+  \captiondelim{.~}
+  \captionstyle{}
+  \captiontitlefont{\footnotesize}
+  \ifx #1\@empty \caption{#2}\else \caption[#1]{#2}}
 
 \newcommand{\fcmtcaption}[2][\@empty]{
-\captionnamefont{\footnotesize\bfseries\hfill}%
-\captiondelim{}
-\captionstyle{\raggedleft\\}
-\captiontitlefont{\footnotesize\normalfont}
-\ifx #1\@empty \caption{#2}\else \caption[#1]{#2}}
+  \captionnamefont{\footnotesize\bfseries\hfill}%
+  \captiondelim{}
+  \captionstyle{\raggedleft\\}
+  \captiontitlefont{\footnotesize\normalfont}
+  \ifx #1\@empty \caption{#2}\else \caption[#1]{#2}}
 
 \def\thesubsubsection {\thesubsection .\arabic{subsubsection}}
 
