@@ -38,7 +38,7 @@ Rysunek \ref{fig:savefileandrunscript}, przedstawia edytor programu Power Automa
         \item zawartość pliku (\textit{File Content}) w formacie binarnym.
     \end{itemize}
 
-    \item \textbf{Zainicjalizowanie zmiennej} \\
+    \item \textbf{Zainicjowanie zmiennej} \\
     Element \textit{Initialize variable} tworzy zmienną o nazwie \textit{FileExists}, która przechowuje informację, czy plik o podanej nazwie znajduje się już na SharePoint.
 
     \item \textbf{Sprawdzenie istniejących plików} \\
@@ -61,7 +61,7 @@ Rysunek \ref{fig:savefileandrunscript}, przedstawia edytor programu Power Automa
     \end{itemize}
 
     \item \textbf{Uruchomienie przepływu podrzędnego} \\
-    Po pomyślnym zapisaniu pliku przepływ wywołuje tzw. \textit{child flow}, który inicjuje działanie skryptu Office. Skrypt ten odpowiada za przetworzenie pliku w sposób zgodny z założeniami aplikacji. Jego wynik w formacie JSON jest zwracany do przepływu nadrzędnego. 
+    Po pomyślnym zapisaniu pliku przepływ wywołuje tzw. \textit{child flow}, który inicjuje działanie skryptu Office. Skrypt ten odpowiada za przetworzenie pliku w sposób zgodny z założeniami aplikacji. Jego wynik w formacie JSON jest zwracany do strumienia nadrzędnego. 
 
     \item \textbf{Odpowiedź do aplikacji} \\
     Blok \textit{Respond to Power Apps} kończy przepływ, zwracając do aplikacji dane w formacie JSON, przetworzone przez wspomniany skrypt.
@@ -96,11 +96,11 @@ Po utworzeniu pliku w SharePoint, w ramach przepływu następuje jego przetworze
     Skrypt generuje JSON zawierający mapowanie oryginalnych nazw kolumn z najlepszymi dopasowaniami z listy standardowych nagłówków.
 \end{enumerate}
 
-Wprowadzenie przepływu podrzędnego było konieczne z uwagi na sposób, w jaki Power Automate obsługuje operacje na plikach w SharePoint. Gdy plik zostaje zapisany w folderze SharePoint, system przypisuje mu status wskazujący, czy jest gotowy do przetworzenia. W przypadku realizacji obu operacji (zapisu i przetwarzania pliku) w ramach jednego przepływu pojawiał się problem. Wynikał on z faktu, że przepływ pobierał dane z SharePoint już na etapie wstępnego sprawdzenia, czy plik o określonej nazwie istnieje. Informacja ta była przechowywana w pamięci przepływu i nie była aktualizowana w trakcie jego dalszego wykonywania.
+Wprowadzenie potoku podrzędnego było konieczne z uwagi na sposób, w jaki Power Automate obsługuje operacje na plikach w SharePoint. Gdy plik zostaje zapisany w folderze SharePoint, system przypisuje mu status wskazujący, czy jest gotowy do przetworzenia. W przypadku realizacji obu operacji (zapisu i przetwarzania pliku) w ramach jednego przepływu pojawiał się problem. Wynikał on z faktu, że przepływ pobierał dane z SharePoint już na etapie wstępnego sprawdzenia, czy plik o określonej nazwie istnieje. Informacja ta była przechowywana w pamięci przepływu i nie była aktualizowana w trakcie jego dalszego wykonywania.
 
 W efekcie, po utworzeniu nowego pliku, przepływ nie miał możliwości odświeżenia informacji o jego istnieniu i statusie. To powodowało błąd uniemożliwiający uruchomienie skryptu, gdyż system informował, że plik, dla którego miał być wykonany, nie istnieje.
 
-Rozwiązaniem tego problemu było wyodrębnienie etapu przetwarzania pliku do osobnego przepływu podrzędnego. Przepływ podrzędny, uruchamiany po zakończeniu procesu zapisu pliku, działał niezależnie i pobierał aktualne dane z SharePoint w momencie swojego wywołania. Dzięki temu możliwe było wyeliminowanie problemu braku odświeżonych informacji o statusie pliku, co pozwoliło na poprawne uruchomienie skryptu Office Script.
+Rozwiązaniem tego problemu było wydzielenie etapu przetwarzania pliku do osobnego przepływu podrzędnego. Przepływ podrzędny, uruchamiany po zakończeniu procesu zapisu pliku, działał niezależnie i pobierał aktualne dane z SharePoint w momencie wywołania. Dzięki temu możliwe było wyeliminowanie problemu z odświeżaniem informacji o statusie pliku, co pozwoliło na poprawne uruchomienie skryptu Office Script.
 
 \textcolor{red}{LINK DO TEGO JARO\_WINKLERA: https://crucialbits.com/blog/a-comprehensive-list-of-similarity-search-algorithms/}
 
@@ -163,7 +163,7 @@ Skutki kliknięcia przycisku mogą się różnić w zależności od wybranych wa
 
 Kiedy użytkownik upewni się, że wszystkie dane są poprawne i zatwierdzi operację, system przystępuje do importu danych. W tym celu wywołuje kolejny przepływ w programie Power Automate, który przypisuje informacji do odpowiednich list w bazie danych upewniając się jednocześnie, że nie zostaną dodane duplikaty rekordów. 
 
-\noindent Przepływ ten jest bardzo rozbudowany, dlatego zamiast widoku edytora Power Automate,na rysunku \ref{fig:flowchart} pokazany został schemat blokowy, który reprezentuje kolejność wykonywania poszczególnych kroków. Został on uproszczony, ponieważ bloku umieszczone w błękitnych ramkach, powinny być powielone do trzech równoległych gałęzi. Wynika to z faktu, że dla wszystkich list procedura jest identyczna, a różnicą są m.in. nazwy list użyte w nagłówkach, ciałach o raz stopkach rządań HTTP. Ponadto elementy, które mają przerywaną, pomarańczową ramkę to elementy, które znajdują się w głęzi dotyczącej listy kwot. Odpowiadają one za pobieranie i przepisywanie numeru MPK z roku wcześniej.
+\noindent Przepływ ten jest bardzo rozbudowany, dlatego zamiast widoku edytora Power Automate, na rysunku \ref{fig:flowchart} pokazany został schemat blokowy, który reprezentuje kolejność wykonywania poszczególnych kroków. Został on uproszczony, ponieważ bloku umieszczone w błękitnych ramkach, powinny być powielone do trzech równoległych gałęzi. Wynika to z faktu, że dla wszystkich list procedura jest identyczna, a różnicą są m.in. nazwy list użyte w nagłówkach, ciałach o raz stopkach żądań HTTP. Ponadto elementy, które mają przerywaną, pomarańczową ramkę to elementy, które znajdują się w głęzi dotyczącej listy kwot. Odpowiadają one za pobieranie i przepisywanie numeru MPK z roku wcześniej.
 
 
 % Zmodyfikowane style z dodaną czcionką \large
@@ -198,13 +198,13 @@ Poniżej wyjaśniono działanie poszczególnych bloków znajdujących się na sc
     \item Funkcja \textbf{Initialize variable} tworzy następujące zmienne:
     \begin{itemize}
     \item \emph{ExcelFile} -- zmienna tablicowa, przechowująca dane z arkusza,
-    \item \emph{ItemsAddedToListaUsług/Kwot/Indykacji} -- te zmienne przechowują \emph{ciało rządania HTTP}, które jest konstruowane w trakcie działania przepływu.
-    \item \emph{BatchRequestHeader} oraz \emph{EndOfBatchRequest} -- przechowują one stałe nagłówki i stopkę rządania HTTP, które są wspólne dla wszystkich zapytań.
+    \item \emph{ItemsAddedToListaUsług/Kwot/Indykacji} -- te zmienne przechowują \emph{ciało żądania HTTP}, które jest konstruowane w trakcie działania przepływu.
+    \item \emph{BatchRequestHeader} oraz \emph{EndOfBatchRequest} -- przechowują one stałe nagłówki i stopkę żądania HTTP, które są wspólne dla wszystkich zapytań.
     \end{itemize}
     \item Pętla \textbf{Apply to each}, dodana automatycznie przez Power Automate, iteruje po nazwach tabel pobranych z pliku a następnie dla każdej z nich przepisuje dane do zmiennej \emph{ExcelFile}. 
     \item Funkcja \textbf{Select Columns from Excel}, pozwala na kształtowanie danych. Jako wejście przyjmuje ona \emph{ExcelFile} a następnie mapuje wartości tej zmiennej do wybranych kluczy. Dzięki temu można odwołać się do dowolnej kolumny danych.
     \item Blok \textbf{Condition 1} sprawdza czy wartość \emph{Overwrite} jest równa \emph{false}. \\
-    Jeśli tak to wykonywane są instrukcje wewnątrz bloku \emph{If true}. Gałąź ta odpowiada za dopisanie nowych danych do bazy. W tym celu wykonane są następujące instrukcje:
+    Jeśli tak to wykonywane są instrukcje wewnątrz bloku \emph{True}. Gałąź ta odpowiada za dopisanie nowych danych do bazy. W tym celu wykonane są następujące instrukcje:
     \begin{itemize}[label=\textasteriskcentered]
         \item \textbf{Get Previous Year MPK} -- Pobranie elementów z listy kwot dla roku niżej niż przekazany w parametrze wejściowym,
         \item \textbf{Select "MPK" column} jako wejście przyjmuje odpowiedź z bloku wyżej, ale tutaj zamiast przypisywania wartości do klucza, zawiera następujące wyrażenie:
@@ -222,22 +222,22 @@ Poniżej wyjaśniono działanie poszczególnych bloków znajdujących się na sc
     \item \textbf{Create Filter Key} tworzy klucz filtrujący. Dla listy usług nie jest on wymagany. Dla listy kwot kluczem jest rok przekazany w parametrze wejściowym. Natomiast dla listy indykacji jest to rok oraz numer indykacji połączone w jeden ciąg znaków.
     \item \textbf{Filter array} blok ten wykorzystany jest do porównania elementów dla danego roku i indykacji na liście SharePoint z elementami w arkuszu. Ma on za zadanie zwrócić tablicę z elementami unikalnymi dla arkusza.
     \item \textbf{Condition 2} sprawdza czy tablica zwrócona przez \emph{Filter array} nie jest pusta. Jeśli nie zawiera ona unikatowych elementów to przepływ kończy działanie.
-    Jeśli natomiast tablica zawiera unikatowe elementy to przepływ przechodzi do kolejnego kroku w gałęzi \emph{If true}.
+    Jeśli natomiast tablica zawiera unikatowe elementy to przepływ przechodzi do kolejnego kroku w gałęzi \emph{True}.
     \item \textbf{Select columns to add to list} -- mapuje informacje z arkusza do kluczy odpowiadających strukturze każdej z list w bazie danych.
-    \item \textbf{Join headers} -- konwertuje tablicę powstałą w poprzednim kroku na ciąg znaków, będący ciałem rządania HTTP. Instrukcja ta zmienia separator między wierszami tabeli ze średnika na nagłówek, który musi znajdować się między każdym wysłanym zestawem danych. Dla każdej z list jest on inny.
-    \item \textbf{Send an HTTP request to SharePoint} -- wysyła kompletne rządanie HTTP do odpowiedniej listy w bazie danych. Wysyłane rządanie zawiera:
+    \item \textbf{Join headers} -- konwertuje tablicę powstałą w poprzednim kroku na ciąg znaków, będący ciałem żądania HTTP. Instrukcja ta zmienia separator między wierszami tabeli ze średnika na nagłówek, który musi znajdować się między każdym wysłanym zestawem danych. Dla każdej z list jest on inny.
+    \item \textbf{Send an HTTP request to SharePoint} -- wysyła kompletne żądanie HTTP do odpowiedniej listy w bazie danych. Wysyłane żądanie zawiera:
     \begin{itemize}
-        \item Nagłówek otwierający rządanie -- \emph{BatchRequestHeader},
-        \item Ciało rządania powstałe w kroku wcześniej -- wynik \emph{Join headers},
-        \item Stopkę rządania -- \emph{EndOfBatchRequest}.
+        \item Nagłówek otwierający żądanie -- \emph{BatchRequestHeader},
+        \item Ciało żądania powstałe w kroku wcześniej -- wynik \emph{Join headers},
+        \item Stopkę żądania -- \emph{EndOfBatchRequest}.
     \end{itemize}
-    \item \textbf{Assign result of send batch data to Error var} -- jak nazwa bloku wskazuje, przypisuje odpowiedź serwera na wysłane rządanie w celu późniejszej analizy.
+    \item \textbf{Assign result of send batch data to Error var} -- jak nazwa bloku wskazuje, przypisuje odpowiedź serwera na wysłane żądanie w celu późniejszej analizy.
     \end{itemize}
 
-    Kiedy jednak wartość zmiennej \emph{Overwrite} wynosi \emph{true}, oznacza to, że istniejące rekordy mają zostać zaaktualizowane. Przeplyw przechodzi do gałęzi \emph{If false} i wykonuje następujące kroki:
+    Kiedy jednak wartość zmiennej \emph{Overwrite} wynosi \emph{True}, oznacza to, że istniejące rekordy mają zostać zaaktualizowane. Przeplyw przechodzi do gałęzi \emph{False} i wykonuje następujące kroki:
     \begin{itemize}
-        \item \textbf{batchTemplate} -- tworzy wspólny szablon rządania HTTP.
-        \item \textbf{Get backend list name} pobiera ona wewnętrzną nazwę listy SharePoint. Jest to konieczne, ponieważ w rządaniu HTTP należy ostrożnie używać znaków specjalnych.
+        \item \textbf{batchTemplate} -- tworzy wspólny szablon żądania HTTP.
+        \item \textbf{Get backend list name} pobiera ona wewnętrzną nazwę listy SharePoint. Jest to konieczne, ponieważ w żądaniu HTTP należy ostrożnie używać znaków specjalnych.
         \item \textbf{Get list} odczytuje dane z każdej z list.
     \end{itemize}
     \begin{itemize}[label=\textasteriskcentered]
@@ -247,10 +247,10 @@ Poniżej wyjaśniono działanie poszczególnych bloków znajdujących się na sc
     \item Kroki \textbf{Select SP ID} i \textbf{SP List create object} działają podobnie jak mechanizm pobierania numerów MPK z roku poprzedniego z tym, że mapują one identyfikatory wewnętrzne elementów listy SharePoint. Jest to konieczne ponieważ aby zaktualizować rekord, należy odwołać się do niego względem tego właśnie identyfikatora a nie np. nazwy lub \emph{Service\_ID}.
     \item \textbf{Select columns to update} -- przydziela informacje z odpowiednich kolumn do odpowiednich list.
     \item \textbf{Filter out null IDs} -- odfiltrowuje elementy, które nie mają przypisanego identyfikatora SharePoint. Gdyby nie ten krok, próba aktualizacji rekordu bez identyfikatora zakończyłaby się błędem.
-    \item  \textbf{Replace Template Data} -- wstawia wybrane informacje do szablonu rządania HTTP.
+    \item  \textbf{Replace Template Data} -- wstawia wybrane informacje do szablonu żądania HTTP.
     \item \textbf{batchData} -- w kroku tym, znaki specjalne są zakodowane procentowo\footnote{\emph{Kodowanie procentowe} -- metoda reprezentowania znaków specjalnych w adresach URL w formie zgodnej z protokołem HTTP. Polega na zastępowaniu niebezpiecznych lub niedozwolonych znaków ich odpowiednikami w postaci procentowego kodu, który składa się z symbolu "\%" i dwóch cyfr szesnastkowych reprezentujących kod ASCII danego znaku.} (znane również jako \emph{kodowanie URL}). Jest to wymagane aby uniknąć błędów. 
-    \item \textbf{Send Batch Request} -- wysyła rządanie aktualizacji danych do SharePoint.
-    \item \textbf{Assign result of send batch data to Error var} -- przypisuje odpowiedź serwera na wysłane rządanie w celu późniejszej analizy.
+    \item \textbf{Send Batch Request} -- wysyła żądanie aktualizacji danych do SharePoint.
+    \item \textbf{Assign result of send batch data to Error var} -- przypisuje odpowiedź serwera na wysłane żądanie w celu późniejszej analizy.
     \end{itemize}
     
     \item \textbf{Condition 3} sprawdza czy zmienna \emph{Errors} zawiera jakiekolwiek kody błędów. Jeśli tak to przepływ zostaje przerwany. W przeciwnym wypadku zwracana jest informacja do aplikacji, że zapis danych zakończył się powodzeniem.

@@ -1,41 +1,22 @@
 \subsection{Dodawanie informacji do bazy danych}
 
-\begin{comment}
-
-% likwidacja czasu przeszlego
-
-Po ustaleniu struktury danych wykorzystywanych przez system, kolejnym etapem jest określenie sposobu importu informacji z arkuszy kalkulacyjnych do bazy danych.
-
-Głównym wyzwaniem okazał się brak systematycznej organizacji danych w arkuszach programu Excel, co skutkowało niekompatybilnością z zaprojektowaną bazą danych.
-W celu rozwiązania tego problemu, opracowano dedykowany interfejs w aplikacji, który wspomaga użytkownika w procesie przetwarzania danych, minimalizując ryzyko wystąpienia błędów.
-Proces rozpoczyna się od tymczasowego umieszczenia pliku Excel w folderze współdzielonym na platformie SharePoint. Podczas implementacji napotkano problem z widocznością danych -- większość systemów może odczytać jedynie informacje zorganizowane w \emph{tabele programu Excel}\footnote{Tabela w programie Excel wymaga osobnej deklaracji poprzez zaznaczenie zakresu komórek i wybór opcji \emph{Narzędzia główne}$\to$\emph{Formatuj jako tabelę}}.
-
-Rozwiązaniem okazało się zastosowanie skryptu pakietu Office, działającego bezpośrednio w arkuszu. Skrypt ten automatycznie tworzy tabelę o dynamicznym rozmiarze oraz usuwa puste kolumny. Zaimplementowany algorytm skutecznie identyfikuje początek tabeli oraz określa jej wymiary na podstawie liczby wierszy i kolumn, pomijając nieistotne dane.
-
-W celu dostosowania danych do struktury bazy, zaimplementowano formularz walidacyjny dla nazw kolumn. System pobiera nazwy istniejących kolumn z arkusza i umożliwia ich mapowanie na predefiniowaną listę nagłówków z list SharePoint. Proces ten wykorzystuje wspomniany wcześniej skrypt do pobrania aktualnych nazw.
-
-Po uporządkowaniu struktury, użytkownik określa rok oraz numer indykacji dla importowanego arkusza. Następnie dane są przekazywane do \emph{flow} w programie \emph{Power Automate}, który przypisuje je do odpowiednich list w bazie danych, jednocześnie zapobiegając duplikacji rekordów.
-
-Interfejs został dodatkowo wyposażony w formularz służący do przypisywania numerów \emph{MPK} nowym serwisom. Jest to kluczowy element, gdyż numer \emph{MPK} determinuje obszar odpowiedzialny za obsługę danej usługi. Dla serwisów występujących w poprzednich latach, system automatycznie przepisuje istniejące numery \emph{MPK}, redukując ilość danych do wprowadzenia. Jednocześnie zachowano możliwość modyfikacji wcześniej przypisanych numerów w razie potrzeby.
-
-\end{comment}
-
-
 Po ustaleniu struktury danych wykorzystywanych przez system, kolejnym etapem jest określenie sposobu importu informacji z arkuszy kalkulacyjnych do bazy danych. Postanowiono wykorzystać program Power Automate w celu automatyzacji tego procesu. Jednakże z uwagi na dużą rozbierzność danych wymaga on asysty użytkownika. 
+
+W celu dostosowania danych do struktury bazy oraz ich importu zaplanowano zaimplementowanie formularza, który pozwoli na:
+\begin{enumerate}
+    \item Walidację nazw kolumn w arkuszu kalkulacyjnym:
+    \begin{itemize}
+        \item System pobiera nazwy istniejących kolumn z arkusza,
+        \item Użytkownik mapuje nazwy kolumn z predefiniowaną listą nagłówków z list SharePoint.
+    \end{itemize}
+    \item Określenie roku oraz numeru indykacji dla importowanego arkusza.
+    \item Przekazanie danych do \emph{flow} w programie \emph{Power Automate}, który przypisze je do odpowiednich list w bazie danych, jednocześnie zapobiegając duplikacji rekordów.
+\end{enumerate}
+
 \begin{comment}
-\customnote{
-    TO POLECI DO IMPLEMENTACJI
-
-    Głównym wyzwaniem okazał się brak systematycznej organizacji danych w arkuszach programu Excel, co skutkowało niekompatybilnością z zaprojektowaną bazą danych.
-    W celu rozwiązania tego problemu, opracowano dedykowany interfejs w aplikacji, który wspomaga użytkownika w procesie przetwarzania danych, minimalizując ryzyko wystąpienia błędów.
-    Proces rozpoczyna się od tymczasowego umieszczenia pliku Excel w folderze współdzielonym na platformie SharePoint. Podczas implementacji napotkano problem z widocznością danych -- większość systemów może odczytać jedynie informacje zorganizowane w \emph{tabele programu Excel}\footnote{Tabela w programie Excel wymaga osobnej deklaracji poprzez zaznaczenie zakresu komórek i wybór opcji \emph{Narzędzia główne}$\to$\emph{Formatuj jako tabelę}}.
-
-    Rozwiązaniem okazało się zastosowanie skryptu pakietu Office, działającego bezpośrednio w arkuszu. Skrypt ten automatycznie tworzy tabelę o dynamicznym rozmiarze oraz usuwa puste kolumny. Zaimplementowany algorytm skutecznie identyfikuje początek tabeli oraz określa jej wymiary na podstawie liczby wierszy i kolumn, pomijając nieistotne dane.}
-\end{comment}
-
 W celu dostosowania danych do struktury bazy, zaplanowano zaimplementowanie formularza walidacyjnego dla nazw kolumn. System pobiera nazwy istniejących kolumn z arkusza i umożliwia ich mapowanie z wykorzystaniem predefiniowanej listy nagłówków z list SharePoint.
 
 Po uporządkowaniu struktury, użytkownik określa rok oraz numer indykacji dla importowanego arkusza. Następnie dane przekazywane są do \emph{flow} w programie \emph{Power Automate}, który przypisze je do odpowiednich list w bazie danych, jednocześnie zapobiegając duplikacji rekordów.
-
+\end{comment}
 Interfejs jest dodatkowo wyposażony w formularz służący do przypisywania numerów \emph{MPK} nowym serwisom. Jest to kluczowy element, ponieważ numer \emph{MPK} determinuje obszar odpowiedzialny za obsługę danej usługi. Dla serwisów występujących w poprzednich latach, system automatycznie przypisuje istniejące numery \emph{MPK}, redukując ilość danych do wprowadzenia. Jednocześnie zachowana będzie możliwość modyfikacji wcześniej przypisanych numerów.
 

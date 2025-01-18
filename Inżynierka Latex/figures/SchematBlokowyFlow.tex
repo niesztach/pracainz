@@ -64,10 +64,10 @@
 \node (true14) [Variable, minimum width=4cm, text width=3.5cm, inner sep=5pt] at (-7,6.5) { \textbf{Assign result of send batch data to Error var}};
 \draw [ color={rgb,255:red,251; green,137; blue,129} , fill={rgb,255:red,254; green,237; blue,236}, line width=1pt , dashed] (-4.24,12.5) rectangle  node {}  (1.5,4.75);
 \node (Condition2) [rectangle, minimum width=3cm, minimum height=1cm, text centered, line width=2pt, draw={rgb,255:red,72; green,79; blue,88}, fill={rgb,255:red,149; green,153; blue,158}, minimum width=6cm, text width=5cm] at (-4,13.5) {\large \textbf{Condition 2}\\ \emph{!empty(Filter array)}};
-\node [font=\large] at (-4.25,23.25) {\textbf{If true}};
-\node [font=\large] at (8,23.25) {\textbf{If false}};
-\node [font=\large] at (-7,12) {\textbf{If true}};
-\node [font=\large, text width=4cm, align=center] at (-1.25,12) {\textbf{If false}\\-Do nothing-};
+\node [font=\large] at (-4.25,23.25) {\textbf{True}};
+\node [font=\large] at (8,23.25) {\textbf{False}};
+\node [font=\large] at (-7,12) {\textbf{True}};
+\node [font=\large, text width=4cm, align=center] at (-1.25,12) {\textbf{False}\\-Do nothing-};
 
 
 
@@ -90,8 +90,8 @@
 \draw [ color={rgb,255:red,136; green,218; blue,141} , fill={rgb,255:red,237; green,249; blue,238}, line width=1pt , dashed] (-3.5,-1) rectangle  node {}  (2,-4);
 \node[Data, minimum width=4cm, draw={rgb,255:red,244; green,23; blue,0} , fill={rgb,255:red,253; green,220; blue,217}] at (-0.75,-2) {\normalsize \textbf{Terminate}};
 \node (Condition3) [rectangle, minimum width=3cm, minimum height=1cm, text centered, line width=2pt, draw={rgb,255:red,72; green,79; blue,88}, fill={rgb,255:red,149; green,153; blue,158}, minimum width=6cm, text width=5cm] at (2,0) {\large \textbf{Condition 3}};
-    \node [font=\large] at (-0.75,-1.5) {\textbf{If true}};
-\node [font=\large, text width=4cm, align=center] at (5.25,-1.5) {\textbf{If false}\\-Do nothing-};
+    \node [font=\large] at (-0.75,-1.5) {\textbf{True}};
+\node [font=\large, text width=4cm, align=center] at (5.25,-1.5) {\textbf{False}\\-Do nothing-};
 
 \node (stop) [startstop, minimum width=6cm, text width=5cm] at (2,-4.5) { \textbf{Send Batch Request}\\ Update Items};
 \node (annotation) [rectangle,text width=6.5cm, draw=SkyBlue,line width=0.75mm, inner sep=5pt] at (-8,3) {\textbf{For each list, a separate branch should be presented. However, due to the similarity between them, only one branch has been depicted to enhance clarity and readability.
