@@ -2,24 +2,38 @@
 Głównym wyzwaniem okazał się brak systematycznej organizacji danych w arkuszach programu
 Excel, co skutkowało niekompatybilnością z zaprojektowaną bazą danych. W celu rozwiązania tego
 problemu, opracowano dedykowany interfejs w aplikacji, który wspomaga użytkownika w procesie
-przetwarzania danych, minimalizując ryzyko wystąpienia błędów. 
+przetwarzania danych, minimalizując ryzyko wystąpienia błędów. Składa się on z:
+\begin{itemize}
+    \item sekcji pozwalającej użytkownikowi na zapisanie pliku w chmurze,
+    \item formularza walidacji nazw kolumn,
+    \item kontrolek umożliwiających wybór roku i numeru indykacji oraz przycisku do przesłania danych do bazy,
+    \item formularza do uzupełniania lub edycji numerów MPK.
+\end{itemize} 
 
-\noindent Rysunek \ref{fig:managedatascreen} przedstawia finalny wygląd ekranu dodawania danych do systemu. Komponenty znajdujące się na ekranie zostały opisane poniżej.
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.9\textwidth]{figures/ManageDataScreen.png}
-    \caption{Ekran dodawania danych do systemu} 
-    \label{fig:managedatascreen}
-\end{figure}
+% \noindent Rysunek \ref{fig:managedatascreen} przedstawia finalny wygląd ekranu dodawania danych do systemu. Komponenty znajdujące się na ekranie zostały opisane poniżej.
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.9\textwidth]{figures/ManageDataScreen.png}
+%     \caption{Ekran dodawania danych do systemu} 
+%     \label{fig:managedatascreen}
+% \end{figure}
 
 \subsection{Zapis pliku w chmurze}
-Pierwszym etapem procesu jest tymczasowy zapis pliku Excel w chmurze, co umożliwia jego udostępnienie innym systemom. Do realizacji tego zadania wykorzystano kontrolkę\footnote{Kontrolka -- element służący do nawigacji, wyświetlania danych i obsługi aplikacji.} \emph{Attachment Control}. Pozwala ona na zapisanie pliku w pamięci aplikacji. Odbywa się to przez naciśnięcie przycisku \emph{"Dołącz plik"} lub przy użyciu mechaniki \emph{przeciągnij i upuść} (\english{Drag And Drop}). 
+Pierwszym etapem procesu jest tymczasowy zapis pliku Excel w chmurze, co umożliwia jego udostępnienie innym systemom. Do realizacji tego zadania wykorzystano kontrolkę\footnote{Kontrolka -- element służący do nawigacji, wyświetlania danych i obsługi aplikacji.} \emph{Attachment Control}. Pozwala ona na zapisanie pliku w pamięci aplikacji. Odbywa się to przez naciśnięcie przycisku \emph{"Attach file"} lub przy użyciu mechaniki \emph{przeciągnij i upuść} (\english{Drag And Drop}). 
 
-Aby dalej przekazać plik oraz jego zawartość należy nacisnąć przycisk opisany jako \emph{Save attachments} znajdujący się pod wcześniej omawianym elementem. Naciśnięcie go skutkuje wywołaniem szeregu funkcji opisanych we właściwości \emph{OnSelect}. W pierwszej kolejności sprawdzane jest, czy plik został załadowany. Jeśli tak, to wywoływany jest przepływ \emph{SaveFileAndRunScript}. Wynik przepływu jest zapisywany w zmiennej tablicowej, która w Power Apps określana jest jako \definicja{kolekcja}, o nazwie \emph{FlowOutput}. Po wykonaniu się przepływu, pliki zapisane w folderze SharePoint, zostają usunięte z pamięci aplikacji.
+Pod kontrolką \emph{Attachment Control} dodano przycisk \emph{Save attachment}. Jego naciśnięcie skutkuje wywołaniem szeregu funkcji opisanych we właściwości \emph{OnSelect}:
+\begin{itemize}
+    \item spawdzenie czy plik został poprawnie załadowany,
+    \item wywołanie przepływu \emph{SaveFileAndRunScript},
+    \item zapisanie wyniku przepływu w zmiennej tablicowej \emph{FlowOutput} (w Power Apps określanej jako \emph{kolekcja}),
+    \item po poprawnym zapisaniu pliku w folderze SharePoint, usunięcie go z pamięci aplikacji.
+\end{itemize}
+
+% Aby dalej przekazać plik oraz jego zawartość należy nacisnąć przycisk opisany jako \emph{Save attachments} znajdujący się pod wcześniej omawianym elementem. Naciśnięcie go skutkuje wywołaniem szeregu funkcji opisanych we właściwości \emph{OnSelect}. W pierwszej kolejności sprawdzane jest, czy plik został załadowany. Jeśli tak, to wywoływany jest przepływ \emph{SaveFileAndRunScript}. Wynik przepływu jest zapisywany w zmiennej tablicowej, która w Power Apps określana jest jako \definicja{kolekcja}, o nazwie \emph{FlowOutput}. Po wykonaniu się przepływu, pliki zapisane w folderze SharePoint, zostają usunięte z pamięci aplikacji.
 
 
 
-\subsubsection{Przepływ SaveFileAndRunScript}
+\subsubsection*{Przepływ SaveFileAndRunScript}
 Rysunek \ref{fig:savefileandrunscript}, przedstawia edytor programu Power Automate. Widoczny w nim przepływ nazwany \emph{SaveFileAndRunScript} jest odpowiedzialny za zapisanie pliku w chmurze oraz wstępne przetworzenie. W momencie wywołania przepływu, plik jest przekazany jako parametr wejściowy. Przepływ ten składa się z kilku kroków, które zostaną omówione w kolejności ich wykonywania.
 
 \begin{figure}[t]
@@ -32,7 +46,7 @@ Rysunek \ref{fig:savefileandrunscript}, przedstawia edytor programu Power Automa
 
 \begin{enumerate}
     \item \textbf{Funkcja: Power Apps (V2)} \\
-    Przepływ rozpoczyna się od funkcji wywoływanej bezpośrednio z aplikacji Power Apps. Jako parametry wejściowe przyjmuje:
+    Przepływ rozpoczyna się od funkcji oczekującej na wywołanie przepływu bezpośrednio z aplikacji Power Apps. Jako parametry wejściowe przyjmuje:
     \begin{itemize}
         \item nazwę pliku (\textit{File Name}),
         \item zawartość pliku (\textit{File Content}) w formacie binarnym.
@@ -96,74 +110,63 @@ Po utworzeniu pliku w SharePoint, w ramach przepływu następuje jego przetworze
     Skrypt generuje JSON zawierający mapowanie oryginalnych nazw kolumn z najlepszymi dopasowaniami z listy standardowych nagłówków.
 \end{enumerate}
 
-Wprowadzenie potoku podrzędnego było konieczne z uwagi na sposób, w jaki Power Automate obsługuje operacje na plikach w SharePoint. Gdy plik zostaje zapisany w folderze SharePoint, system przypisuje mu status wskazujący, czy jest gotowy do przetworzenia. W przypadku realizacji obu operacji (zapisu i przetwarzania pliku) w ramach jednego przepływu pojawiał się problem. Wynikał on z faktu, że przepływ pobierał dane z SharePoint już na etapie wstępnego sprawdzenia, czy plik o określonej nazwie istnieje. Informacja ta była przechowywana w pamięci przepływu i nie była aktualizowana w trakcie jego dalszego wykonywania.
 
-W efekcie, po utworzeniu nowego pliku, przepływ nie miał możliwości odświeżenia informacji o jego istnieniu i statusie. To powodowało błąd uniemożliwiający uruchomienie skryptu, gdyż system informował, że plik, dla którego miał być wykonany, nie istnieje.
-
-Rozwiązaniem tego problemu było wydzielenie etapu przetwarzania pliku do osobnego przepływu podrzędnego. Przepływ podrzędny, uruchamiany po zakończeniu procesu zapisu pliku, działał niezależnie i pobierał aktualne dane z SharePoint w momencie wywołania. Dzięki temu możliwe było wyeliminowanie problemu z odświeżaniem informacji o statusie pliku, co pozwoliło na poprawne uruchomienie skryptu Office Script.
 
 \textcolor{red}{LINK DO TEGO JARO\_WINKLERA: https://crucialbits.com/blog/a-comprehensive-list-of-similarity-search-algorithms/}
 
-\vspace{1cm}
+Kolejnym elementem tej sekcji ekranu jest lista zapisanych plików znajdująca się obok kontrolki \emph{Attach Control}. Umożliwia ona wybór pliku do dalszego przetwarzania. Poniżej umieszczono przycisk \emph{"Click to open:..."}, który pozwala na otwarcie wybranego pliku w nowym oknie przeglądarki przy użyciu funkcji \emph{Launch}. Możliwość podglądu ma na celu ułatwienie weryfikacji jego poprawności.
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]
-    {figures/SaveAttachmentsForm.png}
-    \caption{Formularz zapisu pliku w chmurze}      
-    \label{fig:saveattachmentsform}
-\end{figure}
-
-Rysunek \ref{fig:saveattachmentsform} ilustruje opisane wcześniej elementy ekranu, na którym użytkownik może dodawać załączniki do procesu, podpisane jako \emph{"Add attachments to process"}. Obok znajduje się lista zapisanych plików, umożliwiająca wybór pliku do dalszego przetwarzania. Poniżej umieszczono przycisk \emph{"Click to open:..."}, który pozwala na otwarcie wybranego pliku w nowym oknie przeglądarki, co ułatwia jego weryfikację i podgląd.
-
-\subsection{Walidacja nazw kolumn} Kolejnym etapem przed zapisaniem danych do bazy jest walidacja nazw kolumn. W tym celu zaimplementowano formularz, którego układ przedstawiono na rysunku \ref{fig:columnmappingform}. Formularz zawiera \emph{galerię} – element umożliwiający wyświetlanie wielu rekordów danych o różnych typach. Pola wyświetlające dane w galerii mogą być dostosowywane w dowolny sposób w zależności od potrzeb użytkownika.
+\subsection{Walidacja nazw kolumn} Kolejnym etapem przed zapisaniem danych do bazy jest walidacja nazw kolumn. W tym celu zaimplementowano formularz zawierający \emph{galerię} -- element umożliwiający wyświetlanie wielu rekordów danych o różnych typach. Pola wyświetlające dane w galerii mogą być dostosowywane w dowolny sposób w zależności od potrzeb użytkownika.
 
 \noindent Galeria składa się z dwóch kolumn: 
 \begin{itemize} 
     \item Lewa kolumna prezentuje obecne nazwy kolumn, które są wyświetlane za pomocą kontrolki \emph{Label}\footnote{\emph{Label} -- kontrolka tekstowa umożliwiająca wyświetlanie statycznych wartości.}. 
-    \item Prawa kolumna zawiera kontrolkę \emph{ComboBox}\footnote{\emph{ComboBox} -- rozwijana lista z możliwością wprowadzania tekstu}, która umożliwia wybór nazwy ze standardowej listy nagłówków. Wartości domyślne widoczne w kontrolkach \emph{ComboBox} są generowane przez wcześniej opisany skrypt w taki sposób, aby do oryginalnej nazwy kolumny dopasowana została najbardziej podobna nazwa z predefiniowanej listy nagłówków. Ma to na celu minimalizację danych wprowadzonych przez użytkownika.
+    \item Prawa kolumna zawiera kontrolkę \emph{ComboBox}\footnote{\emph{ComboBox} -- rozwijana lista z możliwością wprowadzania tekstu}, która umożliwia wybór nazwy ze standardowej listy nagłówków. Wartości domyślne, widoczne w kontrolkach \emph{ComboBox}, są generowane przez wcześniej opisany skrypt w taki sposób, aby do oryginalnej nazwy kolumny dopasowana została najbardziej podobna nazwa z predefiniowanej listy nagłówków. Ma to na celu minimalizację danych wprowadzonych przez użytkownika.
 \end{itemize}
 
-Po prawej stronie formularza znajduje się instrukcja użytkownika, zawierająca wskazówki dotyczące prawidłowego uzupełniania nazw kolumn. Poniżej instrukcji umieszczono przycisk \emph{Update column names}, który umożliwia wprowadzenie zmian w strukturze danych.
+Po prawej stronie formularza umieszczono instrukcję użytkownika, zawierająca wskazówki dotyczące prawidłowego uzupełniania nazw kolumn. Poniżej instrukcji dodano przycisk \emph{Update column names}, który umożliwia zapisanie zmian w strukturze danych.
 
-\noindent Działanie tego mechanizmu opiera się na zastosowaniu skryptu pakietu Office, wywoływanego przy użyciu kolejnego przepływu. Skrypt jako parametr wejściowy przyjmuje zmienną tablicową w formacie JSON, zawierającą mapowanie oryginalnych nazw kolumn z poprawionymi wartościami wybranymi przez użytkownika. Następnie skrypt iteruje po wierszu zawierającym nagłówki kolumn i dokonuje ich zamiany zgodnie z mapowaniem. Po zakończeniu działania skrypt zwraca nową strukturę nazw kolumn.
+\noindent Działanie tego mechanizmu opiera się na zastosowaniu skryptu pakietu Office, wywoływanego przy użyciu kolejnego przepływu. Skrypt jako parametr wejściowy przyjmuje zmienną tablicową w formacie JSON, zawierającą mapowanie oryginalnych nazw kolumn z poprawionymi wartościami wybranymi przez użytkownika. Następnie skrypt iteruje po wierszu zawierającym nagłówki kolumn i dokonuje ich zamiany zgodnie z otrzymaną mapą. Po zakończeniu działania skrypt zwraca nową strukturę nazw kolumn.
 
-Rysunek \ref{fig:columnmappingform} prezentuje wszystkie elementy formularza, w tym kontrolki umożliwiające wybór roku i numeru indykacji, które zostały umieszczone pod przyciskiem \emph{Update column names}. Kontrolki te, wraz z przyciskiem \emph{Upload data}, są kluczowe dla kolejnego etapu przetwarzania danych, obejmującego ich integrację z listami SharePoint. 
+Pod przyciskiem \emph{Update column names} umieszczone zostały kontrolki \emph{Dropdown}\footnote{\emph{Dropdown} -- kontrolka umożliwiająca wybór jednej z dostępnych wartości z rozwijanej listy, bez możliwości edycji.} oraz przycisk \emph{Upload data}, które są kluczowe dla kolejnego etapu przetwarzania danych, obejmującego ich integrację z listami SharePoint. 
 
 
-\begin{figure}[t]
-    \centering
-    \includegraphics[width=\textwidth]{figures/ColumnMappingForm.png}
-    \caption{Formularz walidacji nazw kolumn}
-    \label{fig:columnmappingform}
-\end{figure}
+% \begin{figure}[t]
+%     \centering
+%     \includegraphics[width=\textwidth]{figures/ColumnMappingForm.png}
+%     \caption{Formularz walidacji nazw kolumn}
+%     \label{fig:columnmappingform}
+% \end{figure}
 
-\subsection{Integracja z listami SharePoint} Po zakończeniu walidacji nazw kolumn, kolejnym etapem jest zapisanie przetworzonych danych w utworzonej strukturze SharePoint. Proces ten rozpoczyna się od wyboru roku i numeru indykacji przy użyciu dedykowanych kontrolek \emph{Dropdown}\footnote{\emph{Dropdown} -- kontrolka umożliwiająca wybór jednej z dostępnych wartości z rozwijanej listy, bez możliwości edycji.}. Wybrane wartości są następnie wykorzystywane podczas importu danych do odpowiednich list, co odbywa się za pomocą przycisku \emph{Upload data}. 
+\subsection{Integracja z listami SharePoint} Po zakończeniu walidacji nazw kolumn, kolejnym etapem jest zapisanie przetworzonych danych w utworzonej strukturze SharePoint. Proces ten rozpoczyna się od wyboru roku i numeru indykacji przy użyciu dedykowanych kontrolek \emph{Dropdown}. Wybrane wartości są następnie wykorzystywane podczas importu danych do odpowiednich list, co odbywa się za pomocą przycisku \emph{Upload data}. 
 
-Skutki kliknięcia przycisku mogą się różnić w zależności od wybranych wartości i tego czy nazwy kolumny zostały zmienione. Rysunki \ref{fig:CorrectHeadersPopup} oraz \ref{fig:DoYouWantToOverwrite} przedstawiają dwa możliwe scenariusze, które mogą wystąpić po naciśnięciu przycisku. Pierwszy z nich występuje kiedy uprzednio nie został wciśnięty przycisk \emph{Update column names}. System upewnia się że użytkownik nie wgra przypadkowo danych z niepoprawnymi nagłówkami. Drugi natomiast pojawia się w przypadku, gdy wybrane przez użytkownika rok oraz numer indykacji, istnieją w bazie danych. System pyta czy użytkownik chce nadpisać dane, które już tam się znajdują czy anulować operacje. W momencie kiedy nazwy kolumn nie zostaną zmienione oraz dane z wybranym rokiem i numerem indykacji istnieją w bazie danych, pojawiają się oba okna z informacjami.
+Skutki kliknięcia przycisku mogą się różnić w zależności od wybranych wartości i tego czy nazwy kolumny zostały zmienione. Jeśli przed próbą wgrania danych, nie został wciśnięty przycisk \emph{Update column names}, system wyświetla okno z zapytaniem o poprawność nazw kolumn w celu upewnienia się, że użytkownik nie wgra przypadkowo danych z niepoprawnymi nagłówkami.
+Kiedy jednak nazwy kolumn zostały zmienione, ale użytkownik wybrał rok oraz numer indykacji, istniejące w bazie danych, system wyświetla zapytanie czy użytkownik chce nadpisać dane, które już tam się znajdują czy też anulować operacje. W momencie kiedy nazwy kolumn nie zostaną zmienione oraz dane z wybranym rokiem i numerem indykacji istnieją w bazie danych, pojawiają się oba okna z informacjami.
 
-\begin{figure}[htbp]
-    \centering
-    % Pierwszy obrazek
-    \begin{minipage}{0.48\textwidth}
-        \centering
-        \includegraphics[width=\linewidth]{figures/CorrectHeadersPopup.png}
-        \caption{Zapytanie o poprawność nazw kolumn}
-        \label{fig:CorrectHeadersPopup}
-    \end{minipage}\hfill
-    % Drugi obrazek
-    \begin{minipage}{0.48\textwidth}
-        \centering
-        \includegraphics[width=\linewidth]{figures/DoUWantToOverwrite.png}
-        \caption{Zapytanie o nadpisanie danych}
-        \label{fig:DoYouWantToOverwrite}
-    \end{minipage}
-    \label{fig:obrazki}
-\end{figure}
+
+% Rysunki \ref{fig:CorrectHeadersPopup} oraz \ref{fig:DoYouWantToOverwrite} przedstawiają dwa możliwe scenariusze, które mogą wystąpić po naciśnięciu przycisku.
+% \begin{figure}[htbp]
+%     \centering
+%     % Pierwszy obrazek
+%     \begin{minipage}{0.48\textwidth}
+%         \centering
+%         \includegraphics[width=\linewidth]{figures/CorrectHeadersPopup.png}
+%         \caption{Zapytanie o poprawność nazw kolumn}
+%         \label{fig:CorrectHeadersPopup}
+%     \end{minipage}\hfill
+%     % Drugi obrazek
+%     \begin{minipage}{0.48\textwidth}
+%         \centering
+%         \includegraphics[width=\linewidth]{figures/DoUWantToOverwrite.png}
+%         \caption{Zapytanie o nadpisanie danych}
+%         \label{fig:DoYouWantToOverwrite}
+%     \end{minipage}
+%     \label{fig:obrazki}
+% \end{figure}
 
 Kiedy użytkownik upewni się, że wszystkie dane są poprawne i zatwierdzi operację, system przystępuje do importu danych. W tym celu wywołuje kolejny przepływ w programie Power Automate, który przypisuje informacji do odpowiednich list w bazie danych upewniając się jednocześnie, że nie zostaną dodane duplikaty rekordów. 
 
-\noindent Przepływ ten jest bardzo rozbudowany, dlatego zamiast widoku edytora Power Automate, na rysunku \ref{fig:flowchart} pokazany został schemat blokowy, który reprezentuje kolejność wykonywania poszczególnych kroków. Został on uproszczony, ponieważ bloku umieszczone w błękitnych ramkach, powinny być powielone do trzech równoległych gałęzi. Wynika to z faktu, że dla wszystkich list procedura jest identyczna, a różnicą są m.in. nazwy list użyte w nagłówkach, ciałach o raz stopkach żądań HTTP. Ponadto elementy, które mają przerywaną, pomarańczową ramkę to elementy, które znajdują się w głęzi dotyczącej listy kwot. Odpowiadają one za pobieranie i przepisywanie numeru MPK z roku wcześniej.
+\noindent Przepływ ten jest bardzo rozbudowany, dlatego zamiast widoku edytora Power Automate, na rysunku \ref{fig:flowchart} pokazany został schemat blokowy, który reprezentuje kolejność wykonywania poszczególnych kroków. Został on uproszczony, ponieważ bloku umieszczone w błękitnych ramkach, powinny być powielone do trzech równoległych gałęzi. Wynika to z faktu, że dla wszystkich list procedura jest identyczna, a różnicą są m.in. nazwy list użyte strukturze żądań HTTP. Ponadto elementy, które mają przerywaną, pomarańczową ramkę to elementy, które znajdują się w głęzi dotyczącej listy kwot. Odpowiadają one za pobieranie i przepisywanie numeru MPK z roku wcześniej.
 
 
 % Zmodyfikowane style z dodaną czcionką \large
@@ -190,9 +193,10 @@ Kiedy użytkownik upewni się, że wszystkie dane są poprawne i zatwierdzi oper
 \label{fig:flowchart}
 \end{figure}
 
+\pagebreak
 Poniżej wyjaśniono działanie poszczególnych bloków znajdujących się na schemacie. Elementy oznaczone symbolem (\textasteriskcentered) odnoszą się do bloków znajdujących się w pomarańczowej, przerywanej ramce.
 \begin{enumerate}
-    \item Blok \textbf{Trigger: Power Apps} jesy wyzwalaczem działania przepływu. Uruchamia się kiedy użytkownik wciśnie przycisk w aplikacji. Jako parametry wejściowe przyjmuje nazwę pliku, rok i numer indykacji jakie mają być przypsiane do danych oraz informacje czy nadpisać istniejące rekordy czy też nie.
+    \item Blok \textbf{Trigger: Power Apps} jest wyzwalaczem działania przepływu. Uruchamia się kiedy użytkownik wciśnie przycisk w aplikacji. Jako parametry wejściowe przyjmuje nazwę pliku, rok i numer indykacji jakie mają być przypsiane do danych oraz informacje czy nadpisać istniejące rekordy czy też nie.
     
     \item \textbf{Get Tables} pobiera nazwy wszystkich tabel z pliku o nazwie przekazanej do wyzwalacza (każdy plik powinien zawierać jedną tabelę, ale w Power Automate trzeba pobrać wszystkie możliwe).
     \item Funkcja \textbf{Initialize variable} tworzy następujące zmienne:
@@ -202,7 +206,7 @@ Poniżej wyjaśniono działanie poszczególnych bloków znajdujących się na sc
     \item \emph{BatchRequestHeader} oraz \emph{EndOfBatchRequest} -- przechowują one stałe nagłówki i stopkę żądania HTTP, które są wspólne dla wszystkich zapytań.
     \end{itemize}
     \item Pętla \textbf{Apply to each}, dodana automatycznie przez Power Automate, iteruje po nazwach tabel pobranych z pliku a następnie dla każdej z nich przepisuje dane do zmiennej \emph{ExcelFile}. 
-    \item Funkcja \textbf{Select Columns from Excel}, pozwala na kształtowanie danych. Jako wejście przyjmuje ona \emph{ExcelFile} a następnie mapuje wartości tej zmiennej do wybranych kluczy. Dzięki temu można odwołać się do dowolnej kolumny danych.
+    \item Funkcja \textbf{Select Columns from Excel}, pozwala na kształtowanie danych. Jako wejście przyjmuje ona dane z \emph{ExcelFile} a następnie mapuje wartości tej zmiennej do wybranych kluczy. Dzięki temu można odwołać się do dowolnej kolumny danych.
     \item Blok \textbf{Condition 1} sprawdza czy wartość \emph{Overwrite} jest równa \emph{false}. \\
     Jeśli tak to wykonywane są instrukcje wewnątrz bloku \emph{True}. Gałąź ta odpowiada za dopisanie nowych danych do bazy. W tym celu wykonane są następujące instrukcje:
     \begin{itemize}[label=\textasteriskcentered]
@@ -257,10 +261,10 @@ Poniżej wyjaśniono działanie poszczególnych bloków znajdujących się na sc
 \end{enumerate}
 
 \subsection{Uzupełnianie numerów MPK}
-Ostatnią funkcją tego ekranu jest możliwość uzupełniania lub edycji numerów MPK. W tym celu ponownie wykorzystano galerię, która tym razem składa się z trzech kolumn. Dwie pierwsze kolumny zawierają pola tekstowe (\definicja{Label}), które prezentują nazwę usługi oraz odpowiadający jej identyfikator. Ostatnia kolumna zawiera pole danych wejściowych (\definicja{TextInput}), do którego użytkownik wprowadza odpowiedni numer MPK. Nad galerią znajduje się dodatkowe pole, w którym można wpisać kryteria filtrowania, takie jak nazwa, identyfikator bądź numer MPK. Obok znajduje się przełącznik (\definicja{Toggle}), który umożliwia wyświetlenie usług z przypisanym już numerem MPK. Istniejące numery MPK wyświetlają się jako domyślny tekst kontrolki \emph{TextInput} i mogą być edytowane. Ostatnim elementem ekranu jest pole tekstowe informujące użytkownika o liczbie usług bez przypisanego miejsca powstawania kosztów oraz o tym, że dane są zapisywane automatycznie.
-\begin{figure}[t]
-    \centering
-    \includegraphics[width=\textwidth]{figures/FillMPKForm.png}
-    \caption{Formularz wypełniania/edycji numerów MPK}
-    \label{fig:fillmpkform}
-\end{figure}
+Ostatnią funkcją tego ekranu jest możliwość uzupełniania lub edycji numerów MPK. W tym celu ponownie wykorzystano galerię, która tym razem składa się z trzech kolumn. Dwie pierwsze kolumny zawierają pola tekstowe (\definicja{Label}), które prezentują nazwę usługi oraz odpowiadający jej identyfikator. Ostatnia kolumna zawiera pole danych wejściowych (\definicja{TextInput}), do którego użytkownik wprowadza odpowiedni numer MPK. Nad galerią znajduje się dodatkowe pole, w którym można wpisać kryteria filtrowania, takie jak nazwa, identyfikator bądź numer MPK. Obok pól filtracji, znajduje się przełącznik (\definicja{Toggle}), który umożliwia wyświetlenie usług z przypisanym już numerem MPK. Istniejące numery MPK wyświetlają się jako domyślny tekst kontrolki \emph{TextInput} i mogą być edytowane. Ostatnim elementem ekranu jest pole tekstowe informujące użytkownika o liczbie usług bez przypisanego miejsca powstawania kosztów.
+% \begin{figure}[t]
+%     \centering
+%     \includegraphics[width=\textwidth]{figures/FillMPKForm.png}
+%     \caption{Formularz wypełniania/edycji numerów MPK}
+%     \label{fig:fillmpkform}
+% \end{figure}

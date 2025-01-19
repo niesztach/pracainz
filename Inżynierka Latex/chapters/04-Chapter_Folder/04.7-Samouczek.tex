@@ -20,7 +20,7 @@ Obraz \ref{fig:tutorial} przedstawia przykładowy widok działania samouczka.
 Set(guideStep; Min(guideStep+1; Last(TutorialNavigator1.AllItems).Step))
 \end{lstlisting}
 
-W kodzie \ref{lst:TutorialNavigate} nawigacji, funkcja \emph{Set()} jest wykorzystana do aktualizacji zmiennej \emph{guideStep}, która przechowuje wartość aktualnego kroku samouczka. Funkcja \emph{Min()} zapewnia, że wartość zmiennej kroku nie przekroczy ostatniego możliwego kroku.  Analogicznie działanie wykorzystano dla nawigacji wstecz (strzałka w lewo).
+Listing \ref{lst:TutorialNavigate} przedstawia fragment kodu użytego do nawigacji. Funkcja \emph{Set()} jest wykorzystana do aktualizacji zmiennej \emph{guideStep}, która przechowuje wartość aktualnego kroku samouczka. Funkcja \emph{Min()} zapewnia, że wartość zmiennej kroku nie przekroczy ostatniego możliwego kroku.  Analogicznie działanie wykorzystano dla nawigacji wstecz (strzałka w lewo).
 
 \subsection{Prezentacja zawartości w samouczku}
 
@@ -31,8 +31,6 @@ W samouczku opisano wszystkie ekrany w kolejności postępu procesu. Każdy z op
 If(IsBlank(guideStep); First(TutorialNavigator1.AllItems).Text; LookUp(TutorialNavigator1.AllItems; Step = guideStep).Text);
 \end{lstlisting}
 
-W kodzie \ref{lst:TutorialText}, funkcja \emph{If()} sprawdza, czy zmienna \emph{guideStep} jest pusta -- jeśli tak, to pobierany jest pierwszy element z kolekcji \emph{TutorialNavigator1.AllItems} za pomocą \emph{First()}. W przeciwnym razie, funkcja \emph{LookUp()} wyszukuje element o pasującym numerze kroku, zwracając odpowiadający tekst.
-
-\subsection{Prezentacja grafik w samouczku}
+W kodzie widocznym w listingu \ref{lst:TutorialText}, funkcja \emph{If()} sprawdza, czy zmienna \emph{guideStep} jest pusta -- jeśli tak, to pobierany jest pierwszy element z kolekcji \emph{TutorialNavigator1.AllItems} za pomocą \emph{First()}. W przeciwnym razie, funkcja \emph{LookUp()} wyszukuje element o pasującym numerze kroku, zwracając odpowiadający tekst.
 
 Analogicznie jak w przypadku wyświetlania tekstu, grafiki ilustracyjne aplikacji są dynamicznie pobierane zgodnie z postępem nawigacji. Każdy z etapów samouczka zawiera odpowiedni obrazek, który wyświetlany jest razem z przypisanym do niego tekstem.

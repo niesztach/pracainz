@@ -10,12 +10,28 @@ Ponadto utworzono trzy listy:
     \item \emph{Lista\_Kwot},
     \item \emph{Lista\_Indykacji}.
 \end{itemize}
+\hfill \break
 Ich struktura jest taka sama jak opisana w podsekcji \ref{Subsec: StrukturaBazyDanych}. 
-W celu dodania tych elementów należy wejść w utworzoną witrynę, następnie wybrać \emph{Zawartość witryny} z bocznego paska nawigacji. Dalej, należy wcisnąć przycisk \emph{Nowy} i wybrać typ elementu -- \emph{Lista} oraz \emph{Biblioteka dokumentów}. Na końcu trzeba podać nazwę oraz opcjonalnie opis elementu.
-Po wykonaniu tych kroków, folder jest gotowy do użycia. Jednakże w przypadku list należy jeszcze zdefiniować kolumny. \\W tym celu należy wejść w utworzoną listę i wybrać przycisk \emph{Dodaj kolumnę} znajdujący się po prawej stronie domyślnie utworzonych kolumn. Dalej pojawi się okno z możliwością wyboru typu kolumny oraz jej nazwy. Po zatwierdzeniu, kolumna zostanie dodana do listy.
+W celu dodania tych elementów należy:
+\begin{itemize}
+    \item wejść w utworzoną witrynę,
+    \item wybrać \emph{Zawartość witryny} z bocznego paska nawigacji,
+    \item dodać element przy pomocy przycisku \emph{Nowy},
+    \item wybrać typ elementu -- \emph{Biblioteka dokumentów} lub \emph{Lista},
+    \item podać nazwę oraz opcjonalnie opis elementu.
+\end{itemize}
+
+Po wykonaniu tych kroków, folder jest gotowy do użycia. Jednakże w przypadku list należy jeszcze zdefiniować kolumny. \\Aby to zrobić należy:
+\begin{itemize}
+    \item wejść w utworzoną listę,
+    \item wybrać przycisk \emph{Dodaj kolumnę} znajdujący się po prawej stronie domyślnie utworzonych kolumn,
+    \item następnie pojawi się okno z możliwością wyboru typu kolumny oraz jej nazwy,
+    \item po zatwierdzeniu podanych opcji, kolumna zostanie dodana do listy.
+\end{itemize}
+
 Na koniec należy skonfigurować niektóre kolumny. Aby to zrobić należy wybrać ustawienia strony i nacisnąć pozycję \emph{Ustawienia listy}. Tam wybieramy nazwę kolumny, którą chcemy skofigurować.\\
 Tabela \ref{tab:SharepointList} przedstawia konfigurację kolumn listy:
-\begin{table}[t]
+\begin{table}[h]
     \centering
     \caption{Konfiguracja listy na platformie Sharepoint}
     \label{tab:SharepointList}
@@ -59,6 +75,5 @@ Tabela \ref{tab:SharepointList} przedstawia konfigurację kolumn listy:
         \item \emph{No Status} $\rightarrow$ 0.
     \end{itemize}
 
-    Początkowo planowano wykorzystać wbudowany w SharePoint mechanizm \emph{lookup} do implementacji relacji między listami. Jednak ze względu na ograniczenie tego mechanizmu do relacji wyłącznie między dwiema listami, zdecydowano się na realizację powiązań na poziomie logiki aplikacji. Szczegóły tej implementacji zostały opisane w rozdziale dotyczącym realizacji systemu.
     
 

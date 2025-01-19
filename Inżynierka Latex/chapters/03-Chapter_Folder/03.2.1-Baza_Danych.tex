@@ -2,7 +2,7 @@
 
 Do przechowywania danych wykorzystano listy programu SharePoint. Pomimo tego, że nie jest to dedykowane rozwiązanie bazodanowe, wybór ten wynika z wymagania integracji z istniejącą infrastrukturą.
 
-\subsubsection{Struktura bazy danych}
+\subsubsection*{Struktura bazy danych}
 \label{Subsec: StrukturaBazyDanych}
 W wyniku analizy danych historycznych zidentyfikowano elementy kluczowe dla procesu indykacji. Na tej podstawie zaprojektowano strukturę składającą się z trzech powiązanych ze sobą list:
 
@@ -11,7 +11,7 @@ W wyniku analizy danych historycznych zidentyfikowano elementy kluczowe dla proc
   \item \textbf{Lista kwot} -- przechowująca dane odnośnie cen i liczbie licencji, które zmieniają się raz do roku,
   \item \textbf{Lista indykacji} -- gromadzi informacje w obrębie jednej indykacji.
 \end{itemize}
-\subsubsection{Atrybuty danych}
+\subsubsection*{Atrybuty danych}
 Na podstawie analizy wymagań oraz dotychczasowego procesu, zdefiniowano następujący zestaw atrybutów, które powinna zawierać baza danych:
 
 \begin{multicols}{3}
@@ -45,7 +45,7 @@ Na podstawie analizy wymagań oraz dotychczasowego procesu, zdefiniowano następ
 \end{multicols}
 Powyższy zestaw atrybutów został opracowany na podstawie analizy danych historycznych z poprzednich lat (przedstawionych w Tabeli \ref{HeaderComparison}). Wybrane pola reprezentują najczęściej występujące informacje w procesie indykacji, uzupełnione o dodatkowe atrybuty niezbędne do efektywnego funkcjonowania procesu, takie jak pola komentarzy czy decyzji.
 
-\subsubsection{Model powiązań}
+\subsubsection*{Model powiązań}
 
 \begin{figure}[h]
   \makebox[0.925\textwidth][c]{

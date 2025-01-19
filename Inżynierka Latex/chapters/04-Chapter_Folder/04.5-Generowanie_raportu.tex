@@ -1,20 +1,19 @@
 \section{Generowanie raportu}
 
-Końcowym etapem działania jest możliwość wygenerowania finalnego raportu w formacie arkusza kalkulacyjnego na podstawie uzupełnionej bazy danych. W związku z tym w Power Apps przygotowano mechanizm łączący dane z trzech list sharepointowych, które następnie są przesyłane do Power Automate, gdzie podlegają dalszemu przetwarzaniu. Wynikiem tego jest kompletny arkusz Excel, który jest zapisywany na platformie SharePoint.
+Następnym ekran umożliwia wygenerowania raportu w formacie arkusza kalkulacyjnego na podstawie uzupełnionej bazy danych. W związku z tym w Power Apps przygotowano mechanizm łączący dane z trzech list SharePoint, które następnie są przesyłane do Power Automate, gdzie podlegają dalszemu przetwarzaniu. Wynikiem tego jest kompletny arkusz Excel, który jest zapisywany na platformie SharePoint.
 
-\subsection{Łączenie źródeł danych do formy docelowej}
+\subsection{Łączenie danych z list}
 
-Pierwszym krokiem do wygenerowania gotowego raportu jest konsolidacja potrzebnych danych w odpowiedniej formie. Do tego celu zaimplementowano ekran przedstawiony na rysunku \ref{fig:generateraportform}. Składa się on z dwóch formularzy -- węższy po lewej stronie oraz szerszy po prawej. W pierwszym z nich znajdują się dwa
-pola wyboru typu \emph{Dropdown}, w których należy wybrać numer indykacji oraz roku do pobrania danych z list, natomiast w drugiej widnieje podgląd zawartości danych do wygenerowania w formie tabeli, która może zostać przekazana do Power Automate.
+W celu określenia, roku i indykacji których ma dotyczyć raport, wprowadzono kontrolki \emph{Dropdown} po lewej stronie ekranu. Ich uzupełnienie skutkuje wygenerowaniem podglądu danych, który pozwala na walidację ich poprawności. Listing \ref{lst:combineddata} przedstawia kod odpowiedzialny za utworzenie kolekcji \emph{CombinedData}, która zawiera odpowiednio odfiltrowane informacje.
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.9\textwidth]{figures/GenerateRaportForm.png}
-    \caption{Ekran generowania raportu}
-    \label{fig:generateraportform}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.9\textwidth]{figures/GenerateRaportForm.png}
+%     \caption{Ekran generowania raportu}
+%     \label{fig:generateraportform}
+% \end{figure}
 
-Zebrane dane przechowywane są w tymczasowej kolekcji \textit{CombinedData}, która składa się z informacji z trzech źródeł, odpowiednio dopasowanych do wybranego przez użytkownika roku oraz indykacji. Przykładowy fragment kodu odpowiedzialnego za tworzenie tej kolekcji przedstawiono w listingu~\ref{lst:combineddata}:
+% Zebrane dane przechowywane są w tymczasowej kolekcji \emph{CombinedData}, która składa się z informacji z trzech źródeł, odpowiednio dopasowanych do wybranego przez użytkownika roku oraz indykacji. Przykładowy fragment kodu odpowiedzialnego za tworzenie tej kolekcji przedstawiono w listingu~\ref{lst:combineddata}:
 
 \begin{lstlisting}[language=PowerFx, caption={Fragment kodu tworzącego kolekcję CombinedData}, label={lst:combineddata}] 
     ClearCollect(
@@ -37,11 +36,16 @@ Zebrane dane przechowywane są w tymczasowej kolekcji \textit{CombinedData}, kt�
 
 \end{lstlisting}
 
-W fragmencie kodu przedstawiono wykorzystanie funkcji \textit{LookUp}, która pozwala na pobranie danych z różnych kolekcji na podstawie określonych kryteriów. Przykładowo, pierwsze wywołanie \textit{LookUp} dopasowuje dane z tabeli \textit{LocalCostData}
+Kod ten korzysta z następujących funkcji:
+\begin{itemize}
+    \item \emph{ClearCollect} -- przypisuje dane do kolekcji o podanej nazwie,
+    \item \emph{AddColumns} -- pozwala na dodanie do kolekcji nowej kolumny i formuły definiującej jej wartości,
+    \item \emph{LookUp} -- wyszukuje rekordy w tabeli na podstawie podanych kryteriów.
+\end{itemize}
 
 \subsection{Przekazywanie danych do Power Automate}
 
-W lewym dolnym rogu interfejsu znajduje się przycisk \textit{Generate file}, który po naciśnięciu uruchamia \textit{flow} w Power Automate, odpowiedzialne za tworzenie pliku na podstawie danych wejściowych. Dane te są przekazywane do usługi Power Automate w postaci ciągu tekstowego, sformatowanego jako JSON\footnote{JSON - format wymiany danych, który jest oparty na strukturze tekstowej}, wykorzystując połączone informacje z trzech źródeł zawarte w kolekcji \textit{CombinedData}, dostosowane do wybranego przez użytkownika zestawu roku i indykacji. Kod wywołujący funkcję \textit{GenerateRaport} przedstawiono w listingu~\ref{lst:generateraport}.
+W lewym dolnym rogu interfejsu znajduje się przycisk \emph{Generate file}, który po naciśnięciu uruchamia przepływ Power Automate, odpowiedzialny za stworzenie pliku na podstawie danych wejściowych. Dane te są przekazywane do usługi Power Automate w postaci ciągu tekstowego, sformatowanego jako JSON\footnote{JSON - format wymiany danych, który jest oparty na strukturze tekstowej}, wykorzystując połączone informacje z trzech źródeł zawarte w kolekcji \emph{CombinedData}. Kod wywołujący funkcję \emph{GenerateRaport} przedstawiono w listingu~\ref{lst:generateraport}.
 
 
 
@@ -71,15 +75,16 @@ W lewym dolnym rogu interfejsu znajduje się przycisk \textit{Generate file}, kt
 \subsection{Generowanie raportu w Power Automate}
 
 
-\emph{Flow} o nazwie \emph{GenerateRaport} składa się z kilku komponentów, które finalizują tworzenie gotowego raportu przekazywanego do zakładu w Wolfsburgu, takich jak:
+\emph{Flow} o nazwie \emph{GenerateRaport} składa się z kilku komponentów, które 
+pozwalają na stworzenie raportu w formacie arkusza kalkulacyjnego, w oparciu o dane z list SharePoint. Przepływ ten zawiera następujące instrukcje:
 
 \begin{itemize}
     \item \textbf{Wejście danych:} \emph{Flow} przyjmuje trzy dane wejściowe: ciąg znaków w formacie JSON, zawierający dane przekazane z aplikacji do przetworzenia, wybraną indykację oraz wybrany rok.
-    \item \textbf{Inicjalizacja zmiennej:} W tym kroku tworzona jest zmienna odpowiedzialna za nazwę generowanego pliku. Zmienna zawiera dynamicznie generowaną datę utworzenia pliku, która w dalszej kolejności pozostanie niezmienna, niezależnie od czasu wykonania kolejnych instrukcji.
+    \item \textbf{Inicjalizacja zmiennej:} W tym kroku tworzona jest zmienna odpowiedzialna za nazwę generowanego pliku. Zmienna zawiera dynamicznie generowaną datę utworzenia pliku.
     \item \textbf{Generowanie pustego arkusza Excel:} Wykorzystywany jest statyczny plik Excel, zapisany w formacie Base64, który pełni rolę szablonu dla dalszego przetwarzania.
     \item \textbf{Tworzenie pliku na SharePoint:} Szablon arkusza zostaje zapisany w określonej lokalizacji w bibliotece SharePoint.
     \item \textbf{Sprawdzenie dostępności pliku:} W celu upewnienia się, że plik jest gotowy do dalszego przetwarzania, uruchamiana jest pętla \emph{Do until}, która weryfikuje dostępność pliku na platformie.
-    \item \textbf{Uruchomienie skryptu:} Na końcu przepływu wywoływany jest skrypt \emph{OfficeScript}, który generuje finalny arkusz Excel. Arkusz ten zawiera pełne dane i jest gotowy do przekazania odbiorcy.
+    \item \textbf{Uruchomienie skryptu:} Na końcu przepływu wywoływany jest skrypt pakietu office, który generuje wypełniony arkusz Excel.
 \end{itemize}
 
 Schemat \ref{fig:generateflowcomponent} przedstawia szczegółowy schemat przepływu, uwzględniający poszczególne kroki oraz przepływ danych między nimi.
@@ -91,15 +96,15 @@ Schemat \ref{fig:generateflowcomponent} przedstawia szczegółowy schemat przep�
     \label{fig:generateflowcomponent}
 \end{figure}
 
-\subsection{Opis działania skryptu generującego raport}
+\subsubsection*{Opis działania skryptu generującego raport}
 
 Skrypt odpowiedzialny za generowanie raportu wykonuje kilka operacji. Jego główne funkcje to:
 \begin{itemize}
-    \item \textbf{Parsowanie danych wejściowych:} Przyjęcie danych w formacie JSON oraz roku. W przypadku błędu parsowania JSONa, tworzy arkusz z odpowiednim komunikatem o błędzie.
-    \item \textbf{Tworzenie arkusza:} Sprawdzenie, czy arkusz wynikowy już istnieje -- jeśli tak, to usuwa go i tworzy nowy o stałej nazwie.
-    \item \textbf{Dynamiczne wstawianie danych:} Wprowadzenie dynamicznych wartości na podstawie roku, takich jak \texttt{PL<rok>} oraz \texttt{PLAN}, w odpowiednich komórkach.
-    \item \textbf{Generowanie tabeli:} Tworzenie nagłówków tabel (np. \texttt{Service\_ID}, \texttt{Service\_Name}) oraz wprowadzenie danych wypełniające tabelę, pobierane z JSON-a.
-    \item \textbf{Formatowanie:} Formatowanie komórek arkusza -- skrypt dodaje filtry oraz zmienia szerokość kolumn, co sprawia, że wygląd arkusza jest spójny z tymi tworzonymi do tej pory ręcznie.
+    \item \textbf{Analiza danych wejściowych:} Przyjęcie danych w formacie JSON oraz roku. W przypadku otrzymania niepoprawnych dancyh, w arkuszu umieszczony jest odpowiedni komunikat.
+    \item \textbf{Tworzenie arkusza:} Sprawdzenie, czy arkusz wynikowy już istnieje -- jeśli tak, to usuwa go i tworzy nowy.
+    \item \textbf{Dynamiczne wstawianie danych:} Kolumny zawierające informacje na temat cen, mają w nagłówkach podany rok, których one dotyczą.
+    \item \textbf{Generowanie tabeli:} Tworzenie nagłówków tabel (np. \texttt{Service\_ID}, \texttt{Service\_Name}) oraz wprowadzenie danych wypełniające tabelę, pobierane z JSON.
+    \item \textbf{Formatowanie:} Skrypt aktywuje opcję filtracji kolumn oraz zmienia ich szerokość. Dzięki temu arkusz jest czytelny i nie wymaga formatowania ze strony użytkownika.
 \end{itemize}
 
 

@@ -2,4 +2,13 @@
 
 \input{chapters/06-Problemy/06.1-Power_Platform.tex}
 
-test
+\textcolor{blue}{\textbf{Przenoszę to z 4.1 -- tworzenie list. Trzeba napisać, coś w stylu "Problem ten pojawił się przy implementacji list opisanej w podrozdziale \textbackslash ref\{4.1\}}}
+
+\customnote{Początkowo planowano wykorzystać wbudowany w SharePoint mechanizm \emph{lookup} do implementacji relacji między listami. Jednak ze względu na ograniczenie tego mechanizmu do relacji wyłącznie między dwiema listami, zdecydowano się na realizację powiązań na poziomie logiki aplikacji. Szczegóły tej implementacji zostały opisane w rozdziale dotyczącym realizacji systemu.}
+
+\textcolor{blue}{\textbf{Przenoszę to z 4.2.1 -- opis czemu używamy childflow}}
+\customnote{Wprowadzenie potoku podrzędnego było konieczne z uwagi na sposób, w jaki Power Automate obsługuje operacje na plikach w SharePoint. Gdy plik zostaje zapisany w folderze SharePoint, system przypisuje mu status wskazujący, czy jest gotowy do przetworzenia. W przypadku realizacji obu operacji (zapisu i przetwarzania pliku) w ramach jednego przepływu pojawiał się problem. Wynikał on z faktu, że przepływ pobierał dane z SharePoint już na etapie wstępnego sprawdzenia, czy plik o określonej nazwie istnieje. Informacja ta była przechowywana w pamięci przepływu i nie była aktualizowana w trakcie jego dalszego wykonywania.
+
+W efekcie, po utworzeniu nowego pliku, przepływ nie miał możliwości odświeżenia informacji o jego istnieniu i statusie. To powodowało błąd uniemożliwiający uruchomienie skryptu, gdyż system informował, że plik, dla którego miał być wykonany, nie istnieje.
+
+Rozwiązaniem tego problemu było wydzielenie etapu przetwarzania pliku do osobnego przepływu podrzędnego. Przepływ podrzędny, uruchamiany po zakończeniu procesu zapisu pliku, działał niezależnie i pobierał aktualne dane z SharePoint w momencie wywołania. Dzięki temu możliwe było wyeliminowanie problemu z odświeżaniem informacji o statusie pliku, co pozwoliło na poprawne uruchomienie skryptu Office Script.}
