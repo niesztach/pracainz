@@ -11,7 +11,7 @@ Ponadto utworzono trzy listy:
     \item \emph{Lista\_Indykacji}.
 \end{itemize}
 \hfill \break
-Ich struktura jest taka sama jak opisana w podsekcji \ref{Subsec: StrukturaBazyDanych}. 
+Ich struktura jest taka sama jak opisana w podsekcji \ref{Subsec: StrukturaBazyDanych}.
 W celu dodania tych elementów należy:
 \begin{itemize}
     \item wejść w utworzoną witrynę,
@@ -35,45 +35,45 @@ Tabela \ref{tab:SharepointList} przedstawia konfigurację kolumn listy:
     \centering
     \caption{Konfiguracja listy na platformie Sharepoint}
     \label{tab:SharepointList}
-\begin{tabular}{|l|l|}
-    \hline
-    \textbf{Nazwa kolumny} & \textbf{Typ} \\ \hline
-    Service\_ID & Liczba \\ \hline
-    Service\_Name & Pojedynczy wiersz tekstu \\ \hline
-    Service\_Group & Pojedynczy wiersz tekstu \\ \hline
-    Service\_Sub\_Group & Pojedynczy wiersz tekstu \\ \hline
-    Service\_Main\_Group & Pojedynczy wiersz tekstu \\ \hline
-    Instruction\_Link & Pojedynczy wiersz tekstu \\ \hline
-    Unit\_Of\_Measurement & Pojedynczy wiersz tekstu \\ \hline
-    Settlement\_Type & Pojedynczy wiersz tekstu \\ \hline
-    Business\_Service\_Manager & Pojedynczy wiersz tekstu \\ \hline
-    Current\_Year\_Plan\_EUR & Liczba \\ \hline
-    QTY\_Current\_Year & Liczba \\ \hline
-    Next\_Year\_Plan\_EUR & Liczba \\ \hline
-    QTY\_Next\_Year & Liczba \\ \hline
-    Difference & Obliczeniowa \\ \hline
-    MPK & Pojedynczy wiersz tekstu \\ \hline
-    Year & Liczba \\ \hline
-    IndicationNo & Liczba \\ \hline
-    Comment\_Date & Pojedynczy wiersz tekstu \\ \hline
-    Comment\_Author & Wiele wierszy tekstu \\ \hline
-    Comment\_PZ\_to\_WOB & Wiele wierszy tekstu \\ \hline
-    Comment\_BSM & Wiele wierszy tekstu \\ \hline
-    Comment\_K-DES & Wiele wierszy tekstu \\ \hline
-    Comment\_Intern & Wiele wierszy tekstu \\ \hline
-    Decision & Liczba \\ \hline
-    Final\_comment & Wiele wierszy tekstu \\ \hline
+    \begin{tabular}{|l|l|}
+        \hline
+        \textbf{Nazwa kolumny}     & \textbf{Typ}             \\ \hline
+        Service\_ID                & Liczba                   \\ \hline
+        Service\_Name              & Pojedynczy wiersz tekstu \\ \hline
+        Service\_Group             & Pojedynczy wiersz tekstu \\ \hline
+        Service\_Sub\_Group        & Pojedynczy wiersz tekstu \\ \hline
+        Service\_Main\_Group       & Pojedynczy wiersz tekstu \\ \hline
+        Instruction\_Link          & Pojedynczy wiersz tekstu \\ \hline
+        Unit\_Of\_Measurement      & Pojedynczy wiersz tekstu \\ \hline
+        Settlement\_Type           & Pojedynczy wiersz tekstu \\ \hline
+        Business\_Service\_Manager & Pojedynczy wiersz tekstu \\ \hline
+        Current\_Year\_Plan\_EUR   & Liczba                   \\ \hline
+        QTY\_Current\_Year         & Liczba                   \\ \hline
+        Next\_Year\_Plan\_EUR      & Liczba                   \\ \hline
+        QTY\_Next\_Year            & Liczba                   \\ \hline
+        Difference                 & Obliczeniowa             \\ \hline
+        MPK                        & Pojedynczy wiersz tekstu \\ \hline
+        Year                       & Liczba                   \\ \hline
+        IndicationNo               & Liczba                   \\ \hline
+        Comment\_Date              & Pojedynczy wiersz tekstu \\ \hline
+        Comment\_Author            & Wiele wierszy tekstu     \\ \hline
+        Comment\_PZ\_to\_WOB       & Wiele wierszy tekstu     \\ \hline
+        Comment\_BSM               & Wiele wierszy tekstu     \\ \hline
+        Comment\_K-DES             & Wiele wierszy tekstu     \\ \hline
+        Comment\_Intern            & Wiele wierszy tekstu     \\ \hline
+        Decision                   & Liczba                   \\ \hline
+        Final\_comment             & Wiele wierszy tekstu     \\ \hline
     \end{tabular}
 \end{table}
 
-    \noindent Kolumna \emph{Difference} jest kolumną obliczeniową co oznacza, że jej wartość jest obliczana względem podanej formuły. W tym przypadku oblicza ona różnicę cen między rokiem następnym a bieżącym. \\
-    Kolumna \emph{MPK} pomimo wartości liczbowych, jest typu tekstowego gdyż znacznie upraszcza to filtrowanie oraz przepisywanie istniejących numerów do nowych danych. \\
-    Kolumna \emph{Decision} jest kolumną liczbową ponieważ status decyzji konwertowany jest na kod liczbowy aby przyspieszyć proces filtrowania:
-    \begin{itemize}
-        \item \emph{Accepted} $\rightarrow$ 1,
-        \item \emph{Not Accepted} $\rightarrow$ -1,
-        \item \emph{No Status} $\rightarrow$ 0.
-    \end{itemize}
+\noindent Kolumna \emph{Difference} jest kolumną obliczeniową co oznacza, że jej wartość jest obliczana względem podanej formuły. W tym przypadku oblicza ona różnicę cen między rokiem następnym a bieżącym. \\
+Kolumna \emph{MPK} pomimo wartości liczbowych, jest typu tekstowego gdyż znacznie upraszcza to filtrowanie oraz przepisywanie istniejących numerów do nowych danych. \\
+Kolumna \emph{Decision} jest kolumną liczbową ponieważ status decyzji konwertowany jest na kod liczbowy aby przyspieszyć proces filtrowania:
+\begin{itemize}
+    \item \emph{Accepted} $\rightarrow$ 1,
+    \item \emph{Not Accepted} $\rightarrow$ -1,
+    \item \emph{No Status} $\rightarrow$ 0.
+\end{itemize}
 
-    
+
 

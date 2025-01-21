@@ -1,4 +1,5 @@
 \section{Ekran startowy aplikacji i przygotowanie danych}
+\label{relacje-list}
 Kiedy dane zostały dostosowane do działania systemu, przystąpiono do implementacji pozostałych części rozwiązania.
 Kolejnym elementem jest ekran startowy aplikacji, zawierający przyciski, które przekierowują użytkownika do odpowiednich sekcji aplikacji.
 
@@ -69,9 +70,9 @@ Aplikacja tworzy również lokalne kopie trzech list danych: \emph{Lista\_Uslug}
 
 Kolejnym istotnym krokiem jest utworzenie kolekcji \emph{MergedData}, która łączy dane z trzech lokalnych kopii list. W tym celu zastosowano funkcję \emph{AddColumns()}, która dodaje dwie nowe kolumny: \emph{Kwoty} oraz \emph{Indykacje}. Dane w tych kolumnach są wyodrębniane przy użyciu funkcji \emph{LookUp()} oraz \emph{Filter()}, które umożliwiają precyzyjne filtrowanie i wyszukiwanie danych na podstawie określonych kryteriów. Funkcja \emph{LookUp()} zwraca pierwszy rekord spełniający podane warunki, natomiast \emph{Filter()} generuje zbiór rekordów spełniających zadane kryteria. W analizowanym kodzie funkcje te są zagnieżdżone, co pozwala na wyodrębnienie danych z list na podstawie trzech kluczowych kryteriów:
 \begin{itemize}
-\item \emph{Service\_ID} – identyfikator usługi,
-\item \emph{Year} – najwyższy rok dla pasującego identyfikatora usługi,
-\item \emph{IndicationNo} – maksymalny numer indykacji dla rekordów o zgodnym \emph{Service\_ID} i \emph{Year}.
+    \item \emph{Service\_ID} – identyfikator usługi,
+    \item \emph{Year} – najwyższy rok dla pasującego identyfikatora usługi,
+    \item \emph{IndicationNo} – maksymalny numer indykacji dla rekordów o zgodnym \emph{Service\_ID} i \emph{Year}.
 \end{itemize}
 
 W efekcie, kolekcja \emph{MergedData} zawiera dane dla najnowszego roku i najwyższego numeru indykacji dla każdej usługi, co umożliwia prezentację aktualnych informacji w interfejsie użytkownika.
