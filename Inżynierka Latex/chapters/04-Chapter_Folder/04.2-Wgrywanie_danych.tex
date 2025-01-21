@@ -112,10 +112,36 @@ Po utworzeniu pliku w SharePoint, w ramach przepływu następuje jego przetworze
 \end{enumerate}
 
 
-
-\textcolor{red}{LINK DO TEGO JARO\_WINKLERA: https://crucialbits.com/blog/a-comprehensive-list-of-similarity-search-algorithms/}
-
 Kolejnym elementem tej sekcji ekranu jest lista zapisanych plików znajdująca się obok kontrolki \emph{Attach Control}. Umożliwia ona wybór pliku do dalszego przetwarzania. Poniżej umieszczono przycisk \emph{"Click to open:..."}, który pozwala na otwarcie wybranego pliku w nowym oknie przeglądarki przy użyciu funkcji \emph{Launch}. Możliwość podglądu ma na celu ułatwienie weryfikacji jego poprawności.
+
+\subsubsection*{Algorytm Jaro-Winkler}
+Podstawą algorytmu, jest algorytm \emph{Jaro}. Polega on na porównaniu dwóch ciągów znaków w celu określenia ich podobieństwa. Wynik obliczany jest na podstawie równania \ref{eq:Jaro}:
+\begin{equation}
+    \label{eq:Jaro}
+    J = \frac{1}{3} \left( \frac{m}{|s_1|} + \frac{m}{|s_2|} + \frac{m - t}{m} \right) \mbox{dla } m>0
+\end{equation}
+\noindent gdzie:\\
+$m$ – liczba dopasowanych znaków,\\    $t$ – liczba transpozycji,\\    $|s_1|$, $|s_2|$ – długości ciągów.\\
+
+\noindent Wynikiem równania, jest wartość z przedziału od 0 do 1, gdzie 1 oznacza pełne dopasowanie. 
+
+Algorytm \emph{Jaro-Winkler} jest rozszerzeniem algorytmu \emph{Jaro}, które dodaje premię za zgodność początkowych znaków. Wynik obliczany jest na podstawie równania \ref{eq:JaroWinkler}:
+\begin{equation}
+    \label{eq:JaroWinkler}
+    JW = J + l \cdot p \cdot (1 - J),
+\end{equation}
+gdzie:\\
+$l$ – długość wspólnego prefiksu (maksymalnie 4 znaki),\\ $p$ – współczynnik skalowania.\\
+
+\noindent Rozszerzona wersja algorytmu, pozwala na bardziej precyzyjne porównanie ciągów znaków, które mają wspólny prefix, co jest szczególnie ważne w przypadku nagłówków kolumn rozpoczynających się od frazy \emph{Service}.
+
+
+\vspace{1cm}
+
+\textcolor{red}{LINK DO TEGO JARO\_WINKLERA: https://crucialbits.com/blog/a-comprehensive-list-of-similarity-search-algorithms/
+https://en.wikipedia.org/wiki/Jaro\%E2\%80\%93Winkler\_distance
+}
+
 
 \subsection{Walidacja nazw kolumn} Kolejnym etapem przed zapisaniem danych do bazy jest walidacja nazw kolumn. W tym celu zaimplementowano formularz zawierający \emph{galerię} -- element umożliwiający wyświetlanie wielu rekordów danych o różnych typach. Pola wyświetlające dane w galerii mogą być dostosowywane w dowolny sposób w zależności od potrzeb użytkownika.
 
