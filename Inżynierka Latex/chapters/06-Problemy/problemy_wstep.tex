@@ -3,21 +3,26 @@
 \section*{Problemy i ich rozwiązania}
 
 \begin{itemize}
-    \item \textbf{Mechanizm \emph{lookup} w SharePoint:}
+    \item \textbf{Relacje między listami w SharePoint:}
           \begin{itemize}
-              \item \textbf{Problem:} Mechanizm \emph{lookup} w SharePoint pozwala na tworzenie relacji tylko pomiędzy dwiema listami. To ograniczenie stwarza problemy w przypadku, gdy aplikacja wymaga utworzenia bardziej złożonych relacji, obejmujących więcej niż dwie listy.
-              \item \textbf{Rozwiązanie:} Zdecydowano się na implementację relacji między listami na poziomie aplikacji, zamiast polegać na wbudowanym mechanizmie SharePoint. W tym celu wykorzystywano funkcję \emph{lookup} na poziomie aplikacji, umożliwiającą tworzenie powiązań między trzema listami. Dzięki temu, relacje między listami były definiowane w sposób bardziej elastyczny i dostosowany do potrzeb aplikacji. Szczegóły implementacji tej logiki zostały opisane w podrozdziale [\ref{relacje-list}] \customnote{chyba się powinno nadać}, gdzie omówiono sposób zarządzania powiązaniami i przechowywania informacji o relacjach między listami w kontekście aplikacji.
+              \item \textbf{Problem:} 
+              Sharepoin pozwala na stworzenie relacji między listami poprzez użycie kolumn typu \emph{lookup}. Mechanizm ten pozwala na tworzenie relacji tylko pomiędzy dwiema listami. To ograniczenie stwarza problemy w przypadku, gdy aplikacja wymaga utworzenia bardziej złożonych relacji, obejmujących więcej niż dwie listy.
+              \item \textbf{Rozwiązanie:} Zdecydowano się na implementację relacji między listami na poziomie aplikacji, zamiast polegać na wbudowanym mechanizmie SharePoint. W tym celu wykorzystywano funkcję \emph{lookup}, umożliwiającą tworzenie powiązań między trzema listami. Dzięki temu, relacje między listami były definiowane w sposób bardziej elastyczny i dostosowany do potrzeb aplikacji. Szczegóły implementacji tej logiki zostały opisane w podrozdziale [\ref{relacje-list}], gdzie omówiono sposób zarządzania powiązaniami i przechowywania informacji o relacjach między listami w kontekście aplikacji.
+              \customnote{No tutaj nie tylko lookup ale też filter było wykorzystywane. Bo lookup znajduje ci pierwszy pasujący wiersz a filter wypluwa ci listę pasujących elementów. I my robiliśmy te śmieszne zagnieżdżenia.}
           \end{itemize}
 
     \item \textbf{Wykorzystanie przepływów podrzędnych w Power Automate:}
           \begin{itemize}
               \item \textbf{Problem:} W Power Automate istnieje problem z odświeżaniem statusu pliku, który został zapisany na SharePoint. Główny przepływ nie bierze pod uwagę zmiany statusu pliku po jego zapisaniu, przez co system nie jest w stanie kontynuować przetwarzania pliku. Po zapisaniu pliku, przepływ próbuje pracować na nieaktualnych danych, wskazując iż plik jeszcze nie istnieje lub nie jest gotowy do dalszego przetwarzania. Prowadzi to do błędów w procesach automatyzacji, uniemożliwiając poprawne wykonanie funkcji.
-              \item \textbf{Rozwiązanie:} W celu rozwiązania tego problemu, wydzielono etap przetwarzania pliku do osobnego przepływu podrzędnego. Przepływ główny zapisywał plik, a następnie uruchamiał przepływ podrzędny, który pobierał aktualne dane z SharePoint, co eliminowało problem z odświeżaniem statusu. Wykorzystanie przepływów podrzędnych poprawiło stabilność i płynność procesu automatyzacji, umożliwiając prawidłowe przetwarzanie plików.  \customnote{O child flow jest trochę opisane tutaj} \ref{childflow}. \customnote{Ale ostatnio chyba i tak się zbugowało nawet child flow i coś wyszło z tym delayem więc chyba wypadałoby coś dopowiedzieć}
+              \item \textbf{Rozwiązanie:} W celu rozwiązania tego problemu, wydzielono etap przetwarzania pliku do osobnego przepływu podrzędnego. Przepływ główny zapisywał plik, a następnie uruchamiał przepływ podrzędny, który pobierał aktualne dane z SharePoint, co eliminowało problem z odświeżaniem statusu. Wykorzystanie przepływów podrzędnych poprawiło stabilność i płynność procesu automatyzacji, umożliwiając prawidłowe przetwarzanie plików. 
+            %    \customnote{O child flow jest trochę opisane tutaj} \ref{childflow}. \customnote{Ale ostatnio chyba i tak się zbugowało nawet child flow i coś wyszło z tym delayem więc chyba wypadałoby coś dopowiedzieć}
+            \customnote{Imo to jest git, bo tam tylko mówimy, że używamy a wyjaśnienie masz tutaj. Conajwyżej można dodać refa do tego miejsca.}
           \end{itemize}
 
 
     \item \textbf{Ustawienia lokalne - średniki i przecinki:}
           \begin{itemize}
+            \item \customnote{TO BYŁ TYLKO PROBLEM JAK WRZUCAŁEŚ FUNKCJE Z CHATA ALBO Z FORUM XDD ja bym to wywalił. w sensie mogłoby zostać ale trochę do pizdy jest to napisane moim zdaniem. Możemy zapytać pikeja co sadzi}
               \item \textbf{Problem:} Różnice w ustawieniach lokalnych, dotyczące separatorów argumentów w funkcjach (średniki i przecinki) w Power Apps, powodują błędy w przetwarzaniu danych. W Polsce jako separator argumentów funkcji używa się średnika (\texttt{;}), podczas gdy w innych częściach świata (np. w przypadku ustawień dla języka angielskiego) może zastosowany zostać przecinek (\texttt{,}). Tego rodzaju niezgodność prowadzi do problemów przy korzystaniu z niepolskojęzycznej dokumentacji czy przy współpracy między różnymi członkami zespołu, którzy mają różne ustawienia lokalne w swoich systemach. Zmiany w separatorach mogą powodować, że funkcje nie są wykonywane poprawnie, ponieważ jeden użytkownik używa przecinków, a inny średników. Różnice występują też np. w przypadku znaków końca linii.
               \item \textbf{Rozwiązanie:} Aby zminimalizować ryzyko błędów związanych z różnicami w ustawieniach regionalnych, konieczne jest ujednolicenie tych ustawień wśród członków zespołu.
           \end{itemize}
@@ -25,13 +30,13 @@
 
     \item \textbf{Ograniczenia w tworzeniu elementów na SharePoint:}
           \begin{itemize}
-              \item \textbf{Problem:} SharePoint posiada ograniczenie dotyczące liczby elementów, które można utworzyć w danym czasie - maksymalnie pół elementu na sekundę.
+              \item \textbf{Problem:} SharePoint posiada ograniczenie dotyczące liczby elementów, które można utworzyć w danym czasie - jeden element na dwie sekundy.
 
                     \customnote{Zarzucę zdanie o wynikach z flow 100k elementów}
 
                     Przy pracy z dużymi zbiorami danych, ten limit staje się problematyczny, ponieważ procesy tworzenia danych na SharePoint zaczynają trwać bardzo długo, dochodząc do kilkunastu godzin, w zależności od liczby dodawanych elementów. Ograniczenie to prowadzi do spadku wydajności rozwiązania, a także wydłuża czas potrzebny na zakończenie operacji.
 
-              \item \textbf{Rozwiązanie:} Aby poradzić sobie z tym ograniczeniem, zastosowano alternatywne rozwiązanie, takie jak wykorzystanie \emph{bashowania}\footnote{Bashowanie - używanie powłoki Bash do automatyzacji zadań systemowych.} oraz \emph{REST API}\footnote{REST API - interfejs umożliwiający komunikację między systemami za pomocą zapytań HTTP.}. Dzięki tym technologiom udało się zwiększyć wydajność i szybkość tworzenia elementów na SharePoint. REST API pozwala na bardziej efektywne zarządzanie danymi w czasie rzeczywistym, a \emph{bashowanie} umożliwa równoległe przetwarzanie dużych zbiorów danych, co znacznie skraca czas potrzebny na realizację operacji.
+              \item \textbf{Rozwiązanie:} Aby poradzić sobie z tym ograniczeniem, zastosowano alternatywne rozwiązanie, takie jak wykorzystanie \customnote{XDDD a ja się zastanawiałem co my bashujemy, przecież to nie linux. MY UŻYWAMY BATCHOWANIA!!!!!!}\emph{bashowania}\footnote{Bashowanie - używanie powłoki Bash do automatyzacji zadań systemowych.} oraz \emph{REST API}\footnote{REST API - interfejs umożliwiający komunikację między systemami za pomocą zapytań HTTP.}. Dzięki tym technologiom udało się zwiększyć wydajność i szybkość tworzenia elementów na SharePoint. REST API pozwala na bardziej efektywne zarządzanie danymi w czasie rzeczywistym, a \emph{bashowanie} umożliwa równoległe przetwarzanie dużych zbiorów danych, co znacznie skraca czas potrzebny na realizację operacji.
 
                     \customnote{btw. czy cos o tym nie powinno sie pojawic w implementacji?}
           \end{itemize}
@@ -45,6 +50,7 @@
     \item \textbf{Ograniczenia dotyczące rozmiaru list SharePoint:}
           \begin{itemize}
               \item \textbf{Problem:} SharePoint posiada limit dotyczący liczby elementów w jednej liście, co stwarza problemy z wydajnością przy pracy z bardzo dużymi zbiorami danych. Listy o zbyt dużych rozmiarach powodują znaczny spadek wydajności, a także prowadzą do problemów z synchronizacją danych między różnymi użytkownikami. Dodatkowo, duże listy skutkują wolniejszym ładowaniem danych i wykonywaniem zapytań.
+              \item \customnote{ tutaj ograniczenie rozmiaru listy nie ma się w cale do pobierania lokalnej kopii. Pierwsza sprawa że pobieramy lokalną kopie bo connector ssie i średnio działa kiedy używamy lookup/filter bezpośrednio na liście (tak jak było z listą wyboru serwisu). A druga sprawa  że lokalne kopie są pobierane w kilku miejscach apki (dodałem to ostatnio), żeby zapewnić aktualne dane. }
               \item \textbf{Rozwiązanie:} Aby rozwiązać ten problem, zdecydowano się na optymalizację działania list SharePoint poprzez zaciąganie danych do Power Apps tylko raz (szczegóły implementacji wyjaśniono w rozdziale [\ref{relacje-list}]), podczas uruchamiania aplikacji (przy użyciu funkcji \emph{OnStart}). Następnie dane są aktualizowane tylko wtedy, gdy jest to wymagane, w przeciwieństwie do ciągłego łączenia się z SharePoint. Takie podejście pozwala na zmniejszenie liczby operacji i poprawę wydajności pracy z danymi, szczególnie przy dużych listach.
           \end{itemize}
 \end{itemize}
