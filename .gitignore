@@ -10,10 +10,7 @@ PUT CREEF Dissertation Template/main.log
 PUT CREEF Dissertation Template/main.fls
 PUT CREEF Dissertation Template/main.fdb_latexmk
 PUT CREEF Dissertation Template/main.blg
-PUT CREEF Dissertation Template/main.bbl
-PUT CREEF Dissertation Template/main.aux
 
-Inżynierka Latex/main.aux
 Inżynierka Latex/main.fdb_latexmk
 Inżynierka Latex/main.fls
 Inżynierka Latex/main.log
@@ -21,7 +18,6 @@ Inżynierka Latex/main.out
 Inżynierka Latex/main.pdf
 Inżynierka Latex/main.synctex.gz
 Inżynierka Latex/main.toc
-PUT CREEF Dissertation Template/main.aux
 PUT CREEF Dissertation Template/main.fdb_latexmk
 PUT CREEF Dissertation Template/main.fls
 PUT CREEF Dissertation Template/main.log

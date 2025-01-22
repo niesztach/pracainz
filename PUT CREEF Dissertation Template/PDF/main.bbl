@@ -12,10 +12,4 @@ Donald~E. Knuth.
 \newblock Computers and Typesetting. Ad{\-d}i{\-s}on-Wes{\-l}ey, Reading, MA,
   USA, 1986.
 
-\bibitem{Lamport1985}
-Leslie Lamport.
-\newblock {\em {\LaTeX} --- A Document Preparation System --- User's Guide and
-  Reference Manual}.
-\newblock Ad{\-d}i{\-s}on-Wes{\-l}ey, Reading, MA, USA, 1985.
-
 \end{thebibliography}

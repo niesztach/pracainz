@@ -48,11 +48,11 @@ Poniżej przedstawiono, który przycisk odpowiada za przekierowanie do danej sek
 
  Kontrolka opisana jako \emph{Add attachments to process}, pozwala na dodanie nowego arkusza kalkulacyjnego do systemu. Wybór pliku odbywa się przy pomocy przycisku \emph{Add attachments} lub z użyciem mechaniki \emph{Drag\&Drop}. Kiedy plik zostanie pomyślnie dodany do pamięci aplikacji, wyświetli się on na liście.
 
- Aby plik został dodany do bilbioteki SharePoint, należy nacisnąć przycisk \emph{Save attachments} znajdujący się podniżej. Naciśnięcie przycisku skutkuje rozpoczęciem procesu zapisu oraz wstępnego formatowania danych. W tym czasie na ekranie widoczny będzie wskaźnik informujący użytkownika o trwającym procesie.
+ Aby plik został dodany do bilbioteki SharePoint, należy nacisnąć przycisk \emph{Save attachments} znajdujący się poniżej. Naciśnięcie przycisku skutkuje rozpoczęciem procesu zapisu oraz wstępnego formatowania danych. W tym czasie na ekranie widoczny będzie wskaźnik informujący użytkownika o trwającym procesie.
 
- Po prawej stronie znajduje się lista plików, które zostały poprawnie zapisane w folderze tymczasowym Sharepoint. Lista ta pozwala na wybór pliku, który zostanie przetworzony w kolejnych krokach. Dodatkowo krzyżyk przy każdym pliku pozwala na usunięcie go z systemu -- w tym z folderu tymczasowego.
+ Po prawej stronie znajduje się lista plików, które zostały poprawnie zapisane w folderze tymczasowym Sharepoint. Lista ta pozwala na wybór pliku, który zostanie przetworzony w kolejnych krokach. Dodatkowo przycisk oznaczony krzyżykiem przy każdym pliku pozwala na usunięcie go z systemu -- w tym z folderu tymczasowego.
  
- Ostatnim elementem tej sekcji jest przycisk \emph{Clock to open:...}.
+ Ostatnim elementem tej sekcji jest przycisk \emph{Click to open:...}.
  Jego naciśnięcie skutkuje otwarciem pliku wybranego z listy w nowej karcie przeglądarki. Pozwala to na weryfikację poprawności zapisanego pliku oraz jest pomocne w kolejnym kroku procesu.
 
 \subsection{Formularz walidacji kolumn} 
@@ -63,17 +63,17 @@ Poniżej przedstawiono, który przycisk odpowiada za przekierowanie do danej sek
      \label{fig:columnmappingform}
  \end{figure}
 
-Głównym elementem formularza jest dwukolumnowa galeria, dzięki której użytkownik może dostosować nazwy kolumn w arkuszu kalkulacyjnym do nazw kolumn w bazie danych. W lewej kolumnie znajdują się nagłówki pobrane z arkusza natomiast w prawej kolumnie znajdują się rozwijane listy pozwalające na dopasowanie odpowiedniej nazwy. Na rysunek \ref{fig:columnmappingform} widać, że niektóre nazwy zostały już przypisane. Wynika to z działania skryptu, który automatycznie podpowiada ich nazwę co pozwala przyspieszyć ten krok. Tutaj również przydatna jest funkcja podglądu pliku, ponieważ pozwala ona na określenie prawidłowej nazwy na podstawie zawartości kolumny.
+Głównym elementem formularza jest dwukolumnowa galeria, dzięki której użytkownik może dostosować nazwy kolumn w arkuszu kalkulacyjnym do nazw kolumn w bazie danych. W lewej kolumnie znajdują się nagłówki pobrane z arkusza natomiast w prawej kolumnie znajdują się rozwijane listy pozwalające na dopasowanie odpowiedniej nazwy. Na rysunek \ref{fig:columnmappingform} widać, że niektóre nazwy zostały już przypisane. Wynika to z działania skryptu, który automatycznie podpowiada ich nazwę co pozwala przyspieszyć walidację. Tutaj również przydatna jest funkcja podglądu pliku, ponieważ pozwala ona na określenie prawidłowej nazwy na podstawie zawartości kolumny.
 
 Po prawej stronie umieszczono dodatkowe kontrolki. Pierwszą z nich, jest krótka instrukcja dla użytkownika, umieszczona na niebieskim tle.
-Pod nią znajduje sie przycisk \emph{Update column names}, który pozwala na zapisanie zmian w nazwach kolumn. Po jego naciśnięciu, wyświetlone zostanie okno dialogowe (rysunek \ref{fig:CorrectHeadersPopup}) z zapytaniem o potwierdzenie zmian. Zmiana nazw kolumn jest bardzo ważny dla dalszego działania aplikacji, dlatego zaleca się dokładne sprawdzenie poprawności wybranych nazw.
+Pod nią znajduje sie przycisk \emph{Update column names}, który pozwala na zapisanie zmian w nazwach kolumn. Po jego naciśnięciu, wyświetlone zostanie okno dialogowe (rysunek \ref{fig:CorrectHeadersPopup}) z zapytaniem o potwierdzenie zmian. Dostosowanie poprawnych nazw kolumn jest bardzo ważne dla dalszego działania aplikacji, dlatego zaleca się dokładne sprawdzenie poprawności wybranych nazw.
 \begin{figure}[h]
     \centering
     \includegraphics[width=\linewidth]{figures/CorrectHeadersPopup.png}
     \caption{Zapytanie o poprawność nazw kolumn}
     \label{fig:CorrectHeadersPopup}
 \end{figure}
-Zatwierdzenie zmiany, skutkuje rozpoczęciem procesu nadpisania nagłówków, oczym informuje odpowiedni indykator. Po zakończeniu procesu, galeria z nazwami kolumn zostaje zaaktualizowana.
+Zatwierdzenie zmiany, skutkuje nadpisaniem nagłówków, o czym informuje odpowiedni indykator. Po zakończeniu procesu, galeria z nazwami kolumn zostaje zaaktualizowana.
 
 Formularz ten pozwala również na przesłanie danych z arkusza do bazy danych. Pierwszym krokiem jest wybór roku oraz numeru indykacji, których dotyczą dane przy użyciu rozwijanych list znajdujących się pod przyciskiem aktualizującym nazwy kolumn. Kiedy wybrano odpowiednie wartości, można zainicjować proces zapisu danych poprzez użycie przycisku \emph{Upload data}. Naciśnięcie go skutkuje trzema scenariuszami:
 \begin{itemize}
@@ -137,3 +137,79 @@ Proces podejmowania decyzji odbywa się osobno dla każdej z usług. Dlatego ta 
  Po naciśnięciu wiersza odpowiadającego serwisowi, użytkownik zostaje przekierowany do ekranu szczegółowego.
 
  Dodatkowo, po prawej stronie znajduje się wykres kołowy. Każdy segment odpowiada liczbie elementów z przypisanym statusem, co pozwala użytkownikowi szybko ocenić proporcje między kategoriami (\emph{Accepted}, \emph{Not Accepted}, \emph{No Status}). Wykres jest dynamiczny — aktualizuje się w czasie rzeczywistym w oparciu o zastosowane filtry, co zapewnia aktualność prezentowanych informacji.
+
+ \subsection{Ekran szczegółowy}
+
+
+ \begin{figure}[h]
+ \centering
+ \includegraphics[width=0.9\textwidth]{figures/EditForm.png}
+ \caption{Ekran edycji elementu}
+ \label{fig:EditForm}
+ \end{figure}
+
+ Rysunek \ref{fig:EditForm} przedstawia interfejs ekranu szczegółowego dla wybranej usługi. Pierwszym niestandardowym elementem jest nagłówek, zawierający najważniejsze infromacje takie jak: nazwa, identyfikator, numer MPK czy dane kontaktowe do osoby odpowiedzialnej za serwis.
+\subsubsection*{Zestawienie danych rocznych}
+ Poniżej znajduje się galeria zawierająca zestawienie informacji rocznych na przestrzeni trzech poprzednich lat. Zawiera on:
+ \begin{itemize}
+    \item \textbf{Rok (\emph{Year})} — użytkownik może wybrać rok, którego dotyczy wpis.
+    \item \textbf{Jednostka miary (\emph{Unit of Measurement})} — określa jednostkę, w której będą wprowadzone dane (np. sztuki, kilogramy).
+    \item \textbf{Sposób rozliczenia (\emph{Settlement Type})} — pole wyboru umożliwiające określenie sposobu rozliczenia, np. planowane ilości.
+    \item \textbf{Cena w roku obecnym (\emph{Current Year Plan})} — przewidywana cena jednostkowa dla bieżącego roku.
+    \item \textbf{Liczba w roku obecnym (\emph{Current Year QTY})} — planowana liczba jednostek w bieżącym roku.
+    \item \textbf{Cena w roku następnym (\emph{Next Year Plan})} — przewidywana cena jednostkowa dla następnego roku.
+    \item \textbf{Liczba w roku następnym (\emph{Next Year QTY})} — planowana liczba jednostek w następnym roku.
+    \item \textbf{Różnica cen (\emph{Difference})} — różnica pomiędzy ceną w roku obecnym a ceną w roku następnym.
+    \item \textbf{Decyzja końcowa (\emph{Final Decision})} — ostateczna decyzja dotycząca danego wpisu, wybierana z listy rozwijanej.
+   \end{itemize}
+
+Galeria ta daje możliwość analizy podjętych decyzji względem cen w poszczególnych latach. Jest ona interaktywna -- kliknięcie w wiersz powoduje wyświetlenie danych szczegółowych w tabeli poniżej.
+\subsubsection*{Zestawienie indykacji}
+Druga geleria zawiera:
+ \begin{itemize}
+ \item \textbf{Rok (\emph{Year})} — użytkownik może wybrać rok, którego dotyczy wpis. Domyślnie pole to jest ustawiane na bieżący rok.
+ \item \textbf{Numer indykacji (\emph{Indication Number})} — kolejny numer przypisany do decyzji. Numer ten jest automatycznie ustawiany na o jeden większy niż najwyższy numer indykacji dla danego roku w bazie danych.
+ \item \textbf{Komentarze} — pola do wprowadzenia uwag wewnętrznych, komentarzy między działami oraz końcowych komentarzy.
+ \item \textbf{Status decyzji (\emph{Decision})} — lista rozwijana, umożliwiająca wybór odpowiedniego statusu (\emph{Accepted, Not Accepted, No Status}). Domyślnie status jest ustawiany na podstawie decyzji z poprzedniego roku.
+ \item \textbf{Data i autor} — data oraz osoba odpowiedzialna za wprowadzenie wpisu. Pole autora jest automatycznie uzupełniane danymi aktualnie zalogowanego użytkownika.
+ \end{itemize}
+ Sekcja ta pozwala użytkownikowi przeanalizować ostatnie decyzje oraz ocenić trendy finansowe dla danej usługi w kolejnych latach.
+
+ Z uwagi na utrzymanie przejrzystości interfejsu, w komórkach tabeli wyświetlane są skrócone komentarze. Użytkownik ma możliwość podglądu pełnej treści poprzez naciśnięcie komórki -- wtedy wyświetlone zostaje okno dialogowe z pełnym tekstem, autorem oraz datą dodania (rysunek \ref{}).
+
+ \textcolor{red}{TUTAJ OBRAZEK TABELKI Z ROZWINIĘTYM KOMENTARZEM}
+
+\subsubsection*{Formularz dodawania danych}
+ Ostatnią sekcją tego ekranu jest formularz umożliwiający dodanie nowego rekordu do listy indykacji. Zawiera on następujące pola:
+ \begin{itemize}
+ \item \textbf{Listy wyboru roku i numeru indykacji},
+ \item \textbf{Lista wyboru autora komentarzy/decyzji} -- na liście znajdują się wszyscy dostępni użytkownicy,
+ \item \textbf{Lista wyboru statusu decyzji} -- dostępne są trzy statusy: \emph{Accepted, Not Accepted, No Status},
+ \item \textbf{Pola wprowadzania komentarzy} -- każde z dostępnych pól pozwala na wprowadzenie wiadomości, która trafi do odpowiedniej jednostki.
+ \end{itemize}
+
+ Na końcu znajduje się przycisk pozwalający na zapisanie zmian w bazie danych oraz odświeżający dane pobrane przez aplikację.
+
+ \subsection{Ekran generowania raportu}
+
+ \begin{figure}[H]
+     \centering
+     \includegraphics[width=0.9\textwidth]{figures/GenerateRaportForm.png}
+     \caption{Ekran generowania raportu}
+     \label{fig:generateraportform}
+ \end{figure}
+
+ Ostatnim ekranem, kluczowym do działania procesu jest ekran generowania raportu. Na rysunku \ref{fig:generateraportform} przedstawiono interfejs tego ekranu. Jest on bardzo prosty, ponieważ większośc operacji zostałą zautomatyzowana. Zawiera on dwa rozwijane pola, które umożliwiają wybór roku oraz numeru indykacji, dla których ma zostać wygenerowany raport. Po ich zmianie, system przetwarza dane wedłóg podanych kryteriów i generuje podgląd w prawej części ekranu w celu walidacji poprawności.
+
+ Kiedy użytkownik potwierdzi poprawność, może nacisnąć przycisk \emph{Generate file}, który uruchamia proces generowania raportu. Powstały plik zostaje zapisany w folderze SharePoint, a użytkownik zostaje poinformowany o pomyślnym zakończeniu operacji.
+
+ \subsection{Ekran samouczka}
+
+ \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{figures/Tutorial.png}
+    \caption{Prezentacja widoku samouczka \emph{GenerateRaport}}
+    \label{fig:tutorial}
+\end{figure}
+
+Jest to dodatkowy ekran, zaimplementowany aby pomóc nowym użytkownikom w opanowaniu działania systemu. Jest on podzielony na dwie sekcje. Pierwsza z nich zawiera krótki opis każdego z ekranów aplikacji oraz przyciski nawigacji. Druga część przedstawia przykładowe grafiki w celu lepszego zrozumienia działania. Samouczek podzielony został na kilka kroków a nawigacja po nich odbywa się poprzez strzałki znajdujące się po obu stronach opsi ekranu. Na dole ekranu znajdują się kropki, przedstawiające ilość kroków samouczka oraz postęp. Ekran ten jest dostępny w dwóch językach -- Polskim oraz Angielskim. 
