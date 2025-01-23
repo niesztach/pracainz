@@ -1,7 +1,44 @@
 \begin{thebibliography}{1}
 
+\bibitem{noauthor_jarowinkler_2024}
+Jaro-{Winkler} distance, oct 2024.
+
+\bibitem{ecfan_przewodnik_2023}
+ecfan.
+\newblock Przewodnik referencyjny dotyczący funkcji wyrażeń - {Azure}
+  {Logic} {Apps}, December 2023.
+
 \bibitem{lancedmicrosoft_understand_2024}
 lancedMicrosoft.
 \newblock Understand {Power} {Apps} {Studio} - {Power} {Apps}, October 2024.
+
+\bibitem{maggierui_introduction_2024}
+{maggierui}.
+\newblock Introduction to {SharePoint} and {OneDrive} in {Microsoft} 365 for
+  administrators - {SharePoint} in {Microsoft} 365, March 2024.
+
+\bibitem{o365devx_office_2023}
+{o365devx}.
+\newblock Office {Scripts} {API} reference - {Office} {Scripts}, February 2023.
+
+\bibitem{reddy_break_nodate}
+Mahipal Reddy.
+\newblock Break {Loop} ({Apply} {To} {Each}) {If} {A} {Condition} {Fails} {In}
+  {MS} {Flow}, 202X.
+
+\bibitem{tapanm-msft_official_nodate}
+tapanm MSFT.
+\newblock Official {Microsoft} {Power} {Apps} documentation - {Power} {Apps},
+  2023.
+
+\bibitem{v-aangie_official_nodate}
+{v-aangie}.
+\newblock Official {Microsoft} {Power} {Automate} documentation - {Power}
+  {Automate}.
+
+\bibitem{vaid_comprehensive_2023}
+Shabd Vaid.
+\newblock A {Comprehensive} {List} of {Similarity} {Search} {Algorithms} -
+  {Crucial} {Bits}, nov 2023.
 
 \end{thebibliography}
