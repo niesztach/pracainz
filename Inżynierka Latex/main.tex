@@ -41,7 +41,22 @@
 
 
 \newcommand{\customnote}[1]{\sethlcolor{yellow}\hl{#1}}
+\makeatletter
+\newcommand{\sectionauthor}[1]{%
+  {\parindent0pt\vspace*{-10pt}%
+  \linespread{1.1}\normalsize\scshape#1%
+  \par\nobreak\vspace*{35pt}}
+  \@afterheading%
+}
+\newcommand{\chapterauthor}[1]{%
+  {\parindent0pt\vspace*{-25pt}%
+  \linespread{1.1}\large\scshape#1%
+  \par\nobreak\vspace*{35pt}}
+  \@afterheading%
+}
 
+
+\makeatother
 
 
 \newcolumntype{W}{>{\centering\arraybackslash}p{5cm}}

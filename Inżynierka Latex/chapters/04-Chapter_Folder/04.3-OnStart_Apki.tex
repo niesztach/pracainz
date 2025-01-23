@@ -1,5 +1,7 @@
 \section{Ekran startowy aplikacji i przygotowanie danych}
 \label{relacje-list}
+\sectionauthor{R. Wolniak}
+
 Kiedy dane zostały dostosowane do działania systemu, przystąpiono do implementacji pozostałych części rozwiązania.
 Kolejnym elementem jest ekran startowy aplikacji, zawierający przyciski, które przekierowują użytkownika do odpowiednich sekcji aplikacji.
 
@@ -10,49 +12,77 @@ Kod w języku \emph{Power Fx} wywoływany podczas uruchamiania aplikacji został
 
 \lstset{language=C,caption={Kod wywoływany podczas uruchamiania aplikacji},label=lst:OnStartCode}
 \begin{lstlisting}[language=PowerFx]
-Set(varDownloadingData; true);;
-ClearCollect(colYears; 
-    {Value: Text(Now(); "yyyy") - 2}; 
-    {Value: Text(Now(); "yyyy") - 1}; 
-    {Value: Text(Now(); "yyyy") + 0}; 
-    {Value: Text(Now(); "yyyy") + 1}; 
-    {Value: Text(Now(); "yyyy") + 2}
-);;
-Set(VWBlue; ColorValue("#002e5f"));;
-ClearCollect(colNumbers; 
-    {Value: 1}; 
-    {Value: 2}; 
-    {Value: 3}; 
-    {Value: 4}; 
-    {Value: 5}
-);;
-Set(UserVar; UżytkownicyusługiOffice365.MyProfile());;
-ClearCollect(LocalServiceData; Lista_Uslug);;
-ClearCollect(LocalCostData; Lista_Kwot);;
-ClearCollect(LocalIndicationsData; Lista_Indykacji);;
-ClearCollect(MergedData; 
-    AddColumns(LocalServiceData; 
-        Kwoty; LookUp(LocalCostData; 
-            Service_ID = LocalServiceData[@Service_ID] && 
-            Year = Max(Filter(LocalCostData; 
-                Service_ID = LocalServiceData[@Service_ID]
-            ); Year)
-        ); 
-        Indykacje; LookUp(LocalIndicationsData; 
-            Service_ID = LocalServiceData[@Service_ID] && 
-            Year = Max(Filter(LocalIndicationsData; 
-                Service_ID = LocalServiceData[@Service_ID]
-            ); Year) && 
-            IndicationNo = Max(Filter(LocalIndicationsData; 
-                Service_ID = LocalServiceData[@Service_ID] && 
-                Year = Max(Filter(LocalIndicationsData; 
-                    Service_ID = LocalServiceData[@Service_ID]
-                ); Year)
-            ); IndicationNo)
-        )
+    // Ustawienie zmiennej varDownloadingData na true, aby wskazać, że trwa proces pobierania danych
+Set(varDownloadingData, true);
+
+// Tworzenie kolekcji colYears, która zawiera pięć lat: dwa lata wstecz, bieżący rok oraz dwa lata do przodu
+ClearCollect(colYears,
+    {Value: Text(Now(), "yyyy") - 2},
+    {Value: Text(Now(), "yyyy") - 1},
+    {Value: Text(Now(), "yyyy") + 0},
+    {Value: Text(Now(), "yyyy") + 1},
+    {Value: Text(Now(), "yyyy") + 2}
+);
+
+// Ustawienie zmiennej VWBlue na kolor o wartości heksadecymalnej #002e5f
+Set(VWBlue, ColorValue("#002e5f"));
+
+// Tworzenie kolekcji colNumbers, która zawiera liczby od 1 do 5
+ClearCollect(colNumbers,
+    {Value: 1}, {Value: 2}, {Value: 3}, {Value: 4}, {Value: 5}
+);
+
+// Pobranie profilu użytkownika z usługi Office 365 i przypisanie go do zmiennej UserVar
+Set(UserVar, UżytkownicyusługiOffice365.MyProfile());
+
+// 1. Pobieranie danych z Lista_Uslug w partiach
+Clear(LocalServiceData); // Wyczyszczenie kolekcji LocalServiceData przed rozpoczęciem pobierania
+ForAll(Sequence(Round((First(Sort(Lista_Uslug, 'Identyfikator (ID)', SortOrder.Descending)).'Identyfikator (ID)' - First(Sort(Lista_Uslug, 'Identyfikator (ID)', SortOrder.Ascending)).'Identyfikator (ID)') / 2000 + 1, 0), 1, 1),
+    With({
+        _firstID: First(Sort(Lista_Uslug, 'Identyfikator (ID)', SortOrder.Ascending)).'Identyfikator (ID)' + (ThisRecord.Value - 1) * 2000,
+        _lastID: First(Sort(Lista_Uslug, 'Identyfikator (ID)', SortOrder.Ascending)).'Identyfikator (ID)' + ThisRecord.Value * 2000
+    },
+    Collect(LocalServiceData, Filter(Lista_Uslug, 'Identyfikator (ID)' >= _firstID && 'Identyfikator (ID)' < _lastID)))
+);
+
+// 2. Pobieranie danych z Lista_Kwot w partiach
+Clear(LocalCostData); // Wyczyszczenie kolekcji LocalCostData przed rozpoczęciem pobierania
+ForAll(Sequence(Round((First(Sort(Lista_Kwot, ID, SortOrder.Descending)).ID - First(Sort(Lista_Kwot, ID, SortOrder.Ascending)).ID) / 2000 + 1, 0), 1, 1),
+    With({
+        _firstID: First(Sort(Lista_Kwot, ID, SortOrder.Ascending)).ID + (ThisRecord.Value - 1) * 2000,
+        _lastID: First(Sort(Lista_Kwot, ID, SortOrder.Ascending)).ID + ThisRecord.Value * 2000
+    },
+    Collect(LocalCostData, Filter(Lista_Kwot, ID >= _firstID && ID < _lastID)))
+);
+
+// 3. Pobieranie danych z Lista_Indykacji w partiach
+Clear(LocalIndicationsData); // Wyczyszczenie kolekcji LocalIndicationsData przed rozpoczęciem pobierania
+ForAll(Sequence(Round((First(Sort(Lista_Indykacji, ID, SortOrder.Descending)).ID - First(Sort(Lista_Indykacji, ID, SortOrder.Ascending)).ID) / 2000 + 1, 0), 1, 1),
+    With({
+        _firstID: First(Sort(Lista_Indykacji, ID, SortOrder.Ascending)).ID + (ThisRecord.Value - 1) * 2000,
+        _lastID: First(Sort(Lista_Indykacji, ID, SortOrder.Ascending)).ID + ThisRecord.Value * 2000
+    },
+    Collect(LocalIndicationsData, Filter(Lista_Indykacji, ID >= _firstID && ID < _lastID)))
+);
+
+// 4. Łączenie danych z Lista_Uslug, Lista_Kwot i Lista_Indykacji
+ClearCollect(MergedData,
+    AddColumns(LocalServiceData As ServiceRecord,
+        Kwoty,
+        With({
+            MaxYearCostRecord: First(Sort(Filter(LocalCostData, Service_ID = ServiceRecord.Service_ID), Year, SortOrder.Descending))
+        },
+        If(IsBlank(MaxYearCostRecord), Blank(), LookUp(LocalCostData, Service_ID = ServiceRecord.Service_ID && Year = MaxYearCostRecord.Year))),
+        Indykacje,
+        With({
+            MaxYearRecord: First(Sort(Filter(LocalIndicationsData, Service_ID = ServiceRecord.Service_ID), Year, SortOrder.Descending))
+        },
+        If(IsBlank(MaxYearRecord), Blank(), LookUp(LocalIndicationsData, Service_ID = ServiceRecord.Service_ID && Year = MaxYearRecord.Year && IndicationNo = MaxYearRecord.IndicationNo)))
     )
-);;
-Set(varDownloadingData; false);;
+);
+
+// Ustawienie zmiennej varDownloadingData na false, aby wskazać, że proces pobierania danych został zakończony
+Set(varDownloadingData, false);
 \end{lstlisting}
 
 W pierwszym kroku, zmiennej \emph{varDownloadingData} przypisywana jest wartość \emph{true} za pomocą funkcji \emph{Set()}. Zmienna ta pełni kluczową rolę w zarządzaniu interfejsem użytkownika podczas procesu ładowania danych – aktywuje wskaźnik ładowania oraz blokuje możliwość wprowadzania zmian przez użytkownika, co zapobiega ewentualnym błędom wynikającym z prób modyfikacji danych w trakcie ich pobierania.
@@ -61,14 +91,9 @@ Następnie, funkcja \emph{ClearCollect()} tworzy kolekcję \emph{colYears}, któ
 
 W kolejnym kroku, za pomocą funkcji \emph{Set()}, pobierane są informacje o aktualnie zalogowanym użytkowniku i przypisywane do zmiennej \emph{UserVar}. Informacje te mogą być wykorzystywane do personalizacji interfejsu użytkownika lub kontroli dostępu do poszczególnych funkcji aplikacji, w zależności od uprawnień użytkownika.
 
-Aplikacja tworzy również lokalne kopie trzech list danych: \emph{Lista\_Uslug}, \emph{Lista\_Kwot} oraz \emph{Lista\_Indykacji}, przy użyciu funkcji \emph{ClearCollect()}. Lokalne kopie tych list, przechowywane odpowiednio w kolekcjach \emph{LocalServiceData}, \emph{LocalCostData} oraz \emph{LocalIndicationsData}, pozwalają na szybsze i bardziej efektywne filtrowanie oraz manipulację danymi podczas użytkowania aplikacji, redukując czas oczekiwania na odpowiedź systemu.
+Aplikacja tworzy lokalne kopie trzech list danych: \emph{Lista_Usług}, \emph{Lista_Kwot} oraz \emph{Lista_Indykacji}, wykorzystując funkcję \emph{ClearCollect()}. Dane są pobierane w partiach po 2000 rekordów, aby zoptymalizować wydajność i uniknąć przekroczenia limitów pamięciowych. Proces ten polega na iteracyjnym przetwarzaniu danych, gdzie dla każdej listy określany jest zakres identyfikatorów (ID) pochodzących z listy Sharepoint dla kolejnych partii, zaczynając od najmniejszego ID i zwiększając go o 2000. Każda partia jest filtrowana według tego zakresu i dodawana do odpowiedniej kolekcji lokalnej. Takie podejście pozwala na szybsze przetwarzanie danych i uniknięcie problemów przy pobieraniu dużych zestawów danych.
 
-Kolejnym istotnym krokiem jest utworzenie kolekcji \emph{MergedData}, która łączy dane z trzech lokalnych kopii list. W tym celu zastosowano funkcję \emph{AddColumns()}, która dodaje dwie nowe kolumny: \emph{Kwoty} oraz \emph{Indykacje}. Dane w tych kolumnach są wyodrębniane przy użyciu funkcji \emph{LookUp()} oraz \emph{Filter()}, które umożliwiają precyzyjne filtrowanie i wyszukiwanie danych na podstawie określonych kryteriów. Funkcja \emph{LookUp()} zwraca pierwszy rekord spełniający podane warunki, natomiast \emph{Filter()} generuje zbiór rekordów spełniających zadane kryteria. W analizowanym kodzie funkcje te są zagnieżdżone, co pozwala na wyodrębnienie danych z list na podstawie trzech kluczowych kryteriów:
-\begin{itemize}
-    \item \emph{Service\_ID} – identyfikator usługi,
-    \item \emph{Year} – najwyższy rok dla pasującego identyfikatora usługi,
-    \item \emph{IndicationNo} – maksymalny numer indykacji dla rekordów o zgodnym \emph{Service\_ID} i \emph{Year}.
-\end{itemize}
+Kolejnym krokiem jest utworzenie kolekcji \emph{MergedData}, która łączy dane z trzech lokalnych kopii list. W tym celu zastosowano funkcję \emph{AddColumns()}, aby dodać dwie nowe kolumny: \emph{Kwoty} oraz \emph{Indykacje}. Funkcja \emph{With()} pozwala na uproszczenie złożonych obliczeń poprzez przypisanie wyników pośrednich do zmiennych, co zwiększa czytelność kodu. Dane w kolumnach są wyodrębniane przy użyciu funkcji \emph{LookUp()} oraz \emph{Filter()}, które umożliwiają precyzyjne filtrowanie i wyszukiwanie rekordów na podstawie trzech kluczowych kryteriów: \emph{Service_ID}, \emph{Year} oraz \emph{IndicationNo}.
 
 W efekcie, kolekcja \emph{MergedData} zawiera dane dla najnowszego roku i najwyższego numeru indykacji dla każdej usługi, co umożliwia prezentację aktualnych informacji w interfejsie użytkownika.
 

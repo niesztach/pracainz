@@ -48,70 +48,77 @@ Powyższy zestaw atrybutów został opracowany na podstawie analizy danych histo
 \subsubsection*{Model powiązań}
 
 \begin{figure}[h]
-  \makebox[0.925\textwidth][c]{
-    \begin{tikzpicture}
+  \centering
+  \includegraphics[width=0.9\textwidth]{figures/Diagram.png}
+   \caption{Schemat relacji między listami}
+   \label{SchematList}
+  \end{figure}
 
-      \tikzstyle{ListBlock} = [
-      rectangle,
-      rounded corners,
-      minimum width=3cm,
-      minimum height=1cm,
-      text centered,
-      draw=black,
-      fill=white,
-      anchor=north
-      ]
+% \begin{figure}[h]
+%   \makebox[0.925\textwidth][c]{
+%     \begin{tikzpicture}
 
-      \node (ListaUslug) [ListBlock, text width=3cm] at (0,0) {
-        \textbf{Lista Usług}\\[4pt]
-        \textit{Service ID}\\[2pt]
-        Service Name\\[2pt]
-        Service Group\\[2pt]
-        Service Sub Group\\[2pt]
-        Service Main Group\\[2pt]
-        Instruction Link\\[2pt]
-      };
+%       \tikzstyle{ListBlock} = [
+%       rectangle,
+%       rounded corners,
+%       minimum width=3cm,
+%       minimum height=1cm,
+%       text centered,
+%       draw=black,
+%       fill=white,
+%       anchor=north
+%       ]
 
-      \node (ListaKwot) [ListBlock, text width=5cm]
-      at ([xshift=5cm] ListaUslug.north east) {
-        \textbf{Lista Kwot}\\[4pt]
-        \textit{Service ID}\\[2pt]
-        \textit{Year}\\[2pt]
-        Unit Of Measurement\\[2pt]
-        Settlement Type\\[2pt]
-        Business Service Manager\\[2pt]
-        Current Year Plan EUR\\[2pt]
-        QTY Current Year\\[2pt]
-        Next Year Plan EUR\\[2pt]
-        QTY Next Year\\[2pt]
-        Difference\\[2pt]
-        MPK\\[2pt]
-      };
+%       \node (ListaUslug) [ListBlock, text width=3cm] at (0,0) {
+%         \textbf{Lista Usług}\\[4pt]
+%         \textit{Service ID}\\[2pt]
+%         Service Name\\[2pt]
+%         Service Group\\[2pt]
+%         Service Sub Group\\[2pt]
+%         Service Main Group\\[2pt]
+%         Instruction Link\\[2pt]
+%       };
 
-      \node (ListaIndykacji) [ListBlock, text width=3cm]
-      at ([xshift=4cm] ListaKwot.north east) {
-        \textbf{Lista Indykacji}\\[4pt]
-        \textit{Service ID}\\[2pt]
-        \textit{Year}\\[2pt]
-        Indication No.\\[2pt]
-        Comment Date\\[2pt]
-        Comment Author\\[2pt]
-        Comment PZ to WOB\\[2pt]
-        Comment BSM\\[2pt]
-        Comment K-DES\\[2pt]
-        Comment Intern\\[2pt]
-        Decision\\[2pt]
-        Final comment\\[2pt]
-      };
+%       \node (ListaKwot) [ListBlock, text width=5cm]
+%       at ([xshift=5cm] ListaUslug.north east) {
+%         \textbf{Lista Kwot}\\[4pt]
+%         \textit{Service ID}\\[2pt]
+%         \textit{Year}\\[2pt]
+%         Unit Of Measurement\\[2pt]
+%         Settlement Type\\[2pt]
+%         Business Service Manager\\[2pt]
+%         Current Year Plan EUR\\[2pt]
+%         QTY Current Year\\[2pt]
+%         Next Year Plan EUR\\[2pt]
+%         QTY Next Year\\[2pt]
+%         Difference\\[2pt]
+%         MPK\\[2pt]
+%       };
 
-      \draw [<->] ([yshift=-2em-4pt]ListaUslug.north east) -- node[anchor=south]{\textit{Service ID}} ([yshift=-2em-4pt]ListaKwot.north west);
-      \draw [<->] ([yshift=-2em-4pt]ListaKwot.north east) -- node[anchor=south]{\textit{Service ID}} ([yshift=-2em-4pt]ListaIndykacji.north west);
-      \draw [<->] ([yshift=-3.5em-4pt]ListaKwot.north east) -- node[anchor=north]{\textit{Year}} ([yshift=-3.5em-4pt]ListaIndykacji.north west);
+%       \node (ListaIndykacji) [ListBlock, text width=3cm]
+%       at ([xshift=4cm] ListaKwot.north east) {
+%         \textbf{Lista Indykacji}\\[4pt]
+%         \textit{Service ID}\\[2pt]
+%         \textit{Year}\\[2pt]
+%         Indication No.\\[2pt]
+%         Comment Date\\[2pt]
+%         Comment Author\\[2pt]
+%         Comment PZ to WOB\\[2pt]
+%         Comment BSM\\[2pt]
+%         Comment K-DES\\[2pt]
+%         Comment Intern\\[2pt]
+%         Decision\\[2pt]
+%         Final comment\\[2pt]
+%       };
 
-    \end{tikzpicture}}
-  \caption{Schemat relacji między listami.}
-  \label{SchematList}
-\end{figure}
+%       \draw [<->] ([yshift=-2em-4pt]ListaUslug.north east) -- node[anchor=south]{\textit{Service ID}} ([yshift=-2em-4pt]ListaKwot.north west);
+%       \draw [<->] ([yshift=-2em-4pt]ListaKwot.north east) -- node[anchor=south]{\textit{Service ID}} ([yshift=-2em-4pt]ListaIndykacji.north west);
+%       \draw [<->] ([yshift=-3.5em-4pt]ListaKwot.north east) -- node[anchor=north]{\textit{Year}} ([yshift=-3.5em-4pt]ListaIndykacji.north west);
+
+%     \end{tikzpicture}}
+%   \caption{Schemat relacji między listami.}
+%   \label{SchematList}
+% \end{figure}
 
 Model danych przedstawiony na Rysunku \ref{SchematList} został zaprojektowany z uwzględnieniem następujących założeń:
 

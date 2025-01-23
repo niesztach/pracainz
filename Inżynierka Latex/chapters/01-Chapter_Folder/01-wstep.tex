@@ -6,20 +6,53 @@ Współczesny świat biznesu stawia coraz większe wymagania wobec przedsiębior
 \vspace{1cm}
 \par Celem pracy jest opracowanie aplikacji usprawniającej proces podejmowania decyzji dotyczących zakupu \emph{usług IT}\footnote{\emph{Usługi IT}  należy rozumieć jako licencje oraz klucze dostępu do używanych systemów informatycznych.} na najbliższy rok kalendarzowy. Praca została wykonana z wykorzystaniem \emph{Power Platform} oraz \emph{SharePoint}, które są integralną cześcią pakietu \emph{Microsoft 365}. Zdecydowano się na wybór tego rozwiązania, ponieważ pozwala ono na prostą integrację między programami wchodzącymi w skład pakietu. Ponadto, każdy z uczestników procesu ma dostęp do wspomnianych serwisów, co pozwala uniknąć dodatkowych kosztów.
 
-\par\textbf{\textcolor{red}{DOPISAĆ:} \newline
-    \begin{quote}
-        \color{red}
-        Struktura pracy jest następująca. W rozdziale 2.  \newline przedstawiono powód wykonywanego zadania, wraz z jego wyjaśnieniem oraz opisem wykorzystanych kompontenów   \newline
-        Rozdział 3 jest poświęcony założeniom projektowym i architekturze \ldots (kilka zdań).  \newline
-        Rozdział 4 zawiera implementację \ldots (kilka zdań) \ldots itd.  \newline
-        Rozdział X stanowi podsumowanie pracy.
-    \end{quote}}
-\textbf{\textcolor{red}{
-        W przypadku prac inżynierskich zespołowych lub magisterskich 2-osobowych, po tych dwóch w/w akapitach
-        musi w pracy znaleźć się akapit, w którym będzie opisany udział w pracy poszczególnych członków zespołu. Na przykład:}
-    \begin{quote}
-        \color{red}
-        Jan Kowalski w ramach niniejszej pracy wykonał projekt tego i tego, opracował \ldots
-        Grzegorz Brzęczyszczykiewicz wykonał \ldots, itd.
-    \end{quote}}
+% \par\textbf{\textcolor{red}{DOPISAĆ:} \newline
+%     \begin{quote}
+%         \color{red}
+%         Struktura pracy jest następująca. W rozdziale 2.  \newline przedstawiono powód wykonywanego zadania, wraz z jego wyjaśnieniem oraz opisem wykorzystanych kompontenów   \newline
+%         Rozdział 3 jest poświęcony założeniom projektowym i architekturze \ldots (kilka zdań).  \newline
+%         Rozdział 4 zawiera implementację \ldots (kilka zdań) \ldots itd.  \newline
+%         Rozdział X stanowi podsumowanie pracy.
+%     \end{quote}}
+% \textbf{\textcolor{red}{
+%         W przypadku prac inżynierskich zespołowych lub magisterskich 2-osobowych, po tych dwóch w/w akapitach
+%         musi w pracy znaleźć się akapit, w którym będzie opisany udział w pracy poszczególnych członków zespołu. Na przykład:}
+%     \begin{quote}
+%         \color{red}
+%         Jan Kowalski w ramach niniejszej pracy wykonał projekt tego i tego, opracował \ldots
+%         Grzegorz Brzęczyszczykiewicz wykonał \ldots, itd.
+%     \end{quote}}
 
+\vspace{0.5cm}
+Struktura pracy jest następująca:
+
+\noindent W rozdziale 2  przedstawiono dotychczasowy przebieg procesu oraz opisano wykorzystane narzędzia. 
+
+\noindent Rozdział 3 jest poświęcony architekturze rozwiązania. Omówiono w nim założenia projektowe, których należało się trzymać. Ponadto zawiera on pierwotną koncepcje rozwiązania, która opisuje jakie funkcjonalności powinny zostać zaimplementowane. 
+
+\noindent Rozdział 4 zawiera końcową implementację poszczególnych komponentów. Opisano w nim każdy element aplikacji oraz omówiono integrację między poszczególnymi komponentami. 
+
+\noindent Rozdział 5 stanowi przedstawienie działania systemu. Zawiera on opis przebiegu procesu z wykorzystaniem stworzonego rozwiązania.
+
+\noindent W rozdziale 6 opisano problemy napotkane podczas implementacji oraz ich rozwiązania, zastosowane wprzy implementacji.
+
+\noindent Rozdział 7 stanowi podsumowanie pracy. Przedstawiono w nim wnioski oraz możliwości dalszego rozwoju aplikacji.\\
+
+\vspace{0.5cm}
+\noindent Michał Gajdzis w ramach niniejszej pracy zaimplementował:
+\begin{itemize}
+    \item strukturę bazy danych SharePoint,
+    \item przpeływ pozwalający na zapis i formatowanie pliku,
+    \item mechanizm zmiany nazw kolumn w arkuszu,
+    \item mechanizm zapisu danych wprowadzanych przez użytkownika w bazie danych SharePoint,
+    \item ekran generowania raportu wraz z potrzebnymi przepływami.
+\end{itemize}
+
+\vspace{0.5cm}
+\noindent Remigiusz Wolniak wykonał:
+\begin{itemize}
+\item przepływ służący do importu danych z pliku do bazy danych,
+\item skrypt formatujący plik,
+\item interfejs oraz logikę ekranów: głównego, dodawania danych od systemu, edycji danych oraz samouczka,
+\item mechanizmy zarządzania danymi wewnątrz aplikacji.
+\end{itemize}

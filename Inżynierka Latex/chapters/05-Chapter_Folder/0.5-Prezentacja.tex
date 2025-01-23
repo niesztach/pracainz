@@ -1,4 +1,6 @@
 \chapter{Prezentacja działania}
+\chapterauthor{R. Wolniak}
+
 W nieniejszym rozdziale przedstawiono działanie systemu. Opisano w nim poszczególne ekrany aplikacji oraz ich funkcjonalność. 
 
 \section{Ekran startowy}
@@ -82,7 +84,7 @@ Formularz ten pozwala również na przesłanie danych z arkusza do bazy danych. 
     \item Kiedy nazwy zostału uprzednio zmienione i kiedy wybrano unikalne wartości dla roku i numeru indykacji, proces zapisu danych zostaje rozpoczęty bez dodatkowych zapytań.
 \end{itemize}
 
-Występuje również przypadek kiedy omówione okna dialogowe wyświetlają się jedno o drugim. W takiej sytuacji, użytkownik musi najpierw potwierdzić zmianę nazw kolumn, a następnie zdecydować czy chce nadpisać dane.
+Występuje również przypadek kiedy omówione okna dialogowe wyświetlają się jedno po drugim. W takiej sytuacji, użytkownik musi najpierw potwierdzić zmianę nazw kolumn, a następnie zdecydować czy chce nadpisać dane.
 
 \begin{figure}[h]
             \centering
@@ -91,7 +93,7 @@ Występuje również przypadek kiedy omówione okna dialogowe wyświetlają się
             \label{fig:DoYouWantToOverwrite}
         \end{figure}
 
-Proces zapisu danych jest najdłużej trwającym etapem. Czas zapisu wynosi od 30 do 60 sekund w zależności od ilości danych oraz jakości połączenia z serwerem. Z uwagi na wykorzystanie mechanizmu zapisu z użyciem żądań zbiorowychm, nie jest możliwe poinformowanie użytkownika o postępie operacji.
+Proces zapisu danych jest najdłużej trwającym etapem. Czas zapisu wynosi od 30 do 60 sekund w zależności od ilości danych oraz jakości połączenia z serwerem. Z uwagi na wykorzystanie mechanizmu zapisu z użyciem żądań zbiorowych, nie jest możliwe poinformowanie użytkownika o postępie operacji.
 
 Po ukończeniu operacji wyświetlana jest informacja o zakończeniu procesu. Użytkownik zostanie również poinformowany w razie wystąpienia błędów.
 
@@ -103,7 +105,7 @@ Po ukończeniu operacji wyświetlana jest informacja o zakończeniu procesu. Uż
      \label{fig:fillmpkform}
  \end{figure}
 
- Ostatnią sekcją tego ekranu jst formularz edycji numerów MPK widoczny na rysunku \ref{fig:fillmpkform}. 
+ Ostatnią sekcją tego ekranu jest formularz edycji numerów MPK widoczny na rysunku \ref{fig:fillmpkform}. 
 
  Składa się on z galerii zawierającej następujące kolumny:
  \begin{itemize}
@@ -136,7 +138,7 @@ Proces podejmowania decyzji odbywa się osobno dla każdej z usług. Dlatego ta 
 
  Po naciśnięciu wiersza odpowiadającego serwisowi, użytkownik zostaje przekierowany do ekranu szczegółowego.
 
- Dodatkowo, po prawej stronie znajduje się wykres kołowy. Każdy segment odpowiada liczbie elementów z przypisanym statusem, co pozwala użytkownikowi szybko ocenić proporcje między kategoriami (\emph{Accepted}, \emph{Not Accepted}, \emph{No Status}). Wykres jest dynamiczny — aktualizuje się w czasie rzeczywistym w oparciu o zastosowane filtry, co zapewnia aktualność prezentowanych informacji.
+ Dodatkowo, po prawej stronie znajduje się wykres kołowy. Każdy segment odpowiada liczbie elementów z przypisanym statusem, co pozwala szybko ocenić proporcje między kategoriami (\emph{Accepted}, \emph{Not Accepted}, \emph{No Status}). Wykres jest dynamiczny — aktualizuje się w czasie rzeczywistym w oparciu o zastosowane filtry, co zapewnia aktualność prezentowanych informacji.
 
  \subsection{Ekran szczegółowy}
 
