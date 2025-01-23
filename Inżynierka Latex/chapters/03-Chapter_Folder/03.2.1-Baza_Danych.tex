@@ -1,58 +1,58 @@
 \subsection{Baza danych}
 
-Do przechowywania danych wykorzystano listy programu SharePoint. Pomimo tego, że nie jest to dedykowane rozwiązanie bazodanowe, wybór ten wynika z wymogu integracji z istniejącą infrastrukturą.
+Zdecydowano się na wykorzystanie list programu Sharepoint do przechowywania danych. Pomimo tego, że nie jest to dedykowane rozwiązanie bazodanowe, wybór ten wynika z wymogu integracji z istniejącą infrastrukturą.
 
 \subsubsection*{Struktura bazy danych}
 \label{Subsec: StrukturaBazyDanych}
 W wyniku analizy danych historycznych zidentyfikowano elementy kluczowe dla procesu indykacji. Na tej podstawie zaprojektowano strukturę składającą się z trzech powiązanych ze sobą list:
 
 \begin{itemize}
-  \item \textbf{Lista usług} -- zawierająca podstawowe, niezmienne informacje o serwisach,
-  \item \textbf{Lista kwot} -- przechowująca dane odnośnie cen i liczbie licencji, które zmieniają się raz do roku,
-  \item \textbf{Lista indykacji} -- gromadząca informacje w obrębie jednej indykacji.
+    \item \textbf{Lista usług} -- zawierająca podstawowe, niezmienne informacje o serwisach,
+    \item \textbf{Lista kwot} -- przechowująca dane odnośnie cen i liczbie licencji, które zmieniają się raz do roku,
+    \item \textbf{Lista indykacji} -- gromadząca informacje w obrębie jednej indykacji.
 \end{itemize}
 \subsubsection*{Atrybuty danych}
 Na podstawie analizy wymagań oraz dotychczasowego procesu, zdefiniowano następujący zestaw atrybutów, które powinna zawierać baza danych:
 
 \begin{multicols}{3}
-  \begin{itemize}
-    \item Service group
-    \item Service main group
-    \item Service sub group
-    \item Business Service
-    \item Instruction link
-    \item ID
-    \item Business Service Manager
-    \item Unit Of Measurement
-    \item Settlement Type
-    \item Current Year Plan EUR
-    \item Quantity Current Year
-    \item Next Year Plan EUR
-    \item Quantity Next Year
-    \item Year
-    \item MPK
-    \item Difference
-    \item Indication Number
-    \item Comment Intern
-    \item Comment Date
-    \item Comment Author
-    \item Comment PZ to WOB
-    \item Comment BSM
-    \item Comment K-DES
-    \item Decision
-    \item Final comment
-  \end{itemize}
+    \begin{itemize}
+        \item Service group
+        \item Service main group
+        \item Service sub group
+        \item Business Service
+        \item Instruction link
+        \item ID
+        \item Business Service Manager
+        \item Unit Of Measurement
+        \item Settlement Type
+        \item Current Year Plan EUR
+        \item Quantity Current Year
+        \item Next Year Plan EUR
+        \item Quantity Next Year
+        \item Year
+        \item MPK
+        \item Difference
+        \item Indication Number
+        \item Comment Intern
+        \item Comment Date
+        \item Comment Author
+        \item Comment PZ to WOB
+        \item Comment BSM
+        \item Comment K-DES
+        \item Decision
+        \item Final comment
+    \end{itemize}
 \end{multicols}
 Powyższy zestaw atrybutów został opracowany na podstawie analizy danych historycznych z poprzednich lat (przedstawionych w Tabeli \ref{HeaderComparison}). Wybrane pola reprezentują najczęściej występujące informacje w procesie indykacji, uzupełnione o dodatkowe atrybuty niezbędne do efektywnego funkcjonowania procesu, takie jak pola komentarzy czy decyzji.
 
 \subsubsection*{Model powiązań}
 
 \begin{figure}[h]
-  \centering
-  \includegraphics[width=0.9\textwidth]{figures/Diagram.png}
-   \caption{Schemat relacji między listami}
-   \label{SchematList}
-  \end{figure}
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/Diagram.png}
+    \caption{Schemat relacji między listami}
+    \label{SchematList}
+\end{figure}
 
 % \begin{figure}[h]
 %   \makebox[0.925\textwidth][c]{
@@ -71,7 +71,7 @@ Powyższy zestaw atrybutów został opracowany na podstawie analizy danych histo
 
 %       \node (ListaUslug) [ListBlock, text width=3cm] at (0,0) {
 %         \textbf{Lista Usług}\\[4pt]
-%         \textit{Service ID}\\[2pt]
+%         \emph{Service ID}\\[2pt]
 %         Service Name\\[2pt]
 %         Service Group\\[2pt]
 %         Service Sub Group\\[2pt]
@@ -82,8 +82,8 @@ Powyższy zestaw atrybutów został opracowany na podstawie analizy danych histo
 %       \node (ListaKwot) [ListBlock, text width=5cm]
 %       at ([xshift=5cm] ListaUslug.north east) {
 %         \textbf{Lista Kwot}\\[4pt]
-%         \textit{Service ID}\\[2pt]
-%         \textit{Year}\\[2pt]
+%         \emph{Service ID}\\[2pt]
+%         \emph{Year}\\[2pt]
 %         Unit Of Measurement\\[2pt]
 %         Settlement Type\\[2pt]
 %         Business Service Manager\\[2pt]
@@ -98,8 +98,8 @@ Powyższy zestaw atrybutów został opracowany na podstawie analizy danych histo
 %       \node (ListaIndykacji) [ListBlock, text width=3cm]
 %       at ([xshift=4cm] ListaKwot.north east) {
 %         \textbf{Lista Indykacji}\\[4pt]
-%         \textit{Service ID}\\[2pt]
-%         \textit{Year}\\[2pt]
+%         \emph{Service ID}\\[2pt]
+%         \emph{Year}\\[2pt]
 %         Indication No.\\[2pt]
 %         Comment Date\\[2pt]
 %         Comment Author\\[2pt]
@@ -111,9 +111,9 @@ Powyższy zestaw atrybutów został opracowany na podstawie analizy danych histo
 %         Final comment\\[2pt]
 %       };
 
-%       \draw [<->] ([yshift=-2em-4pt]ListaUslug.north east) -- node[anchor=south]{\textit{Service ID}} ([yshift=-2em-4pt]ListaKwot.north west);
-%       \draw [<->] ([yshift=-2em-4pt]ListaKwot.north east) -- node[anchor=south]{\textit{Service ID}} ([yshift=-2em-4pt]ListaIndykacji.north west);
-%       \draw [<->] ([yshift=-3.5em-4pt]ListaKwot.north east) -- node[anchor=north]{\textit{Year}} ([yshift=-3.5em-4pt]ListaIndykacji.north west);
+%       \draw [<->] ([yshift=-2em-4pt]ListaUslug.north east) -- node[anchor=south]{\emph{Service ID}} ([yshift=-2em-4pt]ListaKwot.north west);
+%       \draw [<->] ([yshift=-2em-4pt]ListaKwot.north east) -- node[anchor=south]{\emph{Service ID}} ([yshift=-2em-4pt]ListaIndykacji.north west);
+%       \draw [<->] ([yshift=-3.5em-4pt]ListaKwot.north east) -- node[anchor=north]{\emph{Year}} ([yshift=-3.5em-4pt]ListaIndykacji.north west);
 
 %     \end{tikzpicture}}
 %   \caption{Schemat relacji między listami.}
@@ -123,9 +123,9 @@ Powyższy zestaw atrybutów został opracowany na podstawie analizy danych histo
 Model danych przedstawiony na Rysunku \ref{SchematList} został zaprojektowany z uwzględnieniem następujących założeń:
 
 \begin{itemize}
-  \item \emph{Lista usług} pełni rolę centralnego rejestru serwisów, zawierając ich podstawową charakterystykę,
-  \item \emph{Lista kwot} umożliwia śledzenie zmian w wymiarze finansowym na przestrzeni lat,
-  \item \emph{Lista indykacji} przechowuje historię procesu decyzyjnego wraz z towarzyszącymi komentarzami i ustaleniami.
+    \item \emph{Lista usług} będzie pełnić rolę centralnego rejestru serwisów, zawierając ich podstawową charakterystykę,
+    \item \emph{Lista kwot} umożliwi śledzenie zmian w wymiarze finansowym na przestrzeni lat,
+    \item \emph{Lista indykacji} ma za zadanie przechowywać historię procesu decyzyjnego wraz z towarzyszącymi komentarzami i ustaleniami.
 \end{itemize}
 
 

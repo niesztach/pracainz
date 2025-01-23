@@ -7,7 +7,7 @@ Składniki to niestandardowe elementy, które można implementować w środowisk
 Pierwszym niestandardowym komponentem jest wstążka znajdująca się w górnej części ekranów. Składa się ona z następujących elementów:
 \begin{itemize}
     \item logo firmy -- jest to element dekoracyjny,
-    \item przycisk powrotu do poprzedniego ekranu -- oznaczony strzałką w lewo, dzięki funkcji \textit{Back()} przenosi użytkownika do poprzedniego ekranu,
+    \item przycisk powrotu do poprzedniego ekranu -- oznaczony strzałką w lewo, dzięki funkcji \emph{Back()} przenosi użytkownika do poprzedniego ekranu,
     \item przycisk powrotu do ekranu głównego -- reprezentowany poprzez ikonę domu, przenosi użytkownika do ekranu głównego aplikacji (\emph{Navigate(HomeScreen, ScreenTransition.Cover)}),
     \item dane użytkownika -- wyświetlane są dane zalogowanego użytkownika, takie jak imię, nazwisko oraz adres email. Pobierane są one przy pomocy \emph{Office365Users.MyProfile()}\footnote{Atrybut \emph{MyProfile} pozwala na dostęp do informacji o bieżącym użytkowniku.}.
     \item awatar użytkownika -- również pobierany z użyciem \emph{Office365Users.MyProfile()}. W przypadku braku zdjęcia, wyświetlane są inicjały użytkownika.

@@ -51,25 +51,25 @@ Rysunek \ref{fig:savefileandrunscript} przedstawia edytor programu Power Automat
     \item \textbf{Funkcja: Power Apps (V2)} \\
           Przepływ rozpoczyna się od funkcji oczekującej na wywołanie przepływu bezpośrednio z aplikacji Power Apps. Jako parametry wejściowe przyjmuje:
           \begin{itemize}
-              \item nazwę pliku (\textit{File Name}),
-              \item zawartość pliku (\textit{File Content}) w formacie binarnym.
+              \item nazwę pliku (\emph{File Name}),
+              \item zawartość pliku (\emph{File Content}) w formacie binarnym.
           \end{itemize}
 
     \item \textbf{Zainicjowanie zmiennej} \\
-          Element \textit{Initialize variable} tworzy zmienną o nazwie \textit{FileExists}, która przechowuje informację o tym, czy plik o podanej nazwie znajduje się już na SharePoint.
+          Element \emph{Initialize variable} tworzy zmienną o nazwie \emph{FileExists}, która przechowuje informację o tym, czy plik o podanej nazwie znajduje się już na SharePoint.
 
     \item \textbf{Sprawdzenie istniejących plików} \\
-          Blok \textit{Get files} pobiera listę wszystkich plików z wybranego folderu SharePoint wraz z ich metadanymi, takimi jak nazwa, ścieżka czy data modyfikacji. Wynik zostaje zapisany w zmiennej \textit{FileExists}, która przyjmuje wartość \textit{true}, jeśli plik został znaleziony, lub \textit{false}, jeśli plik nie istnieje.
+          Blok \emph{Get files} pobiera listę wszystkich plików z wybranego folderu SharePoint wraz z ich metadanymi, takimi jak nazwa, ścieżka czy data modyfikacji. Wynik zostaje zapisany w zmiennej \emph{FileExists}, która przyjmuje wartość \emph{true}, jeśli plik został znaleziony, lub \emph{false}, jeśli plik nie istnieje.
 
     \item \textbf{Instrukcja warunkowa \emph{If}} \\
-          Element \textit{Condition} sprawdza wartość zmiennej \textit{FileExists}. W zależności od wyniku:
+          Element \emph{Condition} sprawdza wartość zmiennej \emph{FileExists}. W zależności od wyniku:
           \begin{itemize}
-              \item jeśli zmienna ma wartość \textit{true} -- przepływ kończy działanie,
-              \item jeśli zmienna ma wartość \textit{false} -- przepływ kontynuuje proces zapisu.
+              \item jeśli zmienna ma wartość \emph{true} -- przepływ kończy działanie,
+              \item jeśli zmienna ma wartość \emph{false} -- przepływ kontynuuje proces zapisu.
           \end{itemize}
 
     \item \textbf{Utworzenie pliku} \\
-          Blok \textit{Create file} tworzy nowy plik w SharePoint, wykorzystując parametry:
+          Blok \emph{Create file} tworzy nowy plik w SharePoint, wykorzystując parametry:
           \begin{itemize}
               \item adres witryny SharePoint,
               \item ścieżkę do folderu docelowego,
@@ -78,10 +78,10 @@ Rysunek \ref{fig:savefileandrunscript} przedstawia edytor programu Power Automat
           \end{itemize}
 
     \item \textbf{Uruchomienie przepływu podrzędnego} \\
-          Po pomyślnym zapisaniu pliku przepływ wywołuje tzw. \textit{child flow}, które inicjuje działanie skryptu Office. Skrypt ten odpowiada za przetworzenie pliku w sposób zgodny z założeniami aplikacji. Jego wynik w formacie JSON jest zwracany do strumienia nadrzędnego.
+          Po pomyślnym zapisaniu pliku przepływ wywołuje tzw. \emph{child flow}, które inicjuje działanie skryptu Office. Skrypt ten odpowiada za przetworzenie pliku w sposób zgodny z założeniami aplikacji. Jego wynik w formacie JSON\footnote{JSON - format wymiany danych, który jest oparty na strukturze tekstowej} jest zwracany do strumienia nadrzędnego.
 
     \item \textbf{Odpowiedź do aplikacji} \\
-          Blok \textit{Respond to Power Apps} kończy przepływ, zwracając do aplikacji dane w formacie JSON, przetworzone przez wspomniany skrypt.
+          Blok \emph{Respond to Power Apps} kończy przepływ, zwracając do aplikacji dane w formacie JSON, przetworzone przez wspomniany skrypt.
 \end{enumerate}
 
 \subsection{Skrypt pakietu Office}
@@ -101,7 +101,7 @@ Po utworzeniu pliku w SharePoint, w ramach przepływu następuje jego przetworze
           Takie podejście pozwala na uporządkowanie danych i przygotowanie ich do dalszego przetwarzania.
 
     \item \textbf{Dopasowanie nazw kolumn} \\
-          Skrypt porównuje istniejące nazwy kolumn z listą standardowych nagłówków, korzystając z algorytmu \textit{Jaro-Winkler}. Algorytm ten:
+          Skrypt porównuje istniejące nazwy kolumn z listą standardowych nagłówków, korzystając z algorytmu \emph{Jaro-Winkler}. Algorytm ten:
           \begin{itemize}
               \item analizuje podobieństwo tekstów, porównując wspólne znaki oraz ich kolejność,
               \item przyznaje dodatkowe punkty za zgodność początkowych znaków (prefiksu),
