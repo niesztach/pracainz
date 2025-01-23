@@ -85,9 +85,9 @@ ClearCollect(MergedData,
 Set(varDownloadingData, false);
 \end{lstlisting}
 
-W pierwszym kroku, zmiennej \emph{varDownloadingData} przypisywana jest wartość \emph{true} za pomocą funkcji \emph{Set()}. Zmienna ta pełni kluczową rolę w zarządzaniu interfejsem użytkownika podczas procesu ładowania danych – aktywuje wskaźnik ładowania oraz blokuje możliwość wprowadzania zmian przez użytkownika, co zapobiega ewentualnym błędom wynikającym z prób modyfikacji danych w trakcie ich pobierania.
+W pierwszym kroku zmiennej \emph{varDownloadingData} przypisywana jest wartość \emph{true} za pomocą funkcji \emph{Set()}. Zmienna ta pełni kluczową rolę w zarządzaniu interfejsem użytkownika podczas procesu ładowania danych – aktywuje wskaźnik ładowania oraz blokuje możliwość wprowadzania zmian przez użytkownika, co zapobiega ewentualnym błędom wynikającym z prób modyfikacji danych w trakcie ich pobierania.
 
-Następnie, funkcja \emph{ClearCollect()} tworzy kolekcję \emph{colYears}, która zawiera pięć elementów reprezentujących zakres lat: od dwóch lat wstecz do dwóch lat naprzód. Analogicznie, tworzona jest kolekcja \emph{colNumbers}, zawierająca numery indykacji, które mogą być wykorzystywane w polach typu \emph{Dropdown}. Kolekcje te są niezbędne do budowy dynamicznego i responsywnego interfejsu użytkownika, umożliwiając łatwe zarządzanie danymi w aplikacji.
+Następnie funkcja \emph{ClearCollect()} tworzy kolekcję \emph{colYears}, która zawiera pięć elementów reprezentujących zakres lat: od dwóch lat wstecz do dwóch lat naprzód. Analogicznie, tworzona jest kolekcja \emph{colNumbers}, zawierająca numery indykacji, które mogą być wykorzystywane w polach typu \emph{Dropdown}. Kolekcje te są niezbędne do budowy dynamicznego i responsywnego interfejsu użytkownika, umożliwiając łatwe zarządzanie danymi w aplikacji.
 
 W kolejnym kroku, za pomocą funkcji \emph{Set()}, pobierane są informacje o aktualnie zalogowanym użytkowniku i przypisywane do zmiennej \emph{UserVar}. Informacje te mogą być wykorzystywane do personalizacji interfejsu użytkownika lub kontroli dostępu do poszczególnych funkcji aplikacji, w zależności od uprawnień użytkownika.
 
@@ -97,7 +97,7 @@ Kolejnym krokiem jest utworzenie kolekcji \emph{MergedData}, która łączy dane
 
 W efekcie, kolekcja \emph{MergedData} zawiera dane dla najnowszego roku i najwyższego numeru indykacji dla każdej usługi, co umożliwia prezentację aktualnych informacji w interfejsie użytkownika.
 
-Na końcu procesu, zmiennej \emph{varDownloadingData} przypisywana jest wartość \emph{false}, co sygnalizuje zakończenie pobierania danych i gotowość aplikacji do użytku. Lokalne kopie list (\emph{LocalServiceData}, \emph{LocalCostData}, \emph{LocalIndicationsData}) zostały utworzone w celu przyspieszenia działania mechanizmu filtrowania oraz zwiększenia efektywności podczas wyboru usług do edycji.
+Na końcu procesu zmiennej \emph{varDownloadingData} przypisywana jest wartość \emph{false}, co sygnalizuje zakończenie pobierania danych i gotowość aplikacji do użytku. Lokalne kopie list (\emph{LocalServiceData}, \emph{LocalCostData}, \emph{LocalIndicationsData}) zostały utworzone w celu przyspieszenia działania mechanizmu filtrowania oraz zwiększenia efektywności podczas wyboru usług do edycji.
 
 
 

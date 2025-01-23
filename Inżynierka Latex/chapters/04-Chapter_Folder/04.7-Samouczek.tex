@@ -3,16 +3,7 @@
 
 Ostatnim z ekranów aplikacji jest samouczek, do którego bezpośredni dostęp został zapewniony z poziomu ekranu domowego.
 
-Do jego wykonania wykorzystano wbudowany szablon \emph{TemplateScreen}, który składa się z dwóch pionowych pól - tekstowego z lewej strony oraz multimediów z prawej. Na widok całości składają się dodatkowo ikony strzałek, umożliwiających nawigację po kolekcji tekstów oraz nawigatora, prezentującego aktualny postęp prezentacji samouczka.
-
-Obraz \ref{fig:tutorial} przedstawia przykładowy widok działania samouczka.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.75\textwidth]{figures/TutorialScreen.png}
-    \caption{Prezentacja widoku samouczka}
-    \label{fig:tutorial}
-\end{figure}
+Do jego wykonania wykorzystano wbudowany szablon \emph{TemplateScreen}, który składa się z dwóch pionowych pól -- tekstowego z lewej strony oraz multimediów z prawej. Na widok całości składają się dodatkowo ikony strzałek, umożliwiających nawigację po kolekcji tekstów oraz nawigatora, prezentującego aktualny postęp prezentacji samouczka.
 
 \subsection{Nawigacja po samouczku}
 
@@ -32,6 +23,6 @@ W samouczku opisano wszystkie ekrany w kolejności postępu procesu. Każdy z op
 If(IsBlank(guideStep); First(TutorialNavigator1.AllItems).Text; LookUp(TutorialNavigator1.AllItems; Step = guideStep).Text);
 \end{lstlisting}
 
-W kodzie widocznym w listingu \ref{lst:TutorialText}, funkcja \emph{If()} sprawdza, czy zmienna \emph{guideStep} jest pusta -- jeśli tak, to pobierany jest pierwszy element z kolekcji \emph{TutorialNavigator1.AllItems} za pomocą \emph{First()}. W przeciwnym razie, funkcja \emph{LookUp()} wyszukuje element o pasującym numerze kroku, zwracając odpowiadający tekst.
+W kodzie widocznym w listingu \ref{lst:TutorialText}, funkcja \emph{If()} sprawdza, czy zmienna \emph{guideStep} jest pusta. Jeśli tak, to pobierany jest pierwszy element z kolekcji \emph{TutorialNavigator1.AllItems} za pomocą \emph{First()}. W przeciwnym razie, funkcja \emph{LookUp()} wyszukuje element o pasującym numerze kroku, zwracając odpowiadający tekst.
 
 Analogicznie jak w przypadku wyświetlania tekstu, grafiki ilustracyjne aplikacji są dynamicznie pobierane zgodnie z postępem nawigacji. Każdy z etapów samouczka zawiera odpowiedni obrazek, który wyświetlany jest razem z przypisanym do niego tekstem.

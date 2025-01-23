@@ -1,10 +1,10 @@
 \section{Składniki}
 \sectionauthor{R. Wolniak}
 
-Składniki to niestandardowe elementy, które można implementować w środowisku Power Apps. Są one wykorzystywane do tworzenia złożonych komponentów, które nie są dostępne w standardowych kontrolkach. Przydatne są szczególnie w momencie kiedy chcemy stworzyć element, który będzie wykorzystywany w wielu miejscach aplikacji. W zależności od potrzeb, można stworzyć zarówno proste elementy, jak i bardziej skomplikowane, które będą spełniały określone wymagania. Ponieżej omówiono dwa składniki stworzone w ramach aplikacji.
+Składniki to niestandardowe elementy, które można implementować w środowisku Power Apps. Są one wykorzystywane do tworzenia złożonych komponentów, które nie są dostępne w standardowych kontrolkach. Przydatne są szczególnie w momencie, kiedy chcemy stworzyć element, który będzie wykorzystywany w wielu miejscach aplikacji. W zależności od potrzeb, można stworzyć zarówno proste elementy, jak i bardziej skomplikowane, które będą spełniały określone wymagania. Poniżej omówiono dwa składniki stworzone w ramach aplikacji.
 
 \subsection{Nagłówek ekranu}
-Pierwszym niestandardowym komponentem jest wstążka znajdująca się na górze ekranów. Składa się ona z następujących elementów:
+Pierwszym niestandardowym komponentem jest wstążka znajdująca się w górnej części ekranów. Składa się ona z następujących elementów:
 \begin{itemize}
     \item logo firmy -- jest to element dekoracyjny,
     \item przycisk powrotu do poprzedniego ekranu -- oznaczony strzałką w lewo, dzięki funkcji \textit{Back()} przenosi użytkownika do poprzedniego ekranu,
@@ -23,15 +23,15 @@ Pierwszym niestandardowym komponentem jest wstążka znajdująca się na górze 
 \end{figure}
 
 
-Warto zauważyć, że tytuły widoczne na ekranach, nie są integralną częścią wstążki. Wynika to z faktu, że po dodaniu kontrolki \emph{label}, pozwalającej na wyświetlenie tekstu, nie jest możliwe zmienienie jej  tekstu we właściwościach utworzonego składnika. W związku z tym, tytuły są dodawane na każdym ekranie osobno.
+Warto zauważyć, że tytuły, widoczne na ekranach, nie są integralną częścią wstążki. Wynika to z faktu, że po dodaniu kontrolki \emph{label}, pozwalającej na wyświetlenie tekstu, nie jest możliwe zmienienie jej tekstu we właściwościach utworzonego składnika. W związku z tym, tytuły są dodawane na każdym ekranie osobno.
 
 
 \subsection{Indykator ładowania}
-Drugim niestandardowym składnikiem jest kontrolka infromaująca o ładowaniu się aplikacji. Składa się ona z trzech elementów:
+Drugim niestandardowym składnikiem jest kontrolka infromująca o ładowaniu się aplikacji. Składa się ona z trzech elementów:
 \begin{itemize}
-    \item koło ładowania -- animowana grafika w formacie \emph{SVG}(\definicja{Scalable Vector Graphics}).
+    \item koło ładowania -- animowana grafika w formacie \emph{SVG} (\definicja{Scalable Vector Graphics} -– skalowalna grafika wektorowa).
     \item tekst -- informacja dla użytkownika, że aplikacja ładuje dane,
-    \item tło -- półprzezroczyste tło z filtrem powodującym rozmycie elementów ekranu. Tło wykonane przy użyciu \emph{tekst HTML}.
+    \item tło -- półprzezroczyste tło z filtrem powodującym rozmycie elementów ekranu. Tło zostało wykonane przy użyciu \emph{tekstu HTML}.
 \end{itemize}
 
 \begin{figure}[H]
