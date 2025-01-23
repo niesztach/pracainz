@@ -42,4 +42,8 @@
                   \item \textbf{Problem:} Praca na oryginalnej liście SharePoint z dużą liczbą elementów powoduje spadek wydajności aplikacji. Bezpośrednie operacje na liście, takie jak użycie funkcji \emph{lookup} i \emph{filter}, prowadzą do długiego czasu ładowania danych i wolniejszego wykonywania zapytań. Problemy te są szczególnie widoczne przy dużych zbiorach danych, gdzie każda operacja na liście wymaga znacznych zasobów i czasu.
                   \item \textbf{Rozwiązanie:} Aby rozwiązać ten problem, zdecydowano się na optymalizację działania list SharePoint poprzez zaciąganie danych do Power Apps tylko raz (szczegóły implementacji wyjaśniono w rozdziale [\ref{relacje-list}]), podczas uruchamiania aplikacji (przy użyciu funkcji \emph{OnStart}). Następnie dane są aktualizowane tylko wtedy, gdy jest to wymagane, w przeciwieństwie do ciągłego łączenia się z SharePoint. Takie podejście pozwala na zmniejszenie liczby operacji i poprawę wydajności pracy z danymi, szczególnie przy dużych listach.
             \end{itemize}
+      \item \textbf{Brak możliwości dodania pola instrukcji w SharePoint:}
+            \begin{itemize}
+                  \item \textbf{Problem:} Planowano utworzenie pola \emph{instruction link} \ref{instruction-link}, w którym użytkownik mógłby znaleźć link prowadzący do szczegółowej instrukcji dla każdej usługi w formacie PDF. Niestety, okazało się, że jest to niemożliwe, ze względu na to, że jest to wewnętrzny przedmiot oddziału w Wolfsburgu.
+            \end{itemize}
 \end{itemize}
