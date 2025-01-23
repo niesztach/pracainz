@@ -1,34 +1,224 @@
-Set(varDownloadingData;true);;
-ClearCollect(colYears;{Value: Text(Now();"yyyy")-2};
-{Value: Text(Now();"yyyy")-1};
-{Value: Text(Now();"yyyy")+0};
-{Value: Text(Now();"yyyy")+1};
-{Value: Text(Now();"yyyy")+2}
+// Ustawienie zmiennej varDownloadingData na true, aby wskazać, że trwa proces pobierania danych
+Set(
+    varDownloadingData;
+    true
 );;
 
-ClearCollect(colNumbers; {Value: 1};{Value: 2};{Value: 3};{Value: 4};{Value: 5});;
-
-Set(UserVar;UżytkownicyusługiOffice365.MyProfile());;
-
-// W OnStart aplikacji lub OnVisible ekranu
-ClearCollect(LocalServiceData; Lista_Uslug);;
-ClearCollect(LocalCostData; Lista_Kwot);;
-ClearCollect(LocalIndicationsData; Lista_Indykacji);;
+// Tworzenie kolekcji colYears, która zawiera pięć lat: dwa lata wstecz, bieżący rok oraz dwa lata do przodu
 ClearCollect(
-    MergedData;
-    AddColumns(
-        Lista_Uslug;
-        Kwoty; LookUp(
-            Lista_Kwot;
-            Service_ID = Lista_Uslug[@Service_ID] &&
-            Year = Max(Filter(Lista_Kwot; Service_ID = Lista_Uslug[@Service_ID]); Year)
+    colYears;
+    {
+        Value: Text(
+            Now();
+            "yyyy"
+        ) - 2
+    };
+    {
+        Value: Text(
+            Now();
+            "yyyy"
+        ) - 1
+    };
+    {
+        Value: Text(
+            Now();
+            "yyyy"
+        ) + 0
+    };
+    {
+        Value: Text(
+            Now();
+            "yyyy"
+        ) + 1
+    };
+    {
+        Value: Text(
+            Now();
+            "yyyy"
+        ) + 2
+    }
+);;
+
+// Ustawienie zmiennej VWBlue na kolor o wartości heksadecymalnej #002e5f
+Set(
+    VWBlue;
+    ColorValue("#002e5f")
+);;
+
+// Tworzenie kolekcji colNumbers, która zawiera liczby od 1 do 5
+ClearCollect(
+    colNumbers;
+    {Value: 1};
+    {Value: 2};
+    {Value: 3};
+    {Value: 4};
+    {Value: 5}
+);;
+
+// Pobranie profilu użytkownika z usługi Office 365 i przypisanie go do zmiennej UserVar
+Set(
+    UserVar;
+    UżytkownicyusługiOffice365.MyProfile()
+);;
+
+// 1. Pobieranie danych z Lista_Uslug w partiach
+Clear(LocalServiceData);; // Wyczyszczenie kolekcji LocalServiceData przed rozpoczęciem pobierania
+ForAll(
+    Sequence(
+        Round(
+            (First(
+                Sort(Lista_Uslug; 'Identyfikator (ID)'; SortOrder.Descending)
+            ).'Identyfikator (ID)' - First(
+                Sort(Lista_Uslug; 'Identyfikator (ID)'; SortOrder.Ascending)
+            ).'Identyfikator (ID)') / 2000 + 1;
+            0
         );
-        Indykacje; LookUp(
-            Lista_Indykacji;
-            Service_ID = Lista_Uslug[@Service_ID] &&
-            Year = Max(Filter(Lista_Indykacji; Service_ID = Lista_Uslug[@Service_ID]); Year) &&
-            IndicationNo = Max(Filter(Lista_Indykacji; Service_ID = Lista_Uslug[@Service_ID] && Year = Max(Filter(Lista_Indykacji; Service_ID = Lista_Uslug[@Service_ID]); Year)); IndicationNo)
+        1;
+        1
+    );
+    With(
+        {
+            _firstID: First(
+                Sort(Lista_Uslug; 'Identyfikator (ID)'; SortOrder.Ascending)
+            ).'Identyfikator (ID)' + (ThisRecord.Value - 1) * 2000;
+            _lastID: First(
+                Sort(Lista_Uslug; 'Identyfikator (ID)'; SortOrder.Ascending)
+            ).'Identyfikator (ID)' + ThisRecord.Value * 2000
+        };
+        Collect(
+            LocalServiceData;
+            Filter(
+                Lista_Uslug;
+                'Identyfikator (ID)' >= _firstID && 'Identyfikator (ID)' < _lastID
+            )
         )
     )
 );;
-Set(varDownloadingData;false);;
+
+// 2. Pobieranie danych z Lista_Kwot w partiach
+Clear(LocalCostData);; // Wyczyszczenie kolekcji LocalCostData przed rozpoczęciem pobierania
+ForAll(
+    Sequence(
+        Round(
+            (First(
+                Sort(Lista_Kwot; ID; SortOrder.Descending)
+            ).ID - First(
+                Sort(Lista_Kwot; ID; SortOrder.Ascending)
+            ).ID) / 2000 + 1;
+            0
+        );
+        1;
+        1
+    );
+    With(
+        {
+            _firstID: First(
+                Sort(Lista_Kwot; ID; SortOrder.Ascending)
+            ).ID + (ThisRecord.Value - 1) * 2000;
+            _lastID: First(
+                Sort(Lista_Kwot; ID; SortOrder.Ascending)
+            ).ID + ThisRecord.Value * 2000
+        };
+        Collect(
+            LocalCostData;
+            Filter(
+                Lista_Kwot;
+                ID >= _firstID && ID < _lastID
+            )
+        )
+    )
+);;
+
+// 3. Pobieranie danych z Lista_Indykacji w partiach
+Clear(LocalIndicationsData);; // Wyczyszczenie kolekcji LocalIndicationsData przed rozpoczęciem pobierania
+ForAll(
+    Sequence(
+        Round(
+            (First(
+                Sort(Lista_Indykacji; ID; SortOrder.Descending)
+            ).ID - First(
+                Sort(Lista_Indykacji; ID; SortOrder.Ascending)
+            ).ID) / 2000 + 1;
+            0
+        );
+        1;
+        1
+    );
+    With(
+        {
+            _firstID: First(
+                Sort(Lista_Indykacji; ID; SortOrder.Ascending)
+            ).ID + (ThisRecord.Value - 1) * 2000;
+            _lastID: First(
+                Sort(Lista_Indykacji; ID; SortOrder.Ascending)
+            ).ID + ThisRecord.Value * 2000
+        };
+        Collect(
+            LocalIndicationsData;
+            Filter(
+                Lista_Indykacji;
+                ID >= _firstID && ID < _lastID
+            )
+        )
+    )
+);;
+
+// 4. Łączenie danych z Lista_Uslug, Lista_Kwot i Lista_Indykacji
+ClearCollect(
+    MergedData;
+    AddColumns(
+        LocalServiceData As ServiceRecord;
+        Kwoty;
+        With(
+            {
+                MaxYearCostRecord: First(
+                    Sort(
+                        Filter(
+                            LocalCostData;
+                            Service_ID = ServiceRecord.Service_ID
+                        );
+                        Year;
+                        SortOrder.Descending
+                    )
+                )
+            };
+            If(
+                IsBlank(MaxYearCostRecord);
+                Blank();
+                LookUp(
+                    LocalCostData;
+                    Service_ID = ServiceRecord.Service_ID && Year = MaxYearCostRecord.Year
+                )
+            )
+        );
+        Indykacje;
+        With(
+            {
+                MaxYearRecord: First(
+                    Sort(
+                        Filter(
+                            LocalIndicationsData;
+                            Service_ID = ServiceRecord.Service_ID
+                        );
+                        Year;
+                        SortOrder.Descending
+                    )
+                )
+            };
+            If(
+                IsBlank(MaxYearRecord);
+                Blank();
+                LookUp(
+                    LocalIndicationsData;
+                    Service_ID = ServiceRecord.Service_ID && Year = MaxYearRecord.Year && IndicationNo = MaxYearRecord.IndicationNo
+                )
+            )
+        )
+    )
+);;
+
+// Ustawienie zmiennej varDownloadingData na false, aby wskazać, że proces pobierania danych został zakończony
+Set(
+    varDownloadingData;
+    false
+);;
