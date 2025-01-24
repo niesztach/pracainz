@@ -1,44 +1,64 @@
 \begin{thebibliography}{1}
 
 \bibitem{noauthor_jarowinkler_2024}
-Jaro-{Winkler} distance, 2024.
+Jaro-{Winkler} distance.
+\newblock
+  https://en.wikipedia.org/w/index.php?title=Jaro%E2%80%93Winkler_distance&oldid=1248922016,
+  2024.
 
 \bibitem{ecfan_przewodnik_2023}
 ecfan.
 \newblock Przewodnik referencyjny dotyczący funkcji wyrażeń - {Azure}
-  {Logic} {Apps}, 2023.
+  {Logic} {Apps}.
+\newblock
+  https://learn.microsoft.com/pl-pl/azure/logic-apps/workflow-definition-language-functions-reference,
+  2023.
 
 \bibitem{lancedmicrosoft_understand_2024}
 lancedMicrosoft.
-\newblock Understand {Power} {Apps} {Studio} - {Power} {Apps}, 2024.
+\newblock Understand {Power} {Apps} {Studio} - {Power} {Apps}.
+\newblock
+  https://learn.microsoft.com/en-us/power-apps/maker/canvas-apps/power-apps-studio,
+  2024.
 
 \bibitem{maggierui_introduction_2024}
 {maggierui}.
 \newblock Introduction to {SharePoint} and {OneDrive} in {Microsoft} 365 for
-  administrators - {SharePoint} in {Microsoft} 365, 2024.
+  administrators - {SharePoint} in {Microsoft} 365.
+\newblock https://learn.microsoft.com/en-us/sharepoint/introduction, 2024.
 
 \bibitem{o365devx_office_2023}
 {o365devx}.
-\newblock Office {Scripts} {API} reference - {Office} {Scripts}, 2023.
+\newblock Office {Scripts} {API} reference - {Office} {Scripts}.
+\newblock
+  https://learn.microsoft.com/en-us/javascript/api/office-scripts/overview?view=office-scripts,
+  2023.
 
 \bibitem{reddy_break_nodate}
 Mahipal Reddy.
 \newblock Break {Loop} ({Apply} {To} {Each}) {If} {A} {Condition} {Fails} {In}
-  {MS} {Flow}, 2019.
+  {MS} {Flow}.
+\newblock
+  https://www.c-sharpcorner.com/article/break-loop-apply-to-each-if-a-condition-fails-in-ms-flow/,
+  2019.
 
 \bibitem{tapanm-msft_official_nodate}
 tapanm MSFT.
-\newblock Official {Microsoft} {Power} {Apps} documentation - {Power} {Apps},
-  2023.
+\newblock Official {Microsoft} {Power} {Apps} documentation - {Power} {Apps}.
+\newblock https://learn.microsoft.com/en-us/power-apps/, 2023.
 
 \bibitem{v-aangie_official_nodate}
 {v-aangie}.
 \newblock Official {Microsoft} {Power} {Automate} documentation - {Power}
   {Automate}.
+\newblock https://learn.microsoft.com/en-us/power-automate/.
 
 \bibitem{vaid_comprehensive_2023}
 Shabd Vaid.
 \newblock A {Comprehensive} {List} of {Similarity} {Search} {Algorithms} -
-  {Crucial} {Bits}, 2023.
+  {Crucial} {Bits}.
+\newblock
+  https://crucialbits.com/blog/a-comprehensive-list-of-similarity-search-algorithms/,
+  2023.
 
 \end{thebibliography}
