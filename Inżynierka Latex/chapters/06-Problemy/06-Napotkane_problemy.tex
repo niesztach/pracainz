@@ -1,49 +1,47 @@
 \chapter{Napotkane problemy i rozwiązania}
 \chapterauthor{M. Gajdzis}
 
-\section*{Problemy i ich rozwiązania}
 
-\begin{itemize}
-      \item \textbf{Relacje między listami w SharePoint:}
+\section*{Relacje między listami w SharePoint:}
             \begin{itemize}
                   \item \textbf{Problem:}
                         Sharepoint pozwala na stworzenie relacji między listami poprzez użycie kolumn typu \emph{lookup}. Mechanizm ten pozwala na tworzenie relacji tylko pomiędzy dwiema listami. To ograniczenie stwarza problemy w przypadku, gdy aplikacja wymaga utworzenia bardziej złożonych relacji, obejmujących więcej niż dwie listy.
                   \item \textbf{Rozwiązanie:} Zdecydowano się na implementację relacji między listami na poziomie aplikacji, zamiast polegać na wbudowanym mechanizmie SharePoint. W tym celu wykorzystywano funkcje \emph{lookup} oraz \emph{filter}, umożliwiające tworzenie powiązań między trzema listami. Funkcja \emph{lookup} znajduje pierwszy pasujący wiersz, natomiast \emph{filter} zwraca listę pasujących elementów. Dodatkowo, stosowano zagnieżdżenia tych funkcji. Dzięki temu, relacje między listami były definiowane w sposób bardziej elastyczny i dostosowany do potrzeb aplikacji. Szczegóły implementacji tej logiki zostały opisane w podrozdziale [\ref{relacje-list}], gdzie omówiono sposób zarządzania powiązaniami i przechowywania informacji o relacjach między listami w kontekście aplikacji.
             \end{itemize}
 
-      \item \textbf{Wykorzystanie przepływów podrzędnych w Power Automate:}
+            \section*{Wykorzystanie przepływów podrzędnych w Power Automate:}
             \begin{itemize}
                   \item \textbf{Problem:} W Power Automate istnieje problem z odświeżaniem statusu pliku, który został zapisany na SharePoint. Główny przepływ nie bierze pod uwagę zmiany statusu pliku po jego zapisaniu, przez co system nie jest w stanie kontynuować przetwarzania pliku. Po zapisaniu pliku, przepływ próbuje pracować na nieaktualnych danych, wskazując iż plik jeszcze nie istnieje lub nie jest gotowy do dalszego przetwarzania. Prowadzi to do błędów w procesach automatyzacji, uniemożliwiając poprawne wykonanie funkcji.
                   \item \textbf{Rozwiązanie:} W celu rozwiązania tego problemu, wydzielono etap przetwarzania pliku do osobnego przepływu podrzędnego. Przepływ główny zapisywał plik, a następnie uruchamiał przepływ podrzędny, który pobierał aktualne dane z SharePoint, co eliminowało problem z odświeżaniem statusu. Wykorzystanie przepływów podrzędnych poprawiło stabilność i płynność procesu automatyzacji, umożliwiając prawidłowe przetwarzanie plików. \ref{childflow}.
             \end{itemize}
 
 
-      \item \textbf{Ustawienia lokalne - średniki i przecinki:}
+            \section*{Ustawienia lokalne - średniki i przecinki:}
             \begin{itemize}
                   \item \textbf{Problem:} Różnice w ustawieniach lokalnych, dotyczące separatorów argumentów w funkcjach (średniki i przecinki) w Power Apps, powodują błędy w przetwarzaniu danych. W Polsce jako separator argumentów funkcji używa się średnika (\texttt{;}), podczas gdy w innych częściach świata (np. w przypadku ustawień dla języka angielskiego) może zastosowany zostać przecinek (\texttt{,}). Tego rodzaju niezgodność prowadzi do problemów przy korzystaniu z niepolskojęzycznej dokumentacji czy przy współpracy między różnymi członkami zespołu, którzy mają różne ustawienia lokalne w swoich systemach. Zmiany w separatorach mogą powodować, że funkcje nie są wykonywane poprawnie, ponieważ jeden użytkownik używa przecinków, a inny średników. Różnice występują też np. w przypadku znaków końca linii.
                   \item \textbf{Rozwiązanie:} Aby zminimalizować ryzyko błędów związanych z różnicami w ustawieniach regionalnych, konieczne jest ujednolicenie tych ustawień wśród członków zespołu.
             \end{itemize}
 
 
-      \item \textbf{Ograniczenia w tworzeniu elementów na SharePoint:}
+            \section*{Ograniczenia w tworzeniu elementów na SharePoint:}
             \begin{itemize}
                   \item \textbf{Problem:} SharePoint posiada ograniczenie dotyczące liczby elementów, które można utworzyć w określonym czasie. W ramach testu stworzono przepływ składający się z pętli, która wykonała się 100 tysięcy razy, a w każdej iteracji tworzono element na SharePoincie o losowej nazwie. Proces ten zajął niecałe 18 godzin, co daje średnio około 1,5 elementu na sekundę. Jest to nieefektywne przy dużych zestawach danych, ponieważ procesy tworzenia danych na SharePoint mogą trwać bardzo długo, dochodząc do kilkunastu godzin w zależności od liczby dodawanych elementów. To ograniczenie wpływa na wydajność rozwiązania i wydłuża czas potrzebny na zakończenie operacji.
                   \item \textbf{Rozwiązanie:} Aby poradzić sobie z tym ograniczeniem, zastosowano alternatywne rozwiązanie, takie jak wykorzystanie \emph{batchowania}\footnote{Batchowanie - technika przetwarzania danych w partiach, pozwala na efektywniejsze zarządzanie dużymi zbiorami danych.} oraz \emph{REST API}\footnote{REST API - interfejs umożliwiający komunikację między systemami za pomocą zapytań HTTP.}. Dzięki tym technologiom udało się zwiększyć wydajność i szybkość tworzenia elementów na SharePoincie. REST API pozwala na bardziej efektywne zarządzanie danymi w czasie rzeczywistym, a \emph{batchowanie} umożliwia równoległe przetwarzanie dużych zbiorów danych, co znacznie skraca czas potrzebny na realizację operacji.
             \end{itemize}
 
-      \item \textbf{Brak możliwości pisania standardowego kodu w Power Automate:}
+            \section*{Brak możliwości pisania standardowego kodu w Power Automate:}
             \begin{itemize}
                   \item \textbf{Problem:} Power Automate, choć jest narzędziem dedykowanym do automatyzacji procesów, ma pewne ograniczenia związane z brakiem wsparcia dla niestandardowego kodu. Oznacza to, że nie jest możliwe napisanie własnych funkcji czy rozszerzeń, które pozwalałyby na realizację bardziej złożonych operacji, które nie były dostępne w standardowych akcjach i konektorach Power Automate.
                   \item \textbf{Rozwiązanie:} W związku z tym brakiem elastyczności, rozwiązaniem mogłaby być integracja z Azure Functions lub Logic Apps, które oferują większą elastyczność i wsparcie dla niestandardowego kodu. Niestety, w tym projekcie to rozwiązanie nie mogło zostać wykorzystane, w związku z czym dostosowano się do dostępnych narzędzi i metod.
             \end{itemize}
 
-      \item \textbf{Ograniczenia dotyczące rozmiaru list SharePoint:}
+            \section*{Ograniczenia dotyczące rozmiaru list SharePoint:}
             \begin{itemize}
                   \item \textbf{Problem:} Praca na oryginalnej liście SharePoint z dużą liczbą elementów powoduje spadek wydajności aplikacji. Bezpośrednie operacje na liście, takie jak użycie funkcji \emph{lookup} i \emph{filter}, prowadzą do długiego czasu ładowania danych i wolniejszego wykonywania zapytań. Problemy te są szczególnie widoczne przy dużych zbiorach danych, gdzie każda operacja na liście wymaga znacznych zasobów i czasu.
                   \item \textbf{Rozwiązanie:} Aby rozwiązać ten problem, zdecydowano się na optymalizację działania list SharePoint poprzez zaciąganie danych do Power Apps tylko raz (szczegóły implementacji wyjaśniono w rozdziale [\ref{relacje-list}]), podczas uruchamiania aplikacji (przy użyciu funkcji \emph{OnStart}). Następnie dane są aktualizowane tylko wtedy, gdy jest to wymagane, w przeciwieństwie do ciągłego łączenia się z SharePoint. Takie podejście pozwala na zmniejszenie liczby operacji i poprawę wydajności pracy z danymi, szczególnie przy dużych listach.
             \end{itemize}
-      \item \textbf{Brak możliwości dodania pola instrukcji w SharePoint:}
+            \section*{Brak możliwości dodania pola instrukcji w SharePoint:}
             \begin{itemize}
                   \item \textbf{Problem:} Planowano utworzenie pola \emph{instruction link} \ref{instruction-link}, w którym użytkownik mógłby znaleźć link prowadzący do szczegółowej instrukcji dla każdej usługi w formacie PDF. Niestety, okazało się, że jest to niemożliwe, ze względu na to, że jest to wewnętrzny przedmiot oddziału w Wolfsburgu.
             \end{itemize}
-\end{itemize}
+
