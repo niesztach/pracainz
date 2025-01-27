@@ -1,0 +1,22 @@
+\subsection{Algorytm Jaro-Winkler}
+Podstawą algorytmu jest algorytm \emph{Jaro}. Polega on na porównaniu dwóch ciągów znaków w celu określenia ich podobieństwa. Wynik obliczany jest na podstawie równania \ref{eq:Jaro}:
+\begin{equation}
+    \label{eq:Jaro}
+    J = \frac{1}{3} \left( \frac{m}{|s_1|} + \frac{m}{|s_2|} + \frac{m - t}{m} \right) \mbox{dla } m>0
+\end{equation}
+\noindent gdzie:\\
+$m$ – liczba dopasowanych znaków,\\    $t$ – liczba transpozycji,\\    $|s_1|$, $|s_2|$ – długości ciągów.\\
+
+\noindent Wynikiem równania, jest wartość z przedziału od 0 do 1, gdzie 1 oznacza pełne dopasowanie.
+
+Algorytm \emph{Jaro-Winkler} jest rozszerzeniem algorytmu \emph{Jaro}, które dodaje premię za zgodność początkowych znaków. Wynik obliczany jest na podstawie równania \ref{eq:JaroWinkler}:
+\begin{equation}
+    \label{eq:JaroWinkler}
+    JW = J + l \cdot p \cdot (1 - J),
+\end{equation}
+gdzie:\\
+$l$ – długość wspólnego prefiksu (maksymalnie 4 znaki),\\ $p$ – współczynnik skalowania.\\
+
+\noindent Rozszerzona wersja algorytmu pozwala na bardziej precyzyjne porównanie ciągów znaków, które mają wspólny prefiks, co jest szczególnie ważne w przypadku nagłówków kolumn rozpoczynających się od frazy \emph{Service} \cite{noauthor_jarowinkler_2024,vaid_comprehensive_2023}.
+
+Algorytm ten wykorzystywany jest podczas wstępnego przetwarzania pliku w celu dostosowania go do struktury bazy danych. Pozwala on na usprawnienie procesu walidacji nazw kolumn poprzez automatyczne dopasowywanie ich do odpowiednich pól w bazie danych. Jego wykorzystanie omówione jest w podrozdziale \ref{office-script} 
