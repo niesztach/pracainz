@@ -106,74 +106,35 @@ Ostatnim elementem na tym ekranie jest przycisk \emph{Save}, który umożliwia z
 
 Listing \ref{lst:SaveFormCode} przedstawia fragment kodu odpowiedzialny za zapisywanie danych w formularzu edycji, który jest wywoływany po kliknięciu przycisku \emph{Save}. Kod ten odpowiedzialny jest za zapisanie informacji z formularza w bazie danych.
 
-\begin{lstlisting}[language=PowerFx, caption={Kod zapisywania danych w formularzu edycji}, label=lst:SaveFormCode ]
+\begin{lstlisting}[language=PowerFx, caption={Kod zapisywania danych w formularzu edycji}, label=lst:SaveFormCode]
     If(
         // Dla indykacji nr 1
         IndicationNo_Dropdown.Selected.Value = 1;
         
-        // Sprawdź; czy istnieje już pierwsza indykacja
+        // Sprawdź czy istnieje już pierwsza indykacja
         If(
             !IsBlank(
                 LookUp(
                     Lista_Indykacji;
-                    Year = Year_Dropdown.Selected.Value &&
-                    IndicationNo = 1 &&
-                    Service_ID = ChosenServiceID
-                )
+                //elementy listy   )
             );
-            // Aktualizacja istniejącego rekordu
+            // W przypadku istnienia - aktualizacja istniejącego rekordu
             Set(
                 TempOutput;
                 Patch(
                     Lista_Indykacji;
                     LookUp(
                         Lista_Indykacji;
-                        Year = Year_Dropdown.Selected.Value &&
-                        IndicationNo = 1 &&
-                        Service_ID = ChosenServiceID
-                    );
-                    {
-                        Comment_date: Text(CommentDateInput.SelectedDate);
-                        Comment_author: ComboboxCanvas1.Selected.DisplayName;
-                        Comment_PZ_to_WOB: CommentToWOBInput.Value;
-                        Comment_Intern: InternalCommentInput.Value;
-                        Decision: Switch(
-                            DropdownCanvas1.Selected.Value;
-                            "Accepted"; 1;
-                            "No Status"; 0;
-                            "Not Accepted"; -1;
-                            0
-                        )
-                    }
-                )
-            );;
-            Notify("A record has been successfully updated!"; NotificationType.Success);
+                        [...] //elementy listy  )
+            Notify("A record has been successfully updated!");
             
-            // Jeśli rekord nie istnieje; utwórz nowy
+            // Jeśli rekord nie istnieje utwórz nowy
             Set(
                 TempOutput;
                 Patch(
                     Lista_Indykacji;
-                    Defaults(Lista_Indykacji);
-                    {
-                        Service_ID: ChosenServiceID;
-                        Year: Year_Dropdown.Selected.Value;
-                        IndicationNo: 1;
-                        Comment_date: Text(CommentDateInput.SelectedDate);
-                        Comment_author: ComboboxCanvas1.Selected.DisplayName;
-                        Comment_PZ_to_WOB: CommentToWOBInput.Value;
-                        Comment_Intern: InternalCommentInput.Value;
-                        Decision: Switch(
-                            DropdownCanvas1.Selected.Value;
-                            "Accepted"; 1;
-                            "No Status"; 0;
-                            "Not Accepted"; -1;
-                            0
-                        )
-                    }
+                    [...] //elementy listy
                 )
             );;
-            Notify("The record has been successfully created!"; NotificationType.Success)
-        )
-    );;    
+            Notify("The record has been successfully created!")
 \end{lstlisting}
