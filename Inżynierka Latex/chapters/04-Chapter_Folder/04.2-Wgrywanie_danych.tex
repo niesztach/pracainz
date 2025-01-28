@@ -49,7 +49,7 @@ Rysunek \ref{fig:savefileandrunscript} przedstawia edytor programu Power Automat
 
 \begin{enumerate}
     \item \textbf{Funkcja: Power Apps (V2)} \\
-          Przepływ rozpoczyna się od funkcji oczekującej na wywołanie przepływu bezpośrednio z aplikacji Power Apps. Jako parametry wejściowe przyjmuje:
+          Przepływ rozpoczyna się od funkcji oczekującej na wywołanie przepływu bezpośrednio z~aplikacji Power Apps. Jako parametry wejściowe przyjmuje:
           \begin{itemize}
               \item nazwę pliku (\emph{File Name}),
               \item zawartość pliku (\emph{File Content}) w formacie binarnym.
@@ -59,7 +59,7 @@ Rysunek \ref{fig:savefileandrunscript} przedstawia edytor programu Power Automat
           Element \emph{Initialize variable} tworzy zmienną o nazwie \emph{FileExists}, która przechowuje informację o tym, czy plik o podanej nazwie znajduje się już na SharePoint.
 
     \item \textbf{Sprawdzenie istniejących plików} \\
-          Blok \emph{Get files} pobiera listę wszystkich plików z wybranego folderu SharePoint wraz z ich metadanymi, takimi jak nazwa, ścieżka czy data modyfikacji. Wynik zostaje zapisany w zmiennej \emph{FileExists}, która przyjmuje wartość \emph{true}, jeśli plik został znaleziony, lub \emph{false}, jeśli plik nie istnieje.
+          Blok \emph{Get files} pobiera listę wszystkich plików z wybranego folderu SharePoint wraz z ich metadanymi, takimi jak nazwa, ścieżka czy data modyfikacji. Wynik zostaje zapisany w~zmiennej \emph{FileExists}, która przyjmuje wartość \emph{true}, jeśli plik został znaleziony, lub \emph{false}, jeśli plik nie istnieje.
 
     \item \textbf{Instrukcja warunkowa \emph{If}} \\
           Element \emph{Condition} sprawdza wartość zmiennej \emph{FileExists}. W zależności od wyniku:
@@ -86,7 +86,7 @@ Rysunek \ref{fig:savefileandrunscript} przedstawia edytor programu Power Automat
 
 \subsection{Skrypt pakietu Office}
 \label{office-script}
-Po utworzeniu pliku w SharePoint, w ramach przepływu następuje jego przetworzenie przez skrypt. Jest to niezbędne, jeśli chodzi o działanie procesu. Domyślnie otrzymane dane w pliku Excel są niewidoczne dla większości systemów, mogą one odczytać jedynie informacje zorganizowane w \emph{tabele programu Excel}\footnote{Tabela w programie Excel wymaga osobnej deklaracji poprzez zaznaczenie zakresu komórek i wybór opcji \emph{Narzędzia główne}$\to$\emph{Formatuj jako tabelę}}, w związku z tym powstał skrypt, który działa bezpośrednio w arkuszu. Jego zadaniem jest automatyczne utworzenie tabeli oraz dostosowanie jej do wymagań systemu. Poniżej przedstawiono kroki działania skryptu:
+Po utworzeniu pliku w SharePoint, w ramach przepływu następuje jego przetworzenie przez skrypt. Jest to niezbędne, jeśli chodzi o działanie procesu. Domyślnie otrzymane dane w pliku Excel są niewidoczne dla większości systemów, mogą one odczytać jedynie informacje zorganizowane w~\emph{tabele programu Excel}\footnote{Tabela w programie Excel wymaga osobnej deklaracji poprzez zaznaczenie zakresu komórek i wybór opcji \emph{Narzędzia główne}$\to$\emph{Formatuj jako tabelę}}, w związku z tym powstał skrypt, który działa bezpośrednio w arkuszu. Jego zadaniem jest automatyczne utworzenie tabeli oraz dostosowanie jej do wymagań systemu. Poniżej przedstawiono kroki działania skryptu:
 
 \begin{enumerate}
     \item \textbf{Wybór arkusza roboczego} \\
@@ -102,13 +102,13 @@ Po utworzeniu pliku w SharePoint, w ramach przepływu następuje jego przetworze
           Takie podejście pozwala na uporządkowanie danych i przygotowanie ich do dalszego przetwarzania.
 
     \item \textbf{Dopasowanie nazw kolumn} \\
-          Skrypt porównuje istniejące nazwy kolumn z listą standardowych nagłówków, korzystając z algorytmu \emph{Jaro-Winkler}. Algorytm ten:
+          Skrypt porównuje istniejące nazwy kolumn z listą standardowych nagłówków, korzystając z~algorytmu \emph{Jaro-Winkler}. Algorytm ten:
           \begin{itemize}
               \item analizuje podobieństwo tekstów, porównując wspólne znaki oraz ich kolejność,
               \item przyznaje dodatkowe punkty za zgodność początkowych znaków (prefiksu),
               \item zwraca wynik jako wartość z przedziału od 0 do 1, gdzie wartości bliższe 1 oznaczają większe podobieństwo.
           \end{itemize}
-          Wynik tego procesu jest wykorzystywany w dalszych etapach aplikacji, m.in. do walidacji struktury danych. Jeśli podobieństwo jest mniejsze niż 90\%, skrypt sugeruje ręczne dopasowanie nazwy kolumny.
+          Wynik tego procesu jest wykorzystywany w~dalszych etapach aplikacji, m.in. do walidacji struktury danych. Jeśli podobieństwo jest mniejsze niż 90\%, skrypt sugeruje ręczne dopasowanie nazwy kolumny.
 
     \item \textbf{Zwrócenie wyników} \\
           Skrypt generuje JSON zawierający mapowanie oryginalnych nazw kolumn z najlepszymi dopasowaniami z listy standardowych nagłówków.
@@ -123,7 +123,7 @@ Kolejnym elementem tej sekcji ekranu jest lista zapisanych plików znajdująca s
 
 
 
-\subsection{Walidacja nazw kolumn} Kolejnym etapem, przed zapisaniem danych do bazy, jest walidacja nazw kolumn. W tym celu zaimplementowano formularz zawierający \emph{galerię} -- element umożliwiający wyświetlanie wielu rekordów danych o różnych typach. Pola wyświetlające dane w galerii mogą być dostosowywane w dowolny sposób, w zależności od potrzeb użytkownika.
+\subsection{Walidacja nazw kolumn} Kolejnym etapem, przed zapisaniem danych do bazy, jest walidacja nazw kolumn. W tym celu zaimplementowano formularz zawierający \emph{galerię} -- element umożliwiający wyświetlanie wielu rekordów danych o różnych typach. Pola wyświetlające dane w galerii mogą być dostosowywane w~dowolny sposób, w zależności od potrzeb użytkownika.
 
 \noindent Galeria składa się z dwóch kolumn:
 \begin{itemize}
@@ -133,7 +133,7 @@ Kolejnym elementem tej sekcji ekranu jest lista zapisanych plików znajdująca s
 
 Po prawej stronie formularza umieszczono instrukcję użytkownika, zawierającą wskazówki dotyczące prawidłowego uzupełniania nazw kolumn. Poniżej instrukcji dodano przycisk \emph{Update column names}, który umożliwia zapisanie zmian w strukturze danych.
 
-\noindent Działanie tego mechanizmu opiera się na zastosowaniu skryptu pakietu Office, wywoływanego przy użyciu kolejnego przepływu. Skrypt, jako parametr wejściowy, przyjmuje zmienną tablicową w formacie JSON, zawierającą mapowanie oryginalnych nazw kolumn z poprawionymi wartościami wybranymi przez użytkownika. Następnie skrypt iteruje po wierszu zawierającym nagłówki kolumn i dokonuje ich zamiany zgodnie z otrzymaną mapą. Po zakończeniu działania skrypt zwraca nową strukturę nazw kolumn.
+\noindent Działanie tego mechanizmu opiera się na zastosowaniu skryptu pakietu Office, wywoływanego przy użyciu kolejnego przepływu. Skrypt, jako parametr wejściowy, przyjmuje zmienną tablicową w~formacie JSON, zawierającą mapowanie oryginalnych nazw kolumn z poprawionymi wartościami wybranymi przez użytkownika. Następnie skrypt iteruje po wierszu zawierającym nagłówki kolumn i dokonuje ich zamiany zgodnie z otrzymaną mapą. Po zakończeniu działania skrypt zwraca nową strukturę nazw kolumn.
 
 Pod przyciskiem \emph{Update column names} umieszczone zostały kontrolki \emph{Dropdown}\footnote{\emph{Dropdown} -- kontrolka umożliwiająca wybór jednej z dostępnych wartości z rozwijanej listy, bez możliwości edycji.} oraz przycisk \emph{Upload data}, które są kluczowe dla kolejnego etapu przetwarzania danych, obejmującego ich integrację z listami SharePoint.
 
@@ -148,7 +148,7 @@ Pod przyciskiem \emph{Update column names} umieszczone zostały kontrolki \emph{
 \subsection{Integracja z listami SharePoint} Po zakończeniu walidacji nazw kolumn, kolejnym etapem jest zapisanie przetworzonych danych w utworzonej strukturze SharePoint. Proces ten rozpoczyna się od wyboru roku i numeru indykacji przy użyciu dedykowanych kontrolek \emph{Dropdown}. Wybrane wartości są następnie wykorzystywane podczas importu danych do odpowiednich list, co odbywa się za pomocą przycisku \emph{Upload data}.
 
 Skutki kliknięcia przycisku mogą różnić się w zależności od wybranych wartości i tego czy nazwy kolumny zostały zmienione. Jeśli przed próbą wgrania danych nie został wciśnięty przycisk \emph{Update column names}, system wyświetla okno z zapytaniem o poprawność nazw kolumn w celu upewnienia się, że użytkownik nie wgra przypadkowo danych z niepoprawnymi nagłówkami.
-Jeśli jednak nazwy kolumn zostały zmienione, a użytkownik wybierze rok oraz numer indykacji istniejące w bazie danych, system wyświetli zapytanie, czy użytkownik chce nadpisać istniejące dane, czy anulować operację. W momencie gdy nazwy kolumn nie zostaną zmienione, a dane z wybranym rokiem i numerem indykacji istnieją w bazie danych, wyświetlą się oba okna z informacjami.
+Jeśli jednak nazwy kolumn zostały zmienione, a użytkownik wybierze rok oraz numer indykacji istniejące w bazie danych, system wyświetli zapytanie, czy użytkownik chce nadpisać istniejące dane, czy anulować operację. W momencie gdy nazwy kolumn nie zostaną zmienione, a dane z wybranym rokiem i~numerem indykacji istnieją w bazie danych, wyświetlą się oba okna z informacjami.
 
 
 % Rysunki \ref{fig:CorrectHeadersPopup} oraz \ref{fig:DoYouWantToOverwrite} przedstawiają dwa możliwe scenariusze, które mogą wystąpić po naciśnięciu przycisku.
@@ -173,7 +173,7 @@ Jeśli jednak nazwy kolumn zostały zmienione, a użytkownik wybierze rok oraz n
 
 Kiedy użytkownik upewni się, że wszystkie dane są poprawne i zatwierdzi operację, system przystępuje do importu danych. W tym celu zostaje wywołany kolejny przepływ w programie Power Automate, który przypisuje informacje do odpowiednich list w bazie danych, upewniając się jednocześnie, że nie zostaną dodane duplikaty rekordów.
 
-\noindent Przepływ ten jest bardzo rozbudowany, dlatego zamiast widoku edytora Power Automate na rysunku \ref{fig:flowchart} przedstawiono schemat blokowy, reprezentujący kolejność wykonywania poszczególnych kroków. Został on uproszczony, ponieważ bloki umieszczone w błękitnych ramkach powinny być powielone do trzech równoległych gałęzi. Wynika to z faktu, że dla wszystkich list procedura jest identyczna, różnią się m.in. nazwy list użyte w strukturze żądań HTTP. Ponadto elementy, przedstawione z wykorzystaniem pomarańczowej, przerywanej ramki znajdują się w głęzi dotyczącej listy kwot. Odpowiadają one za pobieranie i przepisywanie numeru MPK z poprzedniego roku.
+\noindent Przepływ ten jest bardzo rozbudowany, dlatego zamiast widoku edytora Power Automate na~rysunku \ref{fig:flowchart} przedstawiono schemat blokowy, reprezentujący kolejność wykonywania poszczególnych kroków. Został on uproszczony, ponieważ bloki umieszczone w błękitnych ramkach powinny być powielone do trzech równoległych gałęzi. Wynika to z faktu, że dla wszystkich list procedura jest identyczna, różnią się m.in. nazwy list użyte w strukturze żądań HTTP. Ponadto elementy, przedstawione z wykorzystaniem pomarańczowej, przerywanej ramki znajdują się w głęzi dotyczącej listy kwot. Odpowiadają one za pobieranie i przepisywanie numeru MPK z poprzedniego roku.
 
 
 % Zmodyfikowane style z dodaną czcionką \large
@@ -230,7 +230,7 @@ Poniżej wyjaśniono działanie poszczególnych bloków znajdujących się na sc
 
           \begin{itemize}
               \item\textbf{Get "Lista Usług/Kwot/Indykacji"} -- pobiera pełną listę rekordów z odpowiedniej listy w bazie danych.
-              \item \textbf{Create Filter Key} -- tworzy klucz filtrujący. Dla listy usług nie jest on wymagany, w przypadku listy kwot kluczem jest rok przekazany w parametrze wejściowym, natomiast dla listy indykacji jest to rok oraz numer indykacji połączone w jeden ciąg znaków.
+              \item \textbf{Create Filter Key} -- tworzy klucz filtrujący. Dla listy usług nie jest on wymagany, w~przypadku listy kwot kluczem jest rok przekazany w parametrze wejściowym, natomiast dla listy indykacji jest to rok oraz numer indykacji połączone w jeden ciąg znaków.
               \item \textbf{Filter array} -- jest blokiem wykorzystywanym do porównania elementów dla danego roku i indykacji na liście SharePoint z elementami w arkuszu. Ma on za zadanie zwrócić tablicę z elementami unikalnymi dla arkusza.
               \item \textbf{Condition 2} sprawdza, czy tablica zwrócona przez \emph{Filter array} nie jest pusta. Jeżeli nie zawiera ona unikatowych elementów, to przepływ kończy działanie, jednak jeśli tablica zawiera unikatowe elementy, to przepływ przechodzi do kolejnego kroku w gałęzi \emph{True}.
               \item \textbf{Select columns to add to list} -- mapuje informacje z arkusza do kluczy odpowiadających strukturze każdej z list w bazie danych.
@@ -241,7 +241,7 @@ Poniżej wyjaśniono działanie poszczególnych bloków znajdujących się na sc
                         \item Ciało żądania powstałe w kroku wcześniej -- wynik \emph{Join headers},
                         \item Stopkę żądania -- \emph{EndOfBatchRequest}.
                     \end{itemize}
-              \item \textbf{Assign result of send batch data to Error var} -- przypisuje odpowiedź serwera na wysłane żądanie w celu późniejszej analizy.
+              \item \textbf{Assign result of send batch data to Error var} -- przypisuje odpowiedź serwera na~wysłane żądanie w celu późniejszej analizy.
           \end{itemize}
 
           Kiedy jednak wartość zmiennej \emph{Overwrite} wynosi \emph{True}, oznacza to, że istniejące rekordy mają zostać zaaktualizowane. Przeplyw przechodzi do gałęzi \emph{False} i wykonuje następujące kroki:
@@ -267,7 +267,7 @@ Poniżej wyjaśniono działanie poszczególnych bloków znajdujących się na sc
 \end{enumerate}
 
 \subsection{Uzupełnianie numerów MPK}
-Ostatnią funkcją tego ekranu jest możliwość uzupełniania lub edycji numerów MPK. W tym celu ponownie wykorzystano galerię, która tym razem składa się z trzech kolumn. Dwie pierwsze kolumny zawierają pola tekstowe (\definicja{Label}), które prezentują nazwę usługi oraz odpowiadający jej identyfikator. Ostatnia kolumna zawiera pole danych wejściowych (\definicja{TextInput}), do którego użytkownik wprowadza odpowiedni numer MPK. Nad galerią znajduje się dodatkowe pole, w którym można wpisać kryteria filtrowania, takie jak nazwa, identyfikator bądź numer MPK. Obok pól filtracji znajduje się przełącznik (\definicja{Toggle}), który umożliwia wyświetlenie usług z przypisanym już numerem MPK. Istniejące numery MPK wyświetlają się jako domyślny tekst kontrolki \emph{TextInput} i mogą być edytowane. Ostatnim elementem ekranu jest pole tekstowe, informujące użytkownika o liczbie usług bez przypisanego miejsca powstawania kosztów.
+Ostatnią funkcją tego ekranu jest możliwość uzupełniania lub edycji numerów MPK. W tym celu ponownie wykorzystano galerię, która tym razem składa się z trzech kolumn. Dwie pierwsze kolumny zawierają pola tekstowe (\definicja{Label}), które prezentują nazwę usługi oraz odpowiadający jej identyfikator. Ostatnia kolumna zawiera pole danych wejściowych (\definicja{TextInput}), do którego użytkownik wprowadza odpowiedni numer MPK. Nad galerią znajduje się dodatkowe pole, w~którym można wpisać kryteria filtrowania, takie jak nazwa, identyfikator bądź numer MPK. Obok pól filtracji znajduje się przełącznik (\definicja{Toggle}), który umożliwia wyświetlenie usług z przypisanym już numerem MPK. Istniejące numery MPK wyświetlają się jako domyślny tekst kontrolki \emph{TextInput} i~mogą być edytowane. Ostatnim elementem ekranu jest pole tekstowe, informujące użytkownika o~liczbie usług bez przypisanego miejsca powstawania kosztów.
 % \begin{figure}[t]
 %     \centering
 %     \includegraphics[width=\textwidth]{figures/FillMPKForm.png}

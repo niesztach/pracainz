@@ -1,4 +1,6 @@
 \subsection{Algorytm Jaro-Winkler}
+\vspace{0.1cm}
+\sectionauthor{R. Wolniak}
 Podstawą algorytmu jest algorytm \emph{Jaro}. Polega on na porównaniu dwóch ciągów znaków w celu określenia ich podobieństwa. Wynik obliczany jest na podstawie równania \ref{eq:Jaro}:
 \begin{equation}
     \label{eq:Jaro}
@@ -19,4 +21,4 @@ $l$ – długość wspólnego prefiksu (maksymalnie 4 znaki),\\ $p$ – współc
 
 \noindent Rozszerzona wersja algorytmu pozwala na bardziej precyzyjne porównanie ciągów znaków, które mają wspólny prefiks, co jest szczególnie ważne w przypadku nagłówków kolumn rozpoczynających się od frazy \emph{Service} \cite{noauthor_jarowinkler_2024,vaid_comprehensive_2023}.
 
-Algorytm ten wykorzystywany jest podczas wstępnego przetwarzania pliku w celu dostosowania go do struktury bazy danych. Pozwala on na usprawnienie procesu walidacji nazw kolumn poprzez automatyczne dopasowywanie ich do odpowiednich pól w bazie danych. Jego wykorzystanie omówione jest w podrozdziale \ref{office-script} 
+Algorytm ten wykorzystywany jest podczas wstępnego przetwarzania pliku w celu dostosowania go do struktury bazy danych. Pozwala on na usprawnienie procesu walidacji nazw kolumn poprzez automatyczne dopasowywanie ich do odpowiednich pól w bazie danych. Jego wykorzystanie omówione jest w podrozdziale \ref{office-script}

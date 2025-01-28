@@ -18,12 +18,12 @@ Ekran wyboru usługi do edycji został zaprojektowany w sposób umożliwiający 
 
 Lista prezentuje dane pochodzące z dynamicznej kolekcji \emph{MergedData}, która została szczegółowo omówiona w poprzednim podrozdziale. Dzięki temu użytkownicy mają dostęp do aktualnych informacji bez konieczności ręcznego przeszukiwania list źródłowych.
 
-Każdy element na liście posiada dodatkową funkcję interakcji. Po najechaniu kursorem na wybraną usługę (właściwość \emph{Hover}), element wizualnie zmienia swój wygląd -- zwęża się oraz zmienia kolor. Kliknięcie wybranego elementu przenosi użytkownika do dedykowanego ekranu edycji, który umożliwia szczegółowe zarządzanie wybraną usługą.
+Każdy element na liście posiada dodatkową funkcję interakcji. Po najechaniu kursorem na~wybraną usługę (właściwość \emph{Hover}), element wizualnie zmienia swój wygląd -- zwęża się oraz zmienia kolor. Kliknięcie wybranego elementu przenosi użytkownika do dedykowanego ekranu edycji, który umożliwia szczegółowe zarządzanie wybraną usługą.
 
 Dodatkowo użytkownik ma możliwość zawężenia widocznych danych poprzez zastosowanie różnych kryteriów wyszukiwania. Pola obejmują:
 
 \begin{itemize}
-    \item \textbf{Wyszukiwanie po nazwie usługi (\emph{Service Name})} -- Obsługuje częściowe dopasowania dzięki wbudowanej funkcji \emph{StartsWith}, która sprawdza, czy ciąg tekstowy zaczyna się od określonej frazy.
+    \item \textbf{Wyszukiwanie po nazwie usługi (\emph{Service Name})} -- Obsługuje częściowe dopasowania dzięki wbudowanej funkcji \emph{StartsWith}, która sprawdza, czy ciąg tekstowy zaczyna się od~określonej frazy.
     \item \textbf{Filtrowanie po identyfikatorze usługi (\emph{Service ID})} -- Umożliwia precyzyjne wyszukiwanie konkretnego elementu względem jego identyfikatora (\emph{Service ID}).
     \item \textbf{Filtrowanie według miejsca powstawania kosztów (\emph{MPK})} -- Pozwala na szybkie odnalezienie danych przypisanych do konkretnego obszaru finansowego.
     \item \textbf{Filtrowanie według statusu decyzji (\emph{Accepted}, \emph{Not Accepted}, \emph{No Status})}.
@@ -36,7 +36,7 @@ Warto zauważyć, że informacje dotyczące podjętej decyzji są przechowywane 
 \subsubsection*{Wykres kołowy}
 \par
 Ostatnim elementem tego ekranu jest wykres kołowy, który ilustruje podział danych według statusów decyzji.
-Dane widoczne na wykresie pochodzą z listy wyboru usługi, co pozwala na uwzględnienie filtrów, np. po wprowadzeniu numeru MPK użytkownik może sprawdzić jaka część usług należąca do danego obszaru wymaga rozpatrzenia. Wartości przekazane są do właściwości \emph{Items} i uwzględniają mapowanie wartości liczbowych na tekst.
+Dane widoczne na wykresie pochodzą z listy wyboru usługi, co pozwala na~uwzględnienie filtrów, np. po wprowadzeniu numeru MPK użytkownik może sprawdzić jaka część usług należąca do danego obszaru wymaga rozpatrzenia. Wartości przekazane są do właściwości \emph{Items} i~uwzględniają mapowanie wartości liczbowych na tekst.
 
 
 
@@ -62,7 +62,7 @@ W górnej części ekranu umieszczona została galeria, przedstawiająca porówn
 
 % Poniżej tabeli z porównaniem decyzji znajduje się link do dedykowanej instrukcji obsługi usługi. Za pomocą linku użytkownik posiada dostęp do szczegółowych informacji na temat zasad korzystania z danej usługi, co może być przydatne podczas edycji danych lub wprowadzania nowych decyzji.
 
-Galeria ta jest interaktywna. Oznacza to, że po kliknięciu na wybrany wiersz, wyświetlana jest kolejna galeria, która zawiera szczegółowe informacje na temat poszczególnych indykacji z wybranego roku.
+Galeria ta jest interaktywna. Oznacza to, że po kliknięciu na wybrany wiersz, wyświetlana jest kolejna galeria, która zawiera szczegółowe informacje na temat poszczególnych indykacji z~wybranego roku.
 
 \subsubsection*{Porównanie tegorocznych indykacji}
 
@@ -74,7 +74,7 @@ Druga galeria wyświetla następujące informacje:
     \item \textbf{Status decyzji (Decision)}.
 \end{itemize}
 
-Aby uniknąć problemu z czytelnością długich komentarzy, które nie mieszczą się w przeznaczonych komórkach, zaimplementowano możliwość kliknięcia na element. Skutkuje to ustawieniem wartości zmiennej \emph{ShowCommentPopup}, odpowiedzialnej za widoczność okna dialogowego, na wartość \emph{True}. W oknie tym wyświetlany jest autor, data wprowadzenia oraz pełna treść komentarza. Dane dotyczące komentarza przekazywane są w zmiennej tablicowej \emph{SelectedComment}, która aktualizowana jest w momencie wybrania komórki z komentarzem.
+Aby uniknąć problemu z czytelnością długich komentarzy, które nie mieszczą się w przeznaczonych komórkach, zaimplementowano możliwość kliknięcia na element. Skutkuje to ustawieniem wartości zmiennej \emph{ShowCommentPopup}, odpowiedzialnej za widoczność okna dialogowego, na~wartość \emph{True}. W oknie tym wyświetlany jest autor, data wprowadzenia oraz pełna treść komentarza. Dane dotyczące komentarza przekazywane są w zmiennej tablicowej \emph{SelectedComment}, która aktualizowana jest w momencie wybrania komórki z komentarzem.
 
 \subsubsection*{Formularz do uzupełnienia danych}
 

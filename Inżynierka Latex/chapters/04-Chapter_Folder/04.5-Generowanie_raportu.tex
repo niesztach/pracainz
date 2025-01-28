@@ -74,7 +74,7 @@ pozwalają na stworzenie raportu w formacie arkusza kalkulacyjnego, w oparciu o 
     \item \textbf{Inicjalizacja zmiennej:} W tym kroku tworzona jest zmienna odpowiedzialna za nazwę generowanego pliku. Zmienna zawiera dynamicznie generowaną datę utworzenia pliku.
     \item \textbf{Generowanie pustego arkusza Excel:} Wykorzystywany jest statyczny plik Excel, zapisany w formacie Base64, który pełni rolę szablonu do dalszego przetwarzania.
     \item \textbf{Tworzenie pliku na SharePoint:} Szablon arkusza zostaje zapisany w określonej lokalizacji w bibliotece SharePoint.
-    \item \textbf{Sprawdzenie dostępności pliku:} W celu upewnienia się, że plik jest gotowy do dalszego przetwarzania, uruchamiana jest pętla \emph{Do until}, która weryfikuje dostępność pliku na platformie.
+    \item \textbf{Sprawdzenie dostępności pliku:} W celu upewnienia się, że plik jest gotowy do dalszego przetwarzania, uruchamiana jest pętla \emph{Do until}, która weryfikuje dostępność pliku na~platformie.
     \item \textbf{Uruchomienie skryptu:} Na końcu przepływu wywoływany jest skrypt pakietu Office, który generuje wypełniony arkusz Excel.
 \end{itemize}
 
@@ -93,7 +93,7 @@ Skrypt odpowiedzialny za generowanie raportu wykonuje kilka operacji. Jego głó
 \begin{itemize}
     \item \textbf{Analiza danych wejściowych:} Przyjęcie danych w formacie JSON oraz roku. W przypadku otrzymania niepoprawnych danych, w arkuszu umieszczony zostanie odpowiedni komunikat.
     \item \textbf{Tworzenie arkusza:} Sprawdzenie, czy arkusz wynikowy już istnieje -- jeśli tak, to usuwa go i tworzy nowy.
-    \item \textbf{Dynamiczne wstawianie danych:} Kolumny zawierające informacje o cenach mają w nagłówkach podany rok, którego dotyczą.
+    \item \textbf{Dynamiczne wstawianie danych:} Kolumny zawierające informacje o cenach mają w~nagłówkach podany rok, którego dotyczą.
     \item \textbf{Generowanie tabeli:} Tworzenie nagłówków tabel (np. \emph{Service\_ID}, \emph{Service\_Name}) oraz wprowadzenie danych wypełniające tabelę, pobierane z JSON.
     \item \textbf{Formatowanie:} Skrypt aktywuje opcję filtracji kolumn oraz zmienia ich szerokość. Dzięki temu arkusz jest czytelny i nie wymaga formatowania ze strony użytkownika.
 \end{itemize}
